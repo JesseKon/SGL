@@ -1,0 +1,13 @@
+# Binary folders
+**/bin
+**/bin-int
+**/obj
+
+
+# Visual studio folders and files
+.vs/
+**.sln
+**.vcxproj
+**.vcxproj.filters
+**.vcxproj.user
+
