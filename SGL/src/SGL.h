@@ -1,4 +1,8 @@
-
+/**
+*
+*
+*
+*/
 
 #ifndef _SGL_H_
 #define _SGL_H_
@@ -13,8 +17,13 @@
 
 
 #include "SGLCore.h"
+
 #include "Window.h"
+#include "Input.h"
+
 #include "Color.h"
+#include "Vector2.h"
+#include "Vector3.h"
 
 
 

@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <string>
+#include <sstream>
 #include <exception>
 
 //#include "GLFW/glfw3.h"

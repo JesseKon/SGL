@@ -1,4 +1,8 @@
-
+/**
+*
+*
+*
+*/
 
 #ifndef _SGL_WINDOW_
 #define _SGL_WINDOW_
@@ -62,17 +66,37 @@ namespace SGL {
         ) const noexcept -> void;
 
 
-        /**
+        /*! @brief Draws all content to window.
         * 
         */
         auto draw(
         ) const noexcept -> void;
 
 
+        /*! @brief Closes the window.
+        * 
+        *   @param forceQuit quits immediately before finishing the active loop.
+        * 
+        *   @return Nothing.
+        */
+        auto close(
+            const bool forceQuit = false
+        ) const noexcept -> void;
+
+
+        /*! @brief
+        * 
+        */
+        auto getGLFWwindow(
+        ) const noexcept -> GLFWwindow*;
+
+
     private:
         std::uint32_t m_Width;
         std::uint32_t m_Height;
         std::string m_Title;
+
+        mutable bool m_QuitRequested;
 
         GLFWwindow* m_GLFWwindow;
     };

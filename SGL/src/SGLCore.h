@@ -1,4 +1,8 @@
-
+/**
+*
+*
+*
+*/
 
 #ifndef _SGL_CORE_H_
 #define _SGL_CORE_H_

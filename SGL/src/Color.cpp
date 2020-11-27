@@ -1,10 +1,17 @@
+/**
+*
+*
+*
+*/
+
 #include "sglpch.h"
 #include "Color.h"
 
 namespace SGL {
 
     /* ***************************************************************************************** */
-    Color::Color() {
+    Color::Color() noexcept
+    {
         m_Red = m_Green = m_Blue = 0;
         m_Alpha = 255;
     }
@@ -16,21 +23,34 @@ namespace SGL {
         const std::uint8_t green,
         const std::uint8_t blue,
         const std::uint8_t alpha
-    ) {
+    ) noexcept {
         m_Red = red;
         m_Green = green;
         m_Blue = blue;
         m_Alpha = alpha;
+    };
+
+
+    /* ***************************************************************************************** */
+    Color::Color(
+        const Color& param
+    ) noexcept {
+        m_Red = param.getRed();
+        m_Green = param.getGreen();
+        m_Blue = param.getBlue();
+        m_Alpha = param.getAlpha();
     }
 
 
     /* ***************************************************************************************** */
-    Color::~Color() {
+    Color::~Color()
+    {
 
     }
 
 
-    // Some predefind colors
+    /* ***************************************************************************************** */
+    // Some predefined colors
     namespace COLOR {
         const Color Black(0, 0, 0, 255);
         const Color White(255, 255, 255, 255);
