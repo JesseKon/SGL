@@ -19,12 +19,13 @@
 #include "SGLCore.h"
 
 #include "Window.h"
+#include "Renderer.h"
+#include "RendererOGL3.h"
 #include "Input.h"
 
 #include "Color.h"
 #include "Vector2.h"
 #include "Vector3.h"
-
 
 
 #endif  /* _SGL_H_ */

@@ -24,7 +24,7 @@ namespace SGL {
         */
         Input(
             const Window& window
-        );
+        ) noexcept;
 
 
         ~Input(

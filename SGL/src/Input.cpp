@@ -12,13 +12,7 @@ namespace SGL {
     /* ***************************************************************************************** */
     Input::Input(
         const Window& window
-    ) {
-        if (!window.getGLFWwindow()) {
-            std::stringstream ss;
-            ss << ">>> Error > Input::Input() > SGL::Window was nullptr.";
-            throw std::runtime_error(ss.str());
-        }
-
+    ) noexcept {
         m_GLFWwindow = window.getGLFWwindow();
     }
 

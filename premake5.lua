@@ -42,7 +42,9 @@ project "SGL"
 
     files {
 		"%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.cpp",
+        "%{prj.name}/src/**.cpp",
+        "%{prj.name}/src/Renderer/**.h",
+		"%{prj.name}/src/Renderer/**.cpp",
     }
 
     ----------------
@@ -52,7 +54,8 @@ project "SGL"
         systemversion "latest"
 
         includedirs {
-            "%{prj.name}/src",  
+            "%{prj.name}/src",
+            "%{prj.name}/src/Renderer/",
         }
 
         links {
@@ -107,6 +110,7 @@ project "TestProject"
 
     includedirs {
         "SGL/src",
+        "SGL/src/Renderer/",
     }
 
     links {

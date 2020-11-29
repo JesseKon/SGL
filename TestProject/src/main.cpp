@@ -1,18 +1,18 @@
 /**
 * This is a test project suitable for testing SGL functionality.
-* 
-* 
+*
+*
 */
 
 #include "SGL.h"
 
 auto main(int argc, char** argv) -> int try {
 
-    SGL::Window window(640, 480, "Moi vain!");
+    SGL::Window window(SGL::RendererType::OpenGL3, 640, 480, "Moi vain!");
     SGL::Input input(window);
 
     while (window.running()) {
-        window.clear({255, 10, 33});
+        window.clear({ 0, 255, 0 });
         window.draw();
 
         if (input.getKey(77))

@@ -8,9 +8,12 @@
 #define _SGL_WINDOW_
 
 #include "SGLCore.h"
-#include "GLFW/glfw3.h"
 
+#include "Renderer.h"
+#include "RendererOGL3.h"
 #include "Color.h"
+
+#include "GLFW/glfw3.h"
 
 
 namespace SGL {
@@ -23,6 +26,7 @@ namespace SGL {
         * 
         */
         Window(
+            const RendererType rendererType,
             const std::uint32_t width,
             const std::uint32_t height,
             const std::string& title
@@ -88,17 +92,11 @@ namespace SGL {
         * 
         */
         auto getGLFWwindow(
-        ) const noexcept -> GLFWwindow*;
+        ) const -> GLFWwindow*;
 
 
     private:
-        std::uint32_t m_Width;
-        std::uint32_t m_Height;
-        std::string m_Title;
-
-        mutable bool m_QuitRequested;
-
-        GLFWwindow* m_GLFWwindow;
+        Renderer* m_pRenderer;
     };
 
 }  /* namespace SGL */

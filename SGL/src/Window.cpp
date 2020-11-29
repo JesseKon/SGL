@@ -11,60 +11,45 @@ namespace SGL {
 
     /* ***************************************************************************************** */
     Window::Window(
+        const RendererType rendererType,
         const std::uint32_t width,
         const std::uint32_t height,
         const std::string& title
     ) {
-        m_Width = width;
-        m_Height = height;
-        m_Title = title;
-        m_QuitRequested = false;
-        m_GLFWwindow = nullptr;
-
-        if (!glfwInit()) {
+        m_pRenderer = nullptr;
+        if (rendererType == RendererType::OpenGL3) {
+            m_pRenderer = new RendererOGL3(width, height, title);
+        }
+        else {
             std::stringstream ss;
-            ss << ">>> Error > Window::Window() > Could not init GLFW.\n";
+            ss << ">>> Error > Window::Window() > No renderer type selected.\n";
             throw std::runtime_error(ss.str());
         }
-
-        m_GLFWwindow = glfwCreateWindow(m_Width, m_Height, m_Title.c_str(), nullptr, nullptr);
-        if (!m_GLFWwindow) {
-            glfwTerminate();
-            std::stringstream ss;
-            ss << ">>> Error > Window::Window() > Could not create window ";
-            ss << "[width=" << std::to_string(m_Width) << " height=" << std::to_string(m_Height);
-            ss << " title=\"" << m_Title << "\"].\n";
-            throw std::runtime_error(ss.str());
-        }
-
-        glfwMakeContextCurrent(m_GLFWwindow);
+            
     }
 
 
     /* ***************************************************************************************** */
     Window::~Window()
     {
-        glfwTerminate();
-        m_GLFWwindow = nullptr;
+        if (m_pRenderer) {
+            delete m_pRenderer;
+            m_pRenderer = nullptr;
+        }
     }
 
 
     /* ***************************************************************************************** */
     auto Window::running(
     ) const noexcept -> bool {
-        glfwPollEvents();
-        if (glfwWindowShouldClose(m_GLFWwindow) || m_QuitRequested)
-            return false;
-
-        return true;
+        return m_pRenderer->running();
     }
 
 
     /* ***************************************************************************************** */
     auto Window::clear(
     ) const noexcept -> void {
-        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        m_pRenderer->clear(SGL::COLOR::Black);
     }
 
 
@@ -72,12 +57,7 @@ namespace SGL {
     auto Window::clear(
         const Color& color
     ) const noexcept -> void {
-        glClearColor(
-            color.getRedf<float>(), color.getGreenf<float>(),
-            color.getBluef<float>(), color.getAlphaf<float>()
-        );
-
-        glClear(GL_COLOR_BUFFER_BIT);
+        m_pRenderer->clear(color);
     }
 
 
@@ -85,19 +65,14 @@ namespace SGL {
     auto Window::clear(
         const Color&& color
     ) const noexcept -> void {
-        glClearColor(
-            color.getRedf<float>(), color.getGreenf<float>(),
-            color.getBluef<float>(), color.getAlphaf<float>()
-        );
-
-        glClear(GL_COLOR_BUFFER_BIT);
+        m_pRenderer->clear(color);
     }
 
 
     /* ***************************************************************************************** */
     auto Window::draw(
     ) const noexcept -> void {
-        glfwSwapBuffers(m_GLFWwindow);
+        m_pRenderer->draw();
     }
 
 
@@ -105,17 +80,20 @@ namespace SGL {
     auto Window::close(
         const bool forceQuit
     ) const noexcept -> void {
-        m_QuitRequested = true;
-
-        if (forceQuit)
-            running();  // Skip rest of the current loop
+        m_pRenderer->close(forceQuit);
     }
 
 
     /* ***************************************************************************************** */
     auto Window::getGLFWwindow(
-    ) const noexcept -> GLFWwindow* {
-        return m_GLFWwindow;
+    ) const -> GLFWwindow* {
+        if (!m_pRenderer) {
+            std::stringstream ss;
+            ss << ">>> Error > Window::getGLFWwindow() > GLFWwindow was nullptr.\n";
+            throw std::runtime_error(ss.str());
+        }
+
+        return m_pRenderer->getGLFWwindow();
     }
 
 
