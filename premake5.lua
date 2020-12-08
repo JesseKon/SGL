@@ -15,10 +15,9 @@ workspace "SGL"
         symbols "On"
         defines { "SGL_DEBUG" }
     
-
     filter "configurations:Release"
         optimize "On"
-        defines { "SGL_RELEASE" }
+        defines { "SGL_RELEASE", "NDEBUG" }
     
     filter "platforms:x86"
         architecture "x86"
@@ -34,17 +33,17 @@ project "SGL"
     kind "SharedLib"
     language "C++"
 
-    targetdir ("bin/%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}/%{prj.name}")
-    objdir ("bin-int/%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}/%{prj.name}")
-
-    pchheader "sglpch.h"
-    pchsource "SGL/src/sglpch.cpp"
+    targetdir ("bin/%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}/SGL")
+    objdir ("bin-int/%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}/SGL")
 
     files {
-		"%{prj.name}/src/**.h",
-        "%{prj.name}/src/**.cpp",
-        "%{prj.name}/src/Renderer/**.h",
-		"%{prj.name}/src/Renderer/**.cpp",
+		"SGL/src/**.h",
+        "SGL/src/**.cpp",
+        "SGL/src/Renderer/**.h",
+        "SGL/src/Renderer/**.cpp",
+        "SGL/src/Shader/**.h",
+        "SGL/src/Shader/**.cpp",
+        "dependencies/glad/src/**.c",
     }
 
     ----------------
@@ -54,8 +53,9 @@ project "SGL"
         systemversion "latest"
 
         includedirs {
-            "%{prj.name}/src",
-            "%{prj.name}/src/Renderer/",
+            "SGL/src",
+            "SGL/src/Renderer/",
+            "SGL/src/Shader/",
         }
 
         links {
@@ -77,6 +77,7 @@ project "SGL"
     filter { "system:windows", "platforms:x86" }
         includedirs {
             "dependencies/windows/glfw-3.3.2.bin.WIN32/include",
+            "dependencies/glad/include",
         }
 
         libdirs {
@@ -87,6 +88,7 @@ project "SGL"
     filter { "system:windows", "platforms:x86_64" }
         includedirs {
             "dependencies/windows/glfw-3.3.2.bin.WIN64/include",
+            "dependencies/glad/include",
         }
 
         libdirs {
@@ -100,17 +102,18 @@ project "TestProject"
     kind "ConsoleApp"
     language "C++"
 
-    targetdir ("bin/%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}/%{prj.name}")
-    objdir ("bin-int/%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}/%{prj.name}")
+    targetdir ("bin/%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}/TestProject")
+    objdir ("bin-int/%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}/TestProject")
 
     files {
-        "%{prj.name}/src/**.h",
-        "%{prj.name}/src/**.cpp",
+        "TestProject/src/**.h",
+        "TestProject/src/**.cpp",
     }
 
     includedirs {
         "SGL/src",
         "SGL/src/Renderer/",
+        "SGL/src/Shader/"
     }
 
     links {
@@ -130,10 +133,12 @@ project "TestProject"
     filter { "system:windows", "platforms:x86" }
         includedirs {
             "dependencies/windows/glfw-3.3.2.bin.WIN32/include",
+            "dependencies/glad/include",
         }
 
     ----------------
     filter { "system:windows", "platforms:x86_64" }
         includedirs {
             "dependencies/windows/glfw-3.3.2.bin.WIN64/include",
+            "dependencies/glad/include",
         }

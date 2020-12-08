@@ -10,6 +10,7 @@
 #include "SGLCore.h"
 #include "Renderer.h"
 
+#include "glad/glad.h"
 #include "GLFW/glfw3.h"
 
 namespace SGL {
@@ -18,9 +19,23 @@ namespace SGL {
     {
     public:
 
-        /*! @brief
-        *
-        */
+        /**
+         * Default constructor.
+         * 
+         * Note: this doesn't actually create the renderer. Call create() to do so.
+         */
+        RendererOGL3(
+        ) noexcept;
+
+
+        /**
+         * Create a new OpenGL 3.3 renderer.
+         *
+         * @param width Window width for this renderer, in pixels.
+         * @param height Window height for this renderer, in pixels.
+         * @param title Window title for this renderer.
+         * @exception Throws std::runtime_error if window couldn't be created.
+         */
         RendererOGL3(
             const std::uint32_t width,
             const std::uint32_t height,
@@ -28,48 +43,85 @@ namespace SGL {
         );
 
 
+        /**
+         * Destructor.
+         */
         ~RendererOGL3(
         );
 
 
-        /*! @brief
-        *
-        */
-        virtual auto running(
+        /**
+         * Create a new OpenGL 3.3 renderer.
+         *
+         * @param width Window width for this renderer, in pixels.
+         * @param height Window height for this renderer, in pixels.
+         * @param title Window title for this renderer.
+         * @exception Throws std::runtime_error if renderer couldn't be created.
+         */
+        auto create(
+            const std::uint32_t width,
+            const std::uint32_t height,
+            const std::string& title
+        ) -> void;
+
+
+        /**
+         * Destroy this renderer. Destructor calls it automatically.
+         */
+        auto destroy(
+        ) noexcept -> void;
+
+
+        auto running(
         ) const noexcept -> bool override;
 
 
-        /*! @brief
-        * 
-        */
-        virtual auto clear(
+        auto clear(
             const Color& color
         ) const noexcept -> void override;
 
 
-        /*! @brief Draws all content to window.
-        *
-        */
-        virtual auto draw(
+        auto draw(
         ) const noexcept -> void override;
 
 
-        /*! @brief Closes the window.
-        *
-        *   @param forceQuit quits immediately before finishing the active loop.
-        *
-        *   @return Nothing.
-        */
-        virtual auto close(
+        auto close(
             const bool forceQuit = false
         ) const noexcept -> void override;
 
 
-        /*!
-        * 
+        auto setWidth(
+            const std::uint32_t newWidth
+        ) noexcept -> void override;
+
+
+        auto getWidth(
+        ) const noexcept -> std::uint32_t override;
+
+
+        auto setHeight(
+            const std::uint32_t newWidth
+        ) noexcept -> void override;
+
+
+        auto getHeight(
+        ) const noexcept -> std::uint32_t override;
+
+
+        auto setTitle(
+            const std::string& newTitle
+        ) noexcept -> void override;
+
+
+        auto getTitle(
+        ) const noexcept -> const char* override;
+
+
+        /*! @brief Returns pointer to GLFW window.
+        *
         */
         virtual auto getGLFWwindow(
-        ) const -> GLFWwindow* override;
+        ) const -> GLFWwindow*;
 
 
     private:

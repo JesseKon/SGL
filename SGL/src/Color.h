@@ -8,9 +8,7 @@
 #define _SGL_COLOR_
 
 #include <SGLCore.h>
-
 #include <limits>
-
 
 namespace SGL {
 

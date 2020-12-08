@@ -11,16 +11,29 @@ namespace SGL {
 
     /* ***************************************************************************************** */
     Input::Input(
-        const Window& window
     ) noexcept {
-        m_GLFWwindow = window.getGLFWwindow();
+        m_pGLFWwindow = nullptr;
+    }
+
+
+    /* ***************************************************************************************** */
+    Input::Input(
+        GLFWwindow* const window
+    ) {
+        if (!window) {
+            std::stringstream ss;
+            ss << ">>> Error > Input::Input() > window was nullptr.\n";
+            throw std::runtime_error(ss.str());
+        }
+
+        m_pGLFWwindow = window;
     }
 
 
     /* ***************************************************************************************** */
     Input::~Input()
     {
-        m_GLFWwindow = nullptr;
+        m_pGLFWwindow = nullptr;
     }
 
 
@@ -28,7 +41,7 @@ namespace SGL {
     auto Input::getKey(
         const std::int32_t keyCode
     ) noexcept -> bool {
-        return glfwGetKey(m_GLFWwindow, static_cast<int>(keyCode)) == GLFW_PRESS;
+        return glfwGetKey(m_pGLFWwindow, static_cast<int>(keyCode)) == GLFW_PRESS;
     }
 
 

@@ -4,6 +4,15 @@
 *
 */
 
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+// Precompiled header stuff
+#include <iostream>
+#include <string>
+#include <exception>
+#include <cassert>
+// Precompiled header stuff
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 #ifndef _SGL_CORE_H_
 #define _SGL_CORE_H_
 

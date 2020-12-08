@@ -8,7 +8,7 @@
 #define _SGL_INPUT_H_
 
 #include "SGLCore.h"
-#include "Window.h"
+#include "Renderer.h"
 
 #include "GLFW/glfw3.h"
 
@@ -19,14 +19,26 @@ namespace SGL {
     {
     public:
 
-        /*! @brief
-        * 
-        */
+        /**
+         * Default constructor.
+         */
         Input(
-            const Window& window
         ) noexcept;
 
 
+        /**
+         * 
+         * 
+         * @exception Throws std::runtime_error if window was nullptr.
+         */
+        Input(
+            GLFWwindow* const window
+        );
+
+
+        /**
+         * Destructor.
+         */
         ~Input(
         );
 
@@ -56,7 +68,7 @@ namespace SGL {
 
 
     private:
-        GLFWwindow* m_GLFWwindow;
+        GLFWwindow* m_pGLFWwindow;
 
     };
 

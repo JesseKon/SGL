@@ -1,20 +1,11 @@
 /**
 *
 *
-*
+* Document like this: https://developer.lsst.io/cpp/api-docs.html
 */
 
 #ifndef _SGL_H_
 #define _SGL_H_
-
-// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-// Precompiled header stuff
-#include <iostream>
-#include <string>
-#include <exception>
-// Precompiled header stuff
-// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
 
 #include "SGLCore.h"
 
