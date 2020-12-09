@@ -120,8 +120,8 @@ namespace SGL {
         /*! @brief Returns pointer to GLFW window.
         *
         */
-        virtual auto getGLFWwindow(
-        ) const -> GLFWwindow*;
+        auto getGLFWwindow(
+        ) const noexcept -> GLFWwindow* override;
 
 
     private:

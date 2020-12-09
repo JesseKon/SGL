@@ -50,7 +50,7 @@ namespace SGL {
 
 
     /* ***************************************************************************************** */
-    // Some predefined colors
+    // Predefined colors
     namespace COLOR {
         const Color Black(0, 0, 0, 255);
         const Color White(255, 255, 255, 255);

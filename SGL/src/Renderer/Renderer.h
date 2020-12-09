@@ -7,6 +7,9 @@
 #ifndef _SGL_RENDERER_H_
 #define _SGL_RENDERER_H_
 
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+
 #include "SGLCore.h"
 #include "Color.h"
 
@@ -112,6 +115,10 @@ namespace SGL {
 
         virtual auto getTitle(
         ) const noexcept -> const char* = 0;
+
+
+        virtual auto getGLFWwindow(
+        ) const noexcept -> const GLFWwindow* = 0;
 
 
     private:

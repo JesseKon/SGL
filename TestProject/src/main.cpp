@@ -7,14 +7,17 @@
 #include "SGL.h"
 
 auto main(int argc, char** argv) -> int try {
-    SGL::Window window(SGL::RendererType::OpenGL3, 640, 480, "Hei maailma!");
+    SGL::Window window(SGL::RendererType::OpenGL3, { 640, 480 }, "Hei maailma!");
 
-    while (window.running()) {
-        window.clear(SGL::COLOR::Gray);
-        window.draw();
+    while (window.getRenderer()->running()) {
+        window.getRenderer()->clear(SGL::COLOR::Red);
+        window.getRenderer()->draw();
 
-        if (window.getInput()->getKey(GLFW_KEY_M))
-            window.setTitle("Uusi otsikko!");
+        if (window.getInput()->getKeyPressed(SGL::KEYCODE::KEY_A))
+            std::cout << "Hei!";
+
+        if (window.getInput()->getKeyReleased(SGL::KEYCODE::KEY_A))
+            std::cout << "Moi!";
     }
 
     return EXIT_SUCCESS;

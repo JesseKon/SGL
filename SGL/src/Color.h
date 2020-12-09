@@ -187,7 +187,7 @@ namespace SGL {
     };
 
 
-    // Some predefined colors
+    // Predefined colors
     namespace COLOR {
         extern const SGL_API Color Black;
         extern const SGL_API Color White;

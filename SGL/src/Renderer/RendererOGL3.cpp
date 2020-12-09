@@ -178,12 +178,12 @@ namespace SGL {
 
     /* ***************************************************************************************** */
     auto RendererOGL3::getGLFWwindow(
-    ) const -> GLFWwindow* {
-        if (!m_pGLFWwindow) {
-            std::stringstream ss;
-            ss << ">>> Error > RendererOGL3::getGLFWwindow() > m_pGLFWwindow was nullptr.\n";
-            throw std::runtime_error(ss.str());
-        }
+    ) const noexcept -> GLFWwindow* {
+        //if (!m_pGLFWwindow) {
+        //    std::stringstream ss;
+        //    ss << ">>> Error > RendererOGL3::getGLFWwindow() > m_pGLFWwindow was nullptr.\n";
+        //    throw std::runtime_error(ss.str());
+        //}
 
         return m_pGLFWwindow;
     };

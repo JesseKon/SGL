@@ -8,8 +8,11 @@
 // Precompiled header stuff
 #include <iostream>
 #include <string>
+#include <sstream>
 #include <exception>
 #include <cassert>
+#include <array>
+#include <vector>
 // Precompiled header stuff
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
