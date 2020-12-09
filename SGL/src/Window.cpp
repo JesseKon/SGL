@@ -54,7 +54,7 @@ namespace SGL {
         const Vector2<std::uint32_t>& windowSize,
         const std::string& title
     ) -> void {
-        create(rendererType, { windowSize.getX(), windowSize.getY() }, title);
+        create(rendererType, { windowSize.x, windowSize.y }, title);
     }
 
 
@@ -65,11 +65,11 @@ namespace SGL {
         const std::string& title
     ) -> void {
         if (rendererType == RendererType::OpenGL3) {
-            m_pRenderer = new RendererOGL3(windowSize.getX(), windowSize.getY(), title);
+            m_pRenderer = new RendererOGL3(windowSize, title);
         }
         else {
             std::stringstream ss;
-            ss << ">>> Error > Window::Window() > No renderer type selected.\n";
+            ss << ">>> Error > Window::create() > No renderer type selected.\n";
             throw std::runtime_error(ss.str());
         }
 

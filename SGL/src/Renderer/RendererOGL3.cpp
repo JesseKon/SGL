@@ -12,8 +12,8 @@ namespace SGL {
     /* ***************************************************************************************** */
     RendererOGL3::RendererOGL3(
     ) noexcept {
-        m_Width = m_Height = 0;
-        m_Title = "";
+        m_WindowSize = { 0, 0 };
+        m_WindowTitle = "";
         m_QuitRequested = false;
         m_pGLFWwindow = nullptr;
     }
@@ -21,17 +21,15 @@ namespace SGL {
 
     /* ***************************************************************************************** */
     RendererOGL3::RendererOGL3(
-        const std::uint32_t width,
-        const std::uint32_t height,
-        const std::string& title
+        const Vector2<std::uint32_t>& windowSize,
+        const std::string& windowTitle
     ) {
-        m_Width = width;
-        m_Height = height;
-        m_Title = title;
+        m_WindowSize = windowSize;
+        m_WindowTitle = windowTitle;
         m_QuitRequested = false;
         m_pGLFWwindow = nullptr;
 
-        create(m_Width, m_Height, m_Title);
+        create(m_WindowSize, m_WindowTitle);
     }
 
 
@@ -44,9 +42,8 @@ namespace SGL {
 
     /* ***************************************************************************************** */
     auto RendererOGL3::create(
-        const std::uint32_t width,
-        const std::uint32_t height,
-        const std::string& title
+        const Vector2<std::uint32_t>& windowSize,
+        const std::string& windowTitle
     ) -> void {
         if (!glfwInit()) {
             std::stringstream ss;
@@ -59,12 +56,12 @@ namespace SGL {
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-        m_pGLFWwindow = glfwCreateWindow(m_Width, m_Height, m_Title.c_str(), nullptr, nullptr);
+        m_pGLFWwindow = glfwCreateWindow(m_WindowSize.x, m_WindowSize.y, m_WindowTitle.c_str(), nullptr, nullptr);
         if (!m_pGLFWwindow) {
             std::stringstream ss;
             ss << ">>> Error > RendererOGL3::RendererOGL3() > Could not create window ";
-            ss << "[width=" << std::to_string(m_Width) << " height=" << std::to_string(m_Height);
-            ss << " title=\"" << m_Title << "\"].\n";
+            ss << "[width=" << std::to_string(m_WindowSize.x) << " height=" << std::to_string(m_WindowSize.y);
+            ss << " title=\"" << m_WindowTitle << "\"].\n";
             throw std::runtime_error(ss.str());
         }
 
@@ -77,7 +74,7 @@ namespace SGL {
             throw std::runtime_error(ss.str());
         }
 
-        glViewport(0, 0, m_Width, m_Height);
+        glViewport(0, 0, m_WindowSize.x, m_WindowSize.y);
     }
 
 
@@ -121,42 +118,31 @@ namespace SGL {
 
     /* ***************************************************************************************** */
     auto RendererOGL3::close(
-        const bool forceQuit
     ) const noexcept -> void {
         m_QuitRequested = true;
-
-        if (forceQuit)
-            running();  // Skip rest of the current loop
     };
 
 
     /* ***************************************************************************************** */
-    auto RendererOGL3::setWidth(
-        const std::uint32_t newWidth
+    auto RendererOGL3::resizeWindow(
+        const Vector2<std::uint32_t>& newSize
     ) noexcept -> void {
-        m_Width = newWidth;
+        m_WindowSize = newSize;
     }
 
 
     /* ***************************************************************************************** */
-    auto RendererOGL3::getWidth(
-    ) const noexcept -> std::uint32_t {
-        return m_Width;
-    }
-
-
-    /* ***************************************************************************************** */
-    auto RendererOGL3::setHeight(
-        const std::uint32_t newHeight
+    auto RendererOGL3::resizeWindow(
+        const Vector2<std::uint32_t>&& newSize
     ) noexcept -> void {
-        m_Height = newHeight;
+        m_WindowSize = newSize;
     }
 
 
     /* ***************************************************************************************** */
-    auto RendererOGL3::getHeight(
-    ) const noexcept -> std::uint32_t {
-        return m_Height;
+    auto RendererOGL3::getWindowSize(
+    ) const noexcept -> Vector2<std::uint32_t> {
+        return m_WindowSize;
     }
 
 
@@ -164,15 +150,15 @@ namespace SGL {
     auto RendererOGL3::setTitle(
         const std::string& newTitle
     ) noexcept -> void {
-        m_Title = newTitle;
-        glfwSetWindowTitle(m_pGLFWwindow, m_Title.c_str());
+        m_WindowTitle = newTitle;
+        glfwSetWindowTitle(m_pGLFWwindow, m_WindowTitle.c_str());
     }
 
 
     /* ***************************************************************************************** */
     auto RendererOGL3::getTitle(
     ) const noexcept -> const char* {
-        return m_Title.c_str();
+        return m_WindowTitle.c_str();
     }
 
 

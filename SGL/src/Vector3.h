@@ -20,31 +20,36 @@ namespace SGL {
 
     public:
 
+        T x, y, z;
+
         /*! @brief Default constructor that creates Vector3<T>(0, 0, 0).
         *
         */
         Vector3(
-        ) noexcept : m_X(0), m_Y(0), m_Z(0) {}
+        ) noexcept : x(0), y(0), z(0) {}
 
 
         /*! @brief Constructor that creates Vector3<T>(x, y, z).
         *
         */
         Vector3(
-            T x,
-            T y,
-            T z
-        ) noexcept : m_X(x), m_Y(y), m_Z(z) {}
+            T x_,
+            T y_,
+            T z_
+        ) noexcept : x(x_), y(y_), z(z_) {}
 
 
-        /*! @brief Copy constructor that copies the Vector3<T> given as param.
+        /*! @brief Copy constructor.
         *
         */
         Vector3(
             const Vector3<T>& param
-        ) noexcept : m_X(param.m_X), m_Y(param.m_Y), m_Z(param.m_Z) {}
+        ) noexcept : x(param.x), y(param.y), z(param.z) {}
 
 
+        /**
+         * Destructor.
+         */
         ~Vector3(
         ) {}
 
@@ -143,7 +148,7 @@ namespace SGL {
         auto operator=(
             const Vector3<T>& param
         ) noexcept -> Vector3<T> {
-            m_X = param.m_X; m_Y = param.m_Y; m_Z = param.m_Z;
+            x = param.x; y = param.y; z = param.z;
             return *this;
         }
 
@@ -154,7 +159,7 @@ namespace SGL {
         auto operator+(
             const Vector3<T>& param
         ) noexcept -> Vector3<T> {
-            Vector3<T> temp(m_X + param.m_X, m_Y + param.m_Y, m_Z + param.m_Z);
+            Vector3<T> temp(x + param.x, y + param.y, z + param.z);
             return temp;
         }
 
@@ -165,7 +170,7 @@ namespace SGL {
         auto operator+=(
             const Vector3<T>& param
         ) noexcept -> Vector3<T> {
-            m_X += param.m_X; m_Y += param.m_Y; m_Z += param.m_Z;
+            x += param.x; y += param.y; z += param.z;
             return *this;
         }
 
@@ -176,7 +181,7 @@ namespace SGL {
         auto operator-(
             const Vector3<T>& param
         ) noexcept -> Vector3<T> {
-            Vector3<T> temp(m_X - param.m_X, m_Y - param.m_Y, m_Z - param.m_Z);
+            Vector3<T> temp(x - param.x, y - param.y, z - param.z);
             return temp;
         }
 
@@ -187,7 +192,7 @@ namespace SGL {
         auto operator-=(
             const Vector3<T>& param
         ) noexcept -> Vector3<T> {
-            m_X -= param.m_X; m_Y -= param.m_Y; m_Z -= param.m_Z;
+            x -= param.x; y -= param.y; z -= param.z;
             return *this;
         }
 
@@ -198,7 +203,7 @@ namespace SGL {
         auto operator*(
             const T param
         ) noexcept -> Vector3<T> {
-            Vector3 temp(m_X * param, m_Y * param, m_Z * param);
+            Vector3 temp(x * param, y * param, z * param);
             return temp;
         }
 
@@ -209,7 +214,7 @@ namespace SGL {
         auto operator*=(
             const T param
         ) noexcept -> Vector3<T> {
-            m_X *= param; m_Y *= param; m_Z *= param;
+            x *= param; y *= param; z *= param;
             return *this;
         }
 
@@ -220,7 +225,7 @@ namespace SGL {
         auto operator/(
             const T param
         ) noexcept -> Vector3<T> {
-            Vector3 temp(m_X / param, m_Y / param, m_Z / param);
+            Vector3 temp(x / param, y / param, z / param);
             return temp;
         }
 
@@ -231,7 +236,7 @@ namespace SGL {
         auto operator/=(
             const T param
         ) noexcept -> Vector3<T> {
-            m_X /= param; m_Y /= param; m_Z /= param;
+            x /= param; y /= param; z /= param;
             return *this;
         }
 
@@ -243,7 +248,7 @@ namespace SGL {
             const Vector3<T>& lhs,
             const Vector3<T>& rhs
         ) noexcept -> bool {
-            return lhs.m_X == rhs.m_X && lhs.m_Y == rhs.m_Y && lhs.m_Z == rhs.m_Z;
+            return lhs.x == rhs.x && lhs.y == rhs.y && lhs.z == rhs.z;
         }
 
 
@@ -254,64 +259,7 @@ namespace SGL {
             const Vector3<T>& lhs,
             const Vector3<T>& rhs
         ) noexcept -> bool {
-            return !(lhs.m_X == rhs.m_X && lhs.m_Y == rhs.m_Y && lhs.m_Z == rhs.m_Z);
-        }
-
-
-        /*! @brief
-        *
-        */
-        auto setX(
-            T newX
-        ) noexcept -> void{
-            m_X = newX;
-        }
-
-
-        /*! @brief
-        *
-        */
-        auto getX(
-        ) const noexcept -> T {
-            return m_X;
-        }
-
-
-        /*! @brief
-        *
-        */
-        auto setY(
-            T newY
-        ) noexcept -> void {
-            m_Y = newY;
-        }
-
-
-        /*! @brief
-        *
-        */
-        auto getY(
-        ) const noexcept -> T {
-            return m_Y;
-        }
-
-
-        /*! @brief
-        *
-        */
-        auto setZ(
-            T newZ
-        ) noexcept -> void {
-            m_Z = newZ;
-        }
-
-
-        /*! @brief
-        *
-        */
-        auto getZ(
-        ) const noexcept -> T {
-            return m_Z;
+            return !(lhs.x == rhs.x && lhs.y == rhs.y && lhs.z == rhs.z);
         }
 
 
@@ -320,7 +268,7 @@ namespace SGL {
         */
         auto magnitude(
         ) noexcept -> T {
-            return static_cast<T>(std::sqrt(m_X * m_X + m_Y * m_Y + m_Z * m_Z));
+            return static_cast<T>(std::sqrt(x * x + y * y + z * z));
         }
 
 
@@ -329,9 +277,9 @@ namespace SGL {
         */
         auto normalize(
         ) noexcept -> void {
-            m_X /= magnitude();
-            m_Y /= magnitude();
-            m_Z /= magnitude();
+            x /= magnitude();
+            y /= magnitude();
+            z /= magnitude();
         }
 
 
@@ -340,7 +288,7 @@ namespace SGL {
         */
         auto normalized(
         ) const noexcept -> Vector3<T> {
-            Vector3<T> temp(m_X / magnitude(), m_Y / magnitude(), m_Z / magnitude());
+            Vector3<T> temp(x / magnitude(), y / magnitude(), z / magnitude());
             return temp;
         }
 
@@ -362,18 +310,14 @@ namespace SGL {
         ) -> std::string {
             std::string str;
             str.append("[");
-            str.append(std::to_string(m_X));
+            str.append(std::to_string(x));
             str.append(", ");
-            str.append(std::to_string(m_Y));
+            str.append(std::to_string(y));
             str.append(", ");
-            str.append(std::to_string(m_Z));
+            str.append(std::to_string(z));
             str.append("]");
             return str;
         }
-
-
-    private:
-        T m_X, m_Y, m_Z;
 
     };
 

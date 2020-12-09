@@ -33,13 +33,12 @@ namespace SGL {
          *
          * @param width Window width for this renderer, in pixels.
          * @param height Window height for this renderer, in pixels.
-         * @param title Window title for this renderer.
+         * @param windowTitle Window title for this renderer.
          * @exception Throws std::runtime_error if window couldn't be created.
          */
         RendererOGL3(
-            const std::uint32_t width,
-            const std::uint32_t height,
-            const std::string& title
+            const Vector2<std::uint32_t>& windowSize,
+            const std::string& windowTitle
         );
 
 
@@ -55,13 +54,12 @@ namespace SGL {
          *
          * @param width Window width for this renderer, in pixels.
          * @param height Window height for this renderer, in pixels.
-         * @param title Window title for this renderer.
+         * @param windowTitle Window title for this renderer.
          * @exception Throws std::runtime_error if renderer couldn't be created.
          */
         auto create(
-            const std::uint32_t width,
-            const std::uint32_t height,
-            const std::string& title
+            const Vector2<std::uint32_t>& windowSize,
+            const std::string& windowTitle
         ) -> void;
 
 
@@ -86,26 +84,21 @@ namespace SGL {
 
 
         auto close(
-            const bool forceQuit = false
         ) const noexcept -> void override;
 
 
-        auto setWidth(
-            const std::uint32_t newWidth
+        auto resizeWindow(
+            const Vector2<std::uint32_t>& newSize
         ) noexcept -> void override;
 
 
-        auto getWidth(
-        ) const noexcept -> std::uint32_t override;
-
-
-        auto setHeight(
-            const std::uint32_t newWidth
+        auto resizeWindow(
+            const Vector2<std::uint32_t>&& newSize
         ) noexcept -> void override;
 
 
-        auto getHeight(
-        ) const noexcept -> std::uint32_t override;
+        auto getWindowSize(
+        ) const noexcept -> Vector2<std::uint32_t> override;
 
 
         auto setTitle(
@@ -117,19 +110,15 @@ namespace SGL {
         ) const noexcept -> const char* override;
 
 
-        /*! @brief Returns pointer to GLFW window.
-        *
-        */
         auto getGLFWwindow(
         ) const noexcept -> GLFWwindow* override;
 
 
     private:
-        std::uint32_t m_Width;
-        std::uint32_t m_Height;
-        std::string m_Title;
-
+        Vector2<std::uint32_t> m_WindowSize;
+        std::string m_WindowTitle;
         mutable bool m_QuitRequested;
+
         GLFWwindow* m_pGLFWwindow;
     };
 

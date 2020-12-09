@@ -20,30 +20,35 @@ namespace SGL {
 
     public:
 
+        T x, y;
+
         /*! @brief Default constructor that creates Vector2<T>(0, 0).
         *
         */
         Vector2(
-        ) noexcept : m_X(0), m_Y(0) {}
+        ) noexcept : x(0), y(0) {}
 
 
         /*! @brief Constructor that creates Vector2<T>(x, y).
         *
         */
         Vector2(
-            T x,
-            T y
-        ) noexcept : m_X(x), m_Y(y) {}
+            T x_,
+            T y_
+        ) noexcept : x(x_), y(y_) {}
 
 
-        /*! @brief Copy constructor that copies the Vector2<T> given as param.
+        /*! @brief Copy constructor.
         *
         */
         Vector2(
             const Vector2<T>& param
-        ) noexcept : m_X(param.m_X), m_Y(param.m_Y) {}
+        ) noexcept : x(param.x), y(param.y) {}
 
 
+        /**
+         * Destructor.
+         */
         ~Vector2(
         ) {}
 
@@ -120,7 +125,7 @@ namespace SGL {
         auto operator=(
             const Vector2<T>& param
         ) noexcept -> Vector2<T> {
-            m_X = param.m_X; m_Y = param.m_Y;
+            x = param.x; y = param.y;
             return *this;
         }
 
@@ -131,7 +136,7 @@ namespace SGL {
         auto operator+(
             const Vector2<T>& param
         ) noexcept -> Vector2<T> {
-            Vector2<T> temp(m_X + param.m_X, m_Y + param.m_Y);
+            Vector2<T> temp(x + param.x, y + param.y);
             return temp;
         }
 
@@ -142,7 +147,7 @@ namespace SGL {
         auto operator+=(
             const Vector2<T>& param
         ) noexcept -> Vector2<T> {
-            m_X += param.m_X; m_Y += param.m_Y;
+            x += param.x; y += param.y;
             return *this;
         }
 
@@ -153,7 +158,7 @@ namespace SGL {
         auto operator-(
             const Vector2<T>& param
         ) noexcept -> Vector2<T> {
-            Vector2<T> temp(m_X - param.m_X, m_Y - param.m_Y);
+            Vector2<T> temp(x - param.x, y - param.y);
             return temp;
         }
 
@@ -164,7 +169,7 @@ namespace SGL {
         auto operator-=(
             const Vector2<T>& param
         ) noexcept -> Vector2<T> {
-            m_X -= param.m_X; m_Y -= param.m_Y;
+            x -= param.x; y -= param.y;
             return *this;
         }
 
@@ -175,7 +180,7 @@ namespace SGL {
         auto operator*(
             const T param
         ) noexcept -> Vector2<T> {
-            Vector2 temp(m_X * param, m_Y * param);
+            Vector2 temp(x * param, y * param);
             return temp;
         }
 
@@ -186,7 +191,7 @@ namespace SGL {
         auto operator*=(
             const T param
         ) noexcept -> Vector2<T> {
-            m_X *= param; m_Y *= param;
+            x *= param; y *= param;
             return *this;
         }
 
@@ -197,7 +202,7 @@ namespace SGL {
         auto operator/(
             const T param
         ) noexcept -> Vector2<T> {
-            Vector2 temp(m_X / param, m_Y / param);
+            Vector2 temp(x / param, y / param);
             return temp;
         }
 
@@ -208,7 +213,7 @@ namespace SGL {
         auto operator/=(
             const T param
         ) noexcept -> Vector2<T> {
-            m_X /= param; m_Y /= param;
+            x /= param; y /= param;
             return *this;
         }
 
@@ -220,7 +225,7 @@ namespace SGL {
             const Vector2<T>& lhs,
             const Vector2<T>& rhs
         ) noexcept -> bool {
-            return lhs.m_X == rhs.m_Y && lhs.m_Y == rhs.m_Y;
+            return lhs.x == rhs.x && lhs.y == rhs.y;
         }
 
 
@@ -231,45 +236,7 @@ namespace SGL {
             const Vector2<T>& lhs,
             const Vector2<T>& rhs
         ) noexcept -> bool {
-            return !(lhs.m_X == rhs.m_Y && lhs.m_Y == rhs.m_Y);
-        }
-
-
-        /*! @brief
-        *
-        */
-        auto setX(
-            T newX
-        ) noexcept -> void {
-            m_X = newX;
-        }
-
-
-        /*! @brief
-        *
-        */
-        auto getX(
-        ) const noexcept -> T {
-            return m_X;
-        }
-
-
-        /*! @brief
-        *
-        */
-        auto setY(
-            T newY
-        ) noexcept -> void {
-            m_Y = newY;
-        }
-
-
-        /*! @brief
-        *
-        */
-        auto getY(
-        ) const noexcept -> T {
-            return m_Y;
+            return !(lhs.x == rhs.x && lhs.y == rhs.y);
         }
 
 
@@ -278,7 +245,7 @@ namespace SGL {
         */
         auto magnitude(
         ) const noexcept -> T {
-            return static_cast<T>(std::sqrt(m_X * m_X + m_Y * m_Y));
+            return static_cast<T>(std::sqrt(x * x + y * y));
         }
 
 
@@ -287,8 +254,8 @@ namespace SGL {
         */
         auto normalize(
         ) noexcept -> void {
-            m_X /= magnitude();
-            m_Y /= magnitude();
+            x /= magnitude();
+            y /= magnitude();
         }
 
 
@@ -297,7 +264,7 @@ namespace SGL {
         */
         auto normalized(
         ) const noexcept -> Vector2<T> {
-            Vector2<T> temp(m_X / magnitude(), m_Y / magnitude());
+            Vector2<T> temp(x / magnitude(), y / magnitude());
             return temp;
         }
 
@@ -319,16 +286,12 @@ namespace SGL {
         ) -> std::string {
             std::string str;
             str.append("[");
-            str.append(std::to_string(m_X));
+            str.append(std::to_string(x));
             str.append(", ");
-            str.append(std::to_string(m_Y));
+            str.append(std::to_string(y));
             str.append("]");
             return str;
         }
-
-
-    private:
-        T m_X, m_Y;
 
     };
 

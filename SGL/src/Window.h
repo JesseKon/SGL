@@ -9,9 +9,6 @@
 
 #include "SGLCore.h"
 
-#include "glad/glad.h"
-#include "GLFW/glfw3.h"
-
 #include "Renderer.h"
 #include "RendererOGL3.h"
 #include "Color.h"
@@ -39,14 +36,14 @@ namespace SGL {
          * Create a new window. 
          * 
          * @param rendererType RendererType for this window.
-         * @param windowSize Window size in Vector2<std::uint32_t> format.
-         * @param title Title for this window.
+         * @param windowSize Window size in pixels.
+         * @param windowTitle Title for this window.
          * @exception Throws std::runtime_error if window couldn't be created.
          */
         Window(
             const RendererType rendererType,
             const Vector2<std::uint32_t>& windowSize,
-            const std::string& title
+            const std::string& windowTitle = ""
         );
 
 
@@ -54,14 +51,14 @@ namespace SGL {
          * Create a new window. 
          *
          * @param rendererType RendererType for this window.
-         * @param windowSize Window size in Vector2<std::uint32_t> format.
-         * @param title Title for this window.
+         * @param windowSize Window size in pixels.
+         * @param windowTitle Title for this window.
          * @exception Throws std::runtime_error if window couldn't be created.
          */
         Window(
             const RendererType rendererType,
             const Vector2<std::uint32_t>&& windowSize,
-            const std::string& title
+            const std::string& windowTitle = ""
         );
 
 
@@ -76,14 +73,14 @@ namespace SGL {
          * Create a new window. 
          * 
          * @param rendererType Renderer for this window.
-         * @param windowSize Window size in Vector2<std::uint32_t> format.
-         * @param title Title for this window.
+         * @param windowSize Window size in pixels.
+         * @param windowTitle Title for this window.
          * @exception Throws std::runtime_error if window couldn't be created.
          */
         auto create(
             const RendererType rendererType,
             const Vector2<std::uint32_t>& windowSize,
-            const std::string& title
+            const std::string& windowTitle = ""
         ) -> void;
 
 
@@ -91,14 +88,14 @@ namespace SGL {
          * Create a new window. 
          *
          * @param rendererType Renderer for this window.
-         * @param windowSize Window size in Vector2<std::uint32_t> format.
-         * @param title Title for this window.
+         * @param windowSize Window size in pixels.
+         * @param windowTitle Title for this window.
          * @exception Throws std::runtime_error if window couldn't be created.
          */
         auto create(
             const RendererType rendererType,
             const Vector2<std::uint32_t>&& windowSize,
-            const std::string& title
+            const std::string& windowTitle = ""
         ) -> void;
 
 
@@ -110,18 +107,20 @@ namespace SGL {
 
 
         /**
+         * Get pointer to the renderer of this window. Use it to gain access to the renderer's 
+         * methods.
          * 
-         * 
-         * 
+         * @return Pointer to the renderer of this window.
          */
         auto getRenderer(
         ) const noexcept -> Renderer*;
 
 
         /**
-         *
-         *
-         *
+         * Get pointer to the input handler of this window. Use it to gain access to the input 
+         * handler's methods.
+         * 
+         * @return Pointer to the input handler of this window.
          */
         auto getInput(
         ) const noexcept -> Input*;

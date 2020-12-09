@@ -10,7 +10,6 @@
 #include "SGLCore.h"
 #include "Renderer.h"
 
-#include "GLFW/glfw3.h"
 
 
 namespace SGL {
@@ -21,7 +20,10 @@ namespace SGL {
     {
     public:
 
-        // Callback function for GLFW keys.
+        /**
+         * Callback function for GLFW keys.
+         * https://www.glfw.org/docs/3.1/group__input.html#ga0192a232a41e4e82948217c8ba94fdfd
+         */
         friend auto GLFWKeyCallback(
             GLFWwindow*, int, int, int, int
         ) noexcept -> void;
@@ -30,15 +32,16 @@ namespace SGL {
         /**
          * Default constructor. 
          * 
-         * Note: this doesn't actually initialize this object. Call create() to do so.
+         * Note: this doesn't actually initialize input handler. Call create() to do so.
          */
         Input(
         ) noexcept;
 
 
         /**
+         * Initialize and bind input handler to the desired window. 
          * 
-         * 
+         * @param window The desired window.
          * @exception Throws std::runtime_error if window was nullptr.
          */
         Input(
@@ -54,8 +57,9 @@ namespace SGL {
 
 
         /**
-         * 
-         * 
+         * Initialize and bind input handler to the desired window. 
+         *
+         * @param window The desired window.
          * @exception Throws std::runtime_error if window was nullptr.
          */
         auto create(
@@ -70,36 +74,44 @@ namespace SGL {
         ) noexcept -> void;
 
 
-        /*! @brief Returns true if the key is currently being pressed down.
-        *
-        */
+        /**
+         * Check whether the desired keyboard key is currently being pressed down.
+         * 
+         * @param key The desired keyboard key.
+         * @return True if the key is currently being pressed down, false otherwise.
+         */
         auto getKey(
             const SGLKey key
         ) const noexcept -> bool;
 
 
-        /*! @brief Returns true when the key was just pressed.
-        *
-        */
+        /**
+         * Check whether the desired keyboard key was just pressed down.
+         *
+         * @param key The desired keyboard key.
+         * @return True if the key was just pressed down, false otherwise.
+         */
         auto getKeyPressed(
             const SGLKey key
         ) const noexcept -> bool;
 
 
-        /*! @brief Returns true when the key was just released.
-        *
-        */
+        /**
+         * Check whether the desired keyboard key was just released.
+         *
+         * @param key The desired keyboard key.
+         * @return True if the key was just released, false otherwise.
+         */
         auto getKeyReleased(
             const SGLKey key
         ) const noexcept -> bool;
 
 
     private:
-        GLFWwindow* m_pGLFWwindow;
-
         static constexpr std::size_t NUM_OF_KEYS = 512;
         static std::array<bool, NUM_OF_KEYS> m_KeyStateChanged;
 
+        GLFWwindow* m_pGLFWwindow;
     };
 
 

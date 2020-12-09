@@ -7,7 +7,7 @@
 #include "SGL.h"
 
 auto main(int argc, char** argv) -> int try {
-    SGL::Window window(SGL::RendererType::OpenGL3, { 640, 480 }, "Hei maailma!");
+    SGL::Window window(SGL::RendererType::OpenGL3, { 640, 480 }, "Otsikko!");
 
     while (window.getRenderer()->running()) {
         window.getRenderer()->clear(SGL::COLOR::Red);
