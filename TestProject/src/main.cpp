@@ -7,17 +7,32 @@
 #include "SGL.h"
 
 auto main(int argc, char** argv) -> int try {
+
     SGL::Window window(SGL::RendererType::OpenGL3, { 640, 480 }, "Otsikko!");
 
     while (window.getRenderer()->running()) {
         window.getRenderer()->clear(SGL::COLOR::Red);
-        window.getRenderer()->draw();
+        
+        //SGL::Transform transform({ 0, 0, 0 });
+        //SGL::Shader shader("simpleVertex.glsl", "simpleFragment.glsl");
+
+        //SGL::Drawable triangle;
+        //triangle.setVertices(
+        //    { -0.5, 0.5, 0.5 },
+        //    { 0.5, 0.5, -0.5 },
+        //    { -0.5, 0.5, 0.5 }
+        //);
+
+
+        //window.getRenderer()->draw(triangle, shader, transform);
+        //window.getRenderer()->drawAll();
 
         if (window.getInput()->getKeyPressed(SGL::KEYCODE::KEY_A))
-            std::cout << "Hei!";
+            window.getRenderer()->setWindowPosition(
+                window.getRenderer()->getWindowPosition() + SGL::Vector2<std::int32_t>::right()
+            );
 
-        if (window.getInput()->getKeyReleased(SGL::KEYCODE::KEY_A))
-            std::cout << "Moi!";
+        window.getRenderer()->draw();
     }
 
     return EXIT_SUCCESS;

@@ -9,6 +9,10 @@
 
 namespace SGL {
 
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    // Constructors and destructor
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+
     /* ***************************************************************************************** */
     Window::Window(
     ) noexcept {
@@ -20,24 +24,24 @@ namespace SGL {
     /* ***************************************************************************************** */
     Window::Window(
         const RendererType rendererType,
-        const Vector2<std::uint32_t>& windowSize,
+        const Vector2<std::uint32_t>&& windowSize,
         const std::string& title
     ) {
         m_pRenderer = nullptr;
         m_pInput = nullptr;
-        create(rendererType, std::forward<decltype(windowSize)>(windowSize), title);
+        create(rendererType, windowSize, title);
     }
 
 
     /* ***************************************************************************************** */
     Window::Window(
         const RendererType rendererType,
-        const Vector2<std::uint32_t>&& windowSize,
+        const Vector2<std::uint32_t>& windowSize,
         const std::string& title
     ) {
         m_pRenderer = nullptr;
         m_pInput = nullptr;
-        create(rendererType, std::forward<decltype(windowSize)>(windowSize), title);
+        create(rendererType, windowSize, title);
     }
 
 
@@ -48,20 +52,14 @@ namespace SGL {
     }
 
 
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    // Public methods
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+
     /* ***************************************************************************************** */
     auto Window::create(
         const RendererType rendererType,
         const Vector2<std::uint32_t>& windowSize,
-        const std::string& title
-    ) -> void {
-        create(rendererType, { windowSize.x, windowSize.y }, title);
-    }
-
-
-    /* ***************************************************************************************** */
-    auto Window::create(
-        const RendererType rendererType,
-        const Vector2<std::uint32_t>&& windowSize,
         const std::string& title
     ) -> void {
         if (rendererType == RendererType::OpenGL3) {

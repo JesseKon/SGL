@@ -9,6 +9,10 @@
 
 namespace SGL {
 
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    // Constructors and destructor
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+
     /* ***************************************************************************************** */
     RendererOGL3::RendererOGL3(
     ) noexcept {
@@ -40,6 +44,10 @@ namespace SGL {
     }
 
 
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    // Public methods
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+
     /* ***************************************************************************************** */
     auto RendererOGL3::create(
         const Vector2<std::uint32_t>& windowSize,
@@ -56,7 +64,10 @@ namespace SGL {
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-        m_pGLFWwindow = glfwCreateWindow(m_WindowSize.x, m_WindowSize.y, m_WindowTitle.c_str(), nullptr, nullptr);
+        m_pGLFWwindow = glfwCreateWindow(
+            static_cast<int>(m_WindowSize.x), static_cast<int>(m_WindowSize.y),
+            m_WindowTitle.c_str(), nullptr, nullptr);
+
         if (!m_pGLFWwindow) {
             std::stringstream ss;
             ss << ">>> Error > RendererOGL3::RendererOGL3() > Could not create window ";
@@ -74,7 +85,7 @@ namespace SGL {
             throw std::runtime_error(ss.str());
         }
 
-        glViewport(0, 0, m_WindowSize.x, m_WindowSize.y);
+        glViewport(0, 0, static_cast<int>(m_WindowSize.x), static_cast<int>(m_WindowSize.y));
     }
 
 
@@ -128,14 +139,10 @@ namespace SGL {
         const Vector2<std::uint32_t>& newSize
     ) noexcept -> void {
         m_WindowSize = newSize;
-    }
+        glfwSetWindowSize(m_pGLFWwindow,
+            static_cast<int>(m_WindowSize.x), static_cast<int>(m_WindowSize.y));
 
-
-    /* ***************************************************************************************** */
-    auto RendererOGL3::resizeWindow(
-        const Vector2<std::uint32_t>&& newSize
-    ) noexcept -> void {
-        m_WindowSize = newSize;
+        glViewport(0, 0, static_cast<int>(m_WindowSize.x), static_cast<int>(m_WindowSize.y));
     }
 
 
@@ -143,6 +150,23 @@ namespace SGL {
     auto RendererOGL3::getWindowSize(
     ) const noexcept -> Vector2<std::uint32_t> {
         return m_WindowSize;
+    }
+
+
+    /* ***************************************************************************************** */
+    auto RendererOGL3::setWindowPosition(
+        const Vector2<std::int32_t>& newPosition
+    ) noexcept -> void {
+        glfwSetWindowPos(m_pGLFWwindow,
+            static_cast<int>(newPosition.x), static_cast<int>(newPosition.y));
+    }
+
+
+    /* ***************************************************************************************** */
+    auto RendererOGL3::getWindowPosition(
+    ) const noexcept -> Vector2<std::int32_t> {
+        int posX, posY; glfwGetWindowPos(m_pGLFWwindow, &posX, &posY);
+        return { static_cast<std::int32_t>(posX), static_cast<int32_t>(posY) };
     }
 
 
@@ -165,12 +189,6 @@ namespace SGL {
     /* ***************************************************************************************** */
     auto RendererOGL3::getGLFWwindow(
     ) const noexcept -> GLFWwindow* {
-        //if (!m_pGLFWwindow) {
-        //    std::stringstream ss;
-        //    ss << ">>> Error > RendererOGL3::getGLFWwindow() > m_pGLFWwindow was nullptr.\n";
-        //    throw std::runtime_error(ss.str());
-        //}
-
         return m_pGLFWwindow;
     };
 

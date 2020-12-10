@@ -1,8 +1,8 @@
 /**
-*
-*
-*
-*/
+ *
+ *
+ *
+ */
 
 #ifndef _SGL_COLOR_
 #define _SGL_COLOR_
@@ -12,21 +12,21 @@
 
 namespace SGL {
 
-    class SGL_API Color
+    class Color
     {
     public:
 
         /*! @brief Default constructor that creates black color.
         * 
         */
-        Color(
+        SGL_API Color(
         ) noexcept;
 
 
         /*! @brief Creates new color with given color components.
         *
         */
-        Color(
+        SGL_API Color(
             const std::uint8_t red,
             const std::uint8_t green,
             const std::uint8_t blue,
@@ -37,12 +37,12 @@ namespace SGL {
         /*! @brief Copy constructor that copies the Color given as param.
         * 
         */
-        Color(
+        SGL_API Color(
             const Color& param
         ) noexcept;
 
 
-        ~Color(
+        SGL_API ~Color(
         );
 
 
@@ -52,7 +52,7 @@ namespace SGL {
         * 
         *   @return Nothing.
         */
-        inline auto setRed(
+        SGL_API inline auto setRed(
             const std::uint8_t newRed
         ) noexcept -> void {
             m_Red = newRed;
@@ -63,7 +63,7 @@ namespace SGL {
         * 
         *   @return The red component.
         */
-        inline auto getRed(
+        SGL_API inline auto getRed(
         ) const noexcept -> std::uint8_t {
             return m_Red;
         }
@@ -74,7 +74,7 @@ namespace SGL {
         *   @return The red component normalized to type T.
         */
         template <typename T>
-        inline auto getRedf(
+        SGL_API inline auto getRedf(
         ) const noexcept -> T {
             return static_cast<T>(m_Red) / std::numeric_limits<decltype(m_Red)>::max();
         }
@@ -86,7 +86,7 @@ namespace SGL {
         *
         *   @return Nothing.
         */
-        inline auto setGreen(
+        SGL_API inline auto setGreen(
             const std::uint8_t newGreen
         ) noexcept -> void {
             m_Green = newGreen;
@@ -97,7 +97,7 @@ namespace SGL {
         *
         *   @return The green component.
         */
-        inline auto getGreen(
+        SGL_API inline auto getGreen(
         ) const noexcept -> std::uint8_t {
             return m_Green;
         }
@@ -108,7 +108,7 @@ namespace SGL {
         *   @return The green component normalized to type T.
         */
         template <typename T>
-        inline auto getGreenf(
+        SGL_API inline auto getGreenf(
         ) const noexcept -> T {
             return static_cast<T>(m_Green) / std::numeric_limits<decltype(m_Green)>::max();
         }
@@ -120,7 +120,7 @@ namespace SGL {
         *
         *   @return Nothing.
         */
-        inline auto setBlue(
+        SGL_API inline auto setBlue(
             const std::uint8_t newBlue
         ) noexcept -> void {
             m_Blue = newBlue;
@@ -130,7 +130,7 @@ namespace SGL {
         *
         *   @return The blue component.
         */
-        inline auto getBlue(
+        SGL_API inline auto getBlue(
         ) const noexcept -> std::uint8_t {
             return m_Blue;
         }
@@ -141,7 +141,7 @@ namespace SGL {
         *   @return The blue component normalized to type T.
         */
         template <typename T>
-        inline auto getBluef(
+        SGL_API inline auto getBluef(
         ) const noexcept -> T {
             return static_cast<T>(m_Blue) / std::numeric_limits<decltype(m_Blue)>::max();
         }
@@ -153,7 +153,7 @@ namespace SGL {
         *
         *   @return Nothing.
         */
-        inline auto setAlpha(
+        SGL_API inline auto setAlpha(
             const std::uint8_t newAlpha
         ) noexcept -> void {
             m_Alpha = newAlpha;
@@ -164,7 +164,7 @@ namespace SGL {
         *
         *   @return The alpha component.
         */
-        inline auto getAlpha(
+        SGL_API inline auto getAlpha(
         ) const noexcept -> std::uint8_t {
             return m_Alpha;
         }
@@ -175,7 +175,7 @@ namespace SGL {
         *   @return The alpha component normalized to type T.
         */
         template <typename T>
-        inline auto getAlphaf(
+        SGL_API inline auto getAlphaf(
         ) const noexcept -> T {
             return static_cast<T>(m_Alpha) / std::numeric_limits<decltype(m_Alpha)>::max();
         }

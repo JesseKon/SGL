@@ -12,7 +12,49 @@
 
 namespace SGL {
 
+    class Shader
+    {
+    public:
 
+        /**
+         * 
+         */
+        virtual ~Shader(
+        ) = 0 {};
+
+
+        /**
+         * 
+         */
+        virtual auto setBool(
+            const std::string& name,
+            const bool value
+        ) noexcept -> void = 0;
+
+
+        /**
+         *
+         */
+        virtual auto setInt32(
+            const std::string& name,
+            const bool value
+        ) noexcept -> void = 0;
+
+
+        /**
+         *
+         */
+        virtual auto setFloat(
+            const std::string& name,
+            const bool value
+        ) noexcept -> void = 0;
+
+
+
+    protected:
+        GLuint m_ProgramID;
+
+    };
 
 }  /* namespace SGL */
 

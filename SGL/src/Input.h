@@ -16,7 +16,7 @@ namespace SGL {
 
     using SGLKey = std::int32_t;
 
-    class SGL_API Input
+    class Input
     {
     public:
 
@@ -34,7 +34,7 @@ namespace SGL {
          * 
          * Note: this doesn't actually initialize input handler. Call create() to do so.
          */
-        Input(
+        SGL_API Input(
         ) noexcept;
 
 
@@ -44,7 +44,7 @@ namespace SGL {
          * @param window The desired window.
          * @exception Throws std::runtime_error if window was nullptr.
          */
-        Input(
+        SGL_API Input(
             const GLFWwindow* window
         );
 
@@ -52,7 +52,7 @@ namespace SGL {
         /**
          * Destructor.
          */
-        ~Input(
+        SGL_API ~Input(
         );
 
 
@@ -62,7 +62,7 @@ namespace SGL {
          * @param window The desired window.
          * @exception Throws std::runtime_error if window was nullptr.
          */
-        auto create(
+        SGL_API auto create(
             const GLFWwindow* window
         ) -> void;
 
@@ -70,7 +70,7 @@ namespace SGL {
         /**
          * Nullify this instance. Destructor calls it automatically. 
          */
-        auto destroy(
+        SGL_API auto destroy(
         ) noexcept -> void;
 
 
@@ -80,7 +80,7 @@ namespace SGL {
          * @param key The desired keyboard key.
          * @return True if the key is currently being pressed down, false otherwise.
          */
-        auto getKey(
+        SGL_API auto getKey(
             const SGLKey key
         ) const noexcept -> bool;
 
@@ -91,7 +91,7 @@ namespace SGL {
          * @param key The desired keyboard key.
          * @return True if the key was just pressed down, false otherwise.
          */
-        auto getKeyPressed(
+        SGL_API auto getKeyPressed(
             const SGLKey key
         ) const noexcept -> bool;
 
@@ -102,7 +102,7 @@ namespace SGL {
          * @param key The desired keyboard key.
          * @return True if the key was just released, false otherwise.
          */
-        auto getKeyReleased(
+        SGL_API auto getKeyReleased(
             const SGLKey key
         ) const noexcept -> bool;
 

@@ -9,15 +9,6 @@
 
 namespace SGL {
 
-    Renderer::Renderer()
-    {
 
-    }
-
-
-    Renderer::~Renderer()
-    {
-
-    }
 
 }  /* namespace SGL */

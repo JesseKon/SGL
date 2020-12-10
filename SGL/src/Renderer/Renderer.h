@@ -30,22 +30,15 @@ namespace SGL {
     };
 
 
-    class SGL_API Renderer
+    class Renderer
     {
     public:
-        
-        /**
-         * Constructor.
-         */
-        Renderer(
-        );
-
 
         /**
          * Destructor.
          */
         virtual ~Renderer(
-        );
+        ) = 0 {};
 
 
         /**
@@ -78,18 +71,10 @@ namespace SGL {
 
 
         /**
-         * 
-         */
-        virtual auto resizeWindow(
-            const Vector2<std::uint32_t>& newSize
-        ) noexcept -> void = 0;
-
-
-        /**
          *
          */
         virtual auto resizeWindow(
-            const Vector2<std::uint32_t>&& newSize
+            const Vector2<std::uint32_t>& newSize
         ) noexcept -> void = 0;
 
 
@@ -100,27 +85,19 @@ namespace SGL {
         ) const noexcept -> Vector2<std::uint32_t> = 0;
 
 
-        ///**
-        // *
-        // */
-        //virtual auto resizeViewport(
-        //    const Rect<std::int32_t>& newViewport
-        //) noexcept -> void = 0;
+        /**
+         * 
+         */
+        virtual auto setWindowPosition(
+            const Vector2<std::int32_t>& newPosition
+        ) noexcept -> void = 0;
 
 
-        ///**
-        // *
-        // */
-        //virtual auto resizeViewport(
-        //    const Rect<std::int32_t>& newViewport
-        //) noexcept -> void = 0;
-
-
-        ///**
-        // *
-        // */
-        //virtual auto getViewportSize(
-        //) const noexcept -> Rect<std::int32_t> = 0;
+        /**
+         * 
+         */
+        virtual auto getWindowPosition(
+        ) const noexcept -> Vector2<std::int32_t> = 0;
 
 
         /**
@@ -151,7 +128,8 @@ namespace SGL {
         ) const noexcept -> const GLFWwindow* = 0;
 
 
-    private:
+    protected:
+        GLFWwindow* m_pGLFWwindow;
 
     };
 

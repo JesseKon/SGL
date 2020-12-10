@@ -15,7 +15,7 @@
 
 namespace SGL {
 
-    class SGL_API RendererOGL3 : public Renderer
+    class RendererOGL3 : public Renderer
     {
     public:
 
@@ -24,7 +24,7 @@ namespace SGL {
          * 
          * Note: this doesn't actually create the renderer. Call create() to do so.
          */
-        RendererOGL3(
+        SGL_API RendererOGL3(
         ) noexcept;
 
 
@@ -36,7 +36,7 @@ namespace SGL {
          * @param windowTitle Window title for this renderer.
          * @exception Throws std::runtime_error if window couldn't be created.
          */
-        RendererOGL3(
+        SGL_API RendererOGL3(
             const Vector2<std::uint32_t>& windowSize,
             const std::string& windowTitle
         );
@@ -45,7 +45,7 @@ namespace SGL {
         /**
          * Destructor.
          */
-        ~RendererOGL3(
+        SGL_API ~RendererOGL3(
         );
 
 
@@ -57,7 +57,7 @@ namespace SGL {
          * @param windowTitle Window title for this renderer.
          * @exception Throws std::runtime_error if renderer couldn't be created.
          */
-        auto create(
+        SGL_API auto create(
             const Vector2<std::uint32_t>& windowSize,
             const std::string& windowTitle
         ) -> void;
@@ -66,51 +66,55 @@ namespace SGL {
         /**
          * Destroy this renderer. Destructor calls it automatically.
          */
-        auto destroy(
+        SGL_API auto destroy(
         ) noexcept -> void;
 
 
-        auto running(
+        SGL_API auto running(
         ) const noexcept -> bool override;
 
 
-        auto clear(
+        SGL_API auto clear(
             const Color& color
         ) const noexcept -> void override;
 
 
-        auto draw(
+        SGL_API auto draw(
         ) const noexcept -> void override;
 
 
-        auto close(
+        SGL_API auto close(
         ) const noexcept -> void override;
 
 
-        auto resizeWindow(
+        SGL_API auto resizeWindow(
             const Vector2<std::uint32_t>& newSize
         ) noexcept -> void override;
 
 
-        auto resizeWindow(
-            const Vector2<std::uint32_t>&& newSize
-        ) noexcept -> void override;
-
-
-        auto getWindowSize(
+        SGL_API auto getWindowSize(
         ) const noexcept -> Vector2<std::uint32_t> override;
 
 
-        auto setTitle(
+        SGL_API auto setWindowPosition(
+            const Vector2<std::int32_t>& newPosition
+        ) noexcept -> void override;
+
+
+        SGL_API auto getWindowPosition(
+        ) const noexcept -> Vector2<std::int32_t> override;
+
+
+        SGL_API auto setTitle(
             const std::string& newTitle
         ) noexcept -> void override;
 
 
-        auto getTitle(
+        SGL_API auto getTitle(
         ) const noexcept -> const char* override;
 
 
-        auto getGLFWwindow(
+        SGL_API auto getGLFWwindow(
         ) const noexcept -> GLFWwindow* override;
 
 
@@ -119,7 +123,7 @@ namespace SGL {
         std::string m_WindowTitle;
         mutable bool m_QuitRequested;
 
-        GLFWwindow* m_pGLFWwindow;
+        
     };
 
 }  /* namespace SGL */
