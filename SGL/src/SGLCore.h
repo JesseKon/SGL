@@ -17,6 +17,7 @@
 #include <cassert>
 #include <array>
 #include <vector>
+#include <algorithm>
 // Precompiled header stuff
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

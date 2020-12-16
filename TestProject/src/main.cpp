@@ -25,7 +25,7 @@ auto main(int argc, char** argv) -> int try {
     });
 
     triangle.setIndices({ 0, 1, 3, 1, 2, 3 });
-
+    triangle.setVertexAttributes({ {0, 3} });
 
     while (window.getRenderer()->running()) {
         window.getRenderer()->beginRender(SGL::COLOR::Black);
