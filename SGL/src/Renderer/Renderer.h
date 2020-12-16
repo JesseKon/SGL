@@ -9,6 +9,8 @@
 
 #include "SGLCore.h"
 
+#include "Drawable.h"
+#include "ShaderGLSL.h"
 #include "Color.h"
 #include "Vector2.h"
 
@@ -42,6 +44,27 @@ namespace SGL {
 
 
         /**
+         * Create a new renderer.
+         *
+         * @param width Window width for this renderer, in pixels.
+         * @param height Window height for this renderer, in pixels.
+         * @param windowTitle Window title for this renderer.
+         * @exception Throws std::runtime_error if renderer couldn't be created.
+         */
+        virtual auto create(
+            const Vector2<std::uint32_t>& windowSize,
+            const std::string& windowTitle
+        ) -> void = 0;
+
+
+        /**
+         * Destroy this renderer. Destructor calls it automatically.
+         */
+        virtual auto destroy(
+        ) noexcept -> void = 0;
+
+
+        /**
          * 
          */
         virtual auto running(
@@ -51,7 +74,7 @@ namespace SGL {
         /**
          * 
          */
-        virtual auto clear(
+        virtual auto beginRender(
             const Color& color
         ) const noexcept -> void = 0;
 
@@ -60,6 +83,15 @@ namespace SGL {
          * Draw content.
          */
         virtual auto draw(
+            const Drawable& drawable,
+            const ShaderGLSL& shader
+        ) const noexcept -> void = 0;
+
+
+        /**
+         * 
+         */
+        virtual auto endRender(
         ) const noexcept -> void = 0;
 
 

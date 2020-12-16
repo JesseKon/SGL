@@ -10,29 +10,27 @@ auto main(int argc, char** argv) -> int try {
 
     SGL::Window window(SGL::RendererType::OpenGL3, { 640, 480 }, "Otsikko!");
 
+    // TODO: SGL::Matrix4 matrix;
+    SGL::ShaderGLSL shader("../assets/shaders/simpleVertexShader.glsl", "../assets/shaders/simpleFragmentShader.glsl");
+
+    SGL::Drawable triangle;
+    triangle.setDrawMethod(SGL::DrawMethod::Dynamic);
+    triangle.setDrawMode(SGL::DrawMode::Triangles);
+    
+    triangle.setData({
+         0.5f,  0.5f, 0.0f,
+         0.5f, -0.5f, 0.0f,
+        -0.5f, -0.5f, 0.0f,
+        -0.5f,  0.5f, 0.0f
+    });
+
+    triangle.setIndices({ 0, 1, 3, 1, 2, 3 });
+
+
     while (window.getRenderer()->running()) {
-        window.getRenderer()->clear(SGL::COLOR::Red);
-        
-        //SGL::Transform transform({ 0, 0, 0 });
-        //SGL::Shader shader("simpleVertex.glsl", "simpleFragment.glsl");
-
-        //SGL::Drawable triangle;
-        //triangle.setVertices(
-        //    { -0.5, 0.5, 0.5 },
-        //    { 0.5, 0.5, -0.5 },
-        //    { -0.5, 0.5, 0.5 }
-        //);
-
-
-        //window.getRenderer()->draw(triangle, shader, transform);
-        //window.getRenderer()->drawAll();
-
-        if (window.getInput()->getKeyPressed(SGL::KEYCODE::KEY_A))
-            window.getRenderer()->setWindowPosition(
-                window.getRenderer()->getWindowPosition() + SGL::Vector2<std::int32_t>::right()
-            );
-
-        window.getRenderer()->draw();
+        window.getRenderer()->beginRender(SGL::COLOR::Black);
+        window.getRenderer()->draw(triangle, shader);
+        window.getRenderer()->endRender();
     }
 
     return EXIT_SUCCESS;

@@ -34,21 +34,6 @@ namespace SGL {
 
         /**
          * Create a new window. 
-         * 
-         * @param rendererType RendererType for this window.
-         * @param windowSize Window size in pixels.
-         * @param windowTitle Title for this window.
-         * @exception Throws std::runtime_error if window couldn't be created.
-         */
-        SGL_API Window(
-            const RendererType rendererType,
-            const Vector2<std::uint32_t>&& windowSize,
-            const std::string& windowTitle = ""
-        );
-
-
-        /**
-         * Create a new window. 
          *
          * @param rendererType RendererType for this window.
          * @param windowSize Window size in pixels.
@@ -66,7 +51,7 @@ namespace SGL {
          * Destructor.
          */
         SGL_API ~Window(
-        );
+        ) noexcept;
 
 
         /**

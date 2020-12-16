@@ -1,8 +1,8 @@
 /**
-*
-*
-*
-*/
+ *
+ *
+ *
+ */
 
 #include "sglpch.h"
 #include "Window.h"
@@ -24,18 +24,6 @@ namespace SGL {
     /* ***************************************************************************************** */
     Window::Window(
         const RendererType rendererType,
-        const Vector2<std::uint32_t>&& windowSize,
-        const std::string& title
-    ) {
-        m_pRenderer = nullptr;
-        m_pInput = nullptr;
-        create(rendererType, windowSize, title);
-    }
-
-
-    /* ***************************************************************************************** */
-    Window::Window(
-        const RendererType rendererType,
         const Vector2<std::uint32_t>& windowSize,
         const std::string& title
     ) {
@@ -46,8 +34,8 @@ namespace SGL {
 
 
     /* ***************************************************************************************** */
-    Window::~Window()
-    {
+    Window::~Window(
+    ) noexcept {
         destroy();
     }
 

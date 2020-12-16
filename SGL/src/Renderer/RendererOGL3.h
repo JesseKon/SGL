@@ -46,7 +46,7 @@ namespace SGL {
          * Destructor.
          */
         SGL_API ~RendererOGL3(
-        );
+        ) noexcept;
 
 
         /**
@@ -60,26 +60,32 @@ namespace SGL {
         SGL_API auto create(
             const Vector2<std::uint32_t>& windowSize,
             const std::string& windowTitle
-        ) -> void;
+        ) -> void override;
 
 
         /**
          * Destroy this renderer. Destructor calls it automatically.
          */
         SGL_API auto destroy(
-        ) noexcept -> void;
+        ) noexcept -> void override;
 
 
         SGL_API auto running(
         ) const noexcept -> bool override;
 
 
-        SGL_API auto clear(
+        SGL_API auto beginRender(
             const Color& color
         ) const noexcept -> void override;
 
 
-        SGL_API auto draw(
+        virtual auto draw(
+            const Drawable& drawable,
+            const ShaderGLSL& shader
+        ) const noexcept -> void override;
+
+
+        SGL_API auto endRender(
         ) const noexcept -> void override;
 
 

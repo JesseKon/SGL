@@ -9,9 +9,11 @@
 
 #include "SGLCore.h"
 
-#include "Window.h"
 #include "Renderer.h"
 #include "RendererOGL3.h"
+#include "Window.h"
+#include "ShaderGLSL.h"
+#include "Drawable.h"
 #include "Input.h"
 
 #include "Color.h"
