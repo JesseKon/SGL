@@ -9,6 +9,10 @@
 
 #include "SGLCore.h"
 
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
+#include "glm/gtc/type_ptr.hpp"
+
 
 namespace SGL {
 
@@ -60,6 +64,24 @@ namespace SGL {
          */
         auto SGL_API use(
         ) const noexcept -> void;
+
+
+        /**
+         * 
+         */
+        auto SGL_API setVector4(
+            const std::string& uniformName,
+            const glm::vec4& value
+        ) noexcept -> void;
+
+
+        /**
+         *
+         */
+        auto SGL_API setMatrix4(
+            const std::string& uniformName,
+            const glm::mat4& value
+        ) noexcept -> void;
 
 
     private:

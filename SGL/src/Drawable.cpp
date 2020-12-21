@@ -1,3 +1,9 @@
+/**
+ *
+ *
+ *
+ */
+
 #include "Drawable.h"
 
 namespace SGL {
@@ -100,8 +106,8 @@ namespace SGL {
 
 
     /* ***************************************************************************************** */
-    auto Drawable::draw(
-    ) const -> void {
+    auto Drawable::configure(
+    ) -> void {
         glBindVertexArray(m_VertexArray);
         glBindBuffer(GL_ARRAY_BUFFER, m_VertexBuffer);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ElementBuffer);
@@ -114,15 +120,22 @@ namespace SGL {
 
         for (std::size_t i = 0; i < m_VertexAttributes.size(); ++i) {
             glVertexAttribPointer(m_VertexAttributes.at(i).at(0), m_VertexAttributes.at(i).at(1),
-                GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
+                GL_FLOAT, GL_FALSE, m_Stride * sizeof(float), nullptr);
             glEnableVertexAttribArray(m_VertexAttributes.at(i).at(0));
         }
+    }
 
+
+    /* ***************************************************************************************** */
+    auto Drawable::draw(
+    ) const -> void {
         //glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
         //glEnableVertexAttribArray(0);
 
         //glDrawArrays(static_cast<GLenum>(m_DrawMode), 0, 3);
-        glDrawElements(static_cast<GLenum>(m_DrawMode), 6, GL_UNSIGNED_INT, 0);
+
+        glBindVertexArray(m_VertexArray);
+        glDrawElements(static_cast<GLenum>(m_DrawMode), m_Indices.size(), GL_UNSIGNED_INT, 0);
     }
 
 }

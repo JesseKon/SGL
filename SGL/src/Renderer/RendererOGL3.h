@@ -74,7 +74,7 @@ namespace SGL {
         ) const noexcept -> bool override;
 
 
-        SGL_API auto beginRender(
+        SGL_API auto beginRendering(
             const Color& color
         ) const noexcept -> void override;
 
@@ -85,7 +85,7 @@ namespace SGL {
         ) const noexcept -> void override;
 
 
-        SGL_API auto endRender(
+        SGL_API auto endRendering(
         ) const noexcept -> void override;
 
 

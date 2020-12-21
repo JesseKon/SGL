@@ -58,22 +58,22 @@ namespace SGL {
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
     namespace COLOR {
-        const Color Black(0, 0, 0, 255);
-        const Color White(255, 255, 255, 255);
-        const Color Red(255, 0, 0, 255);
-        const Color Lime(0, 255, 0, 255);
-        const Color Blue(0, 0, 255, 255);
-        const Color Yellow(255, 255, 0, 255);
-        const Color Cyan(0, 255, 255, 255);
-        const Color Magenta(255, 0, 255, 255);
-        const Color Silver(192, 192, 192, 255);
-        const Color Gray(128, 128, 128, 255);
-        const Color Maroon(128, 0, 0, 255);
-        const Color Olive(128, 128, 0, 255);
-        const Color Green(0, 128, 0, 255);
-        const Color Purple(128, 0, 128, 255);
-        const Color Teal(0, 128, 128, 255);
-        const Color Navy(0, 0, 128, 255);
+        Color Black(0, 0, 0, 255);
+        Color White(255, 255, 255, 255);
+        Color Red(255, 0, 0, 255);
+        Color Lime(0, 255, 0, 255);
+        Color Blue(0, 0, 255, 255);
+        Color Yellow(255, 255, 0, 255);
+        Color Cyan(0, 255, 255, 255);
+        Color Magenta(255, 0, 255, 255);
+        Color Silver(192, 192, 192, 255);
+        Color Gray(128, 128, 128, 255);
+        Color Maroon(128, 0, 0, 255);
+        Color Olive(128, 128, 0, 255);
+        Color Green(0, 128, 0, 255);
+        Color Purple(128, 0, 128, 255);
+        Color Teal(0, 128, 128, 255);
+        Color Navy(0, 0, 128, 255);
     }
 
 }

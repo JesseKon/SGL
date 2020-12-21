@@ -6,6 +6,7 @@ SGL is an object-oriented C++17 library for creating graphics on Windows and Lin
 
 Other libraries or tools used:
 - GLAD
+- GLM
 
 Build for vs2019:
 ```

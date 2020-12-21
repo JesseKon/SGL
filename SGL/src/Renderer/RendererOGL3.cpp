@@ -109,7 +109,7 @@ namespace SGL {
 
 
     /* ***************************************************************************************** */
-    auto RendererOGL3::beginRender(
+    auto RendererOGL3::beginRendering(
         const Color& color
     ) const noexcept -> void {
         glClearColor(
@@ -132,7 +132,7 @@ namespace SGL {
 
 
     /* ***************************************************************************************** */
-    auto RendererOGL3::endRender(
+    auto RendererOGL3::endRendering(
     ) const noexcept -> void {
         glfwSwapBuffers(m_pGLFWwindow);
     };

@@ -87,6 +87,13 @@ namespace SGL {
         ) -> void;
 
 
+        /**
+         * Configure this object. Every drawable object has to be configured before it can be used.
+         */
+        auto SGL_API configure(
+        ) -> void;
+
+
         auto SGL_API draw(
         ) const -> void;
 

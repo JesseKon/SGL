@@ -10,6 +10,11 @@
 #include <SGLCore.h>
 #include <limits>
 
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
+#include "glm/gtc/type_ptr.hpp"
+
+
 namespace SGL {
 
     class Color
@@ -42,6 +47,9 @@ namespace SGL {
         ) noexcept;
 
 
+        /**
+         * Destructor.
+         */
         SGL_API ~Color(
         );
 
@@ -181,6 +189,13 @@ namespace SGL {
         }
 
 
+        SGL_API inline auto toVector4(
+        ) noexcept -> glm::vec4 {
+            glm::vec4 vector = { getRedf<float>(), getGreenf<float>(), getBluef<float>(), getAlphaf<float>() };
+            return vector;
+        };
+
+
     private:
         std::uint8_t m_Red, m_Green, m_Blue, m_Alpha;
 
@@ -189,22 +204,22 @@ namespace SGL {
 
     // Predefined colors
     namespace COLOR {
-        extern const SGL_API Color Black;
-        extern const SGL_API Color White;
-        extern const SGL_API Color Red;
-        extern const SGL_API Color Lime;
-        extern const SGL_API Color Blue;
-        extern const SGL_API Color Yellow;
-        extern const SGL_API Color Cyan;
-        extern const SGL_API Color Magenta;
-        extern const SGL_API Color Silver;
-        extern const SGL_API Color Gray;
-        extern const SGL_API Color Maroon;
-        extern const SGL_API Color Olive;
-        extern const SGL_API Color Green;
-        extern const SGL_API Color Purple;
-        extern const SGL_API Color Teal;
-        extern const SGL_API Color Navy;
+        extern SGL_API Color Black;
+        extern SGL_API Color White;
+        extern SGL_API Color Red;
+        extern SGL_API Color Lime;
+        extern SGL_API Color Blue;
+        extern SGL_API Color Yellow;
+        extern SGL_API Color Cyan;
+        extern SGL_API Color Magenta;
+        extern SGL_API Color Silver;
+        extern SGL_API Color Gray;
+        extern SGL_API Color Maroon;
+        extern SGL_API Color Olive;
+        extern SGL_API Color Green;
+        extern SGL_API Color Purple;
+        extern SGL_API Color Teal;
+        extern SGL_API Color Navy;
     }
 
 }  /* namespace SGL */

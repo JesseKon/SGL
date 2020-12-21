@@ -78,6 +78,7 @@ project "SGL"
         includedirs {
             "dependencies/windows/glfw-3.3.2.bin.WIN32/include",
             "dependencies/glad/include",
+            "dependencies/glm",
         }
 
         libdirs {
@@ -89,6 +90,7 @@ project "SGL"
         includedirs {
             "dependencies/windows/glfw-3.3.2.bin.WIN64/include",
             "dependencies/glad/include",
+            "dependencies/glm",
         }
 
         libdirs {
@@ -134,6 +136,7 @@ project "TestProject"
         includedirs {
             "dependencies/windows/glfw-3.3.2.bin.WIN32/include",
             "dependencies/glad/include",
+            "dependencies/glm",
         }
 
     ----------------
@@ -141,4 +144,5 @@ project "TestProject"
         includedirs {
             "dependencies/windows/glfw-3.3.2.bin.WIN64/include",
             "dependencies/glad/include",
+            "dependencies/glm",
         }

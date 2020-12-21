@@ -120,6 +120,8 @@ namespace SGL {
         glDeleteShader(vertexShader);
         glDeleteShader(fragmentShader);
 
+        // Shader has to be used at least once before its uniforms can be accessed
+        use();
     };
 
 
@@ -138,4 +140,25 @@ namespace SGL {
     ) const noexcept -> void {
         glUseProgram(m_ProgramID);
     }
+
+
+    /* ***************************************************************************************** */
+    auto ShaderGLSL::setVector4(
+        const std::string& uniformName,
+        const glm::vec4& value
+    ) noexcept -> void {
+        GLuint location = glGetUniformLocation(m_ProgramID, uniformName.c_str());
+        glUniform4fv(location, 1, glm::value_ptr(value));
+    }
+
+    
+    /* ***************************************************************************************** */
+    auto ShaderGLSL::setMatrix4(
+        const std::string& uniformName,
+        const glm::mat4& value
+    ) noexcept -> void {
+        GLuint location = glGetUniformLocation(m_ProgramID, uniformName.c_str());
+        glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(value));
+    }
+
 }

@@ -74,7 +74,7 @@ namespace SGL {
         /**
          * 
          */
-        virtual auto beginRender(
+        virtual auto beginRendering(
             const Color& color
         ) const noexcept -> void = 0;
 
@@ -91,7 +91,7 @@ namespace SGL {
         /**
          * 
          */
-        virtual auto endRender(
+        virtual auto endRendering(
         ) const noexcept -> void = 0;
 
 
