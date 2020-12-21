@@ -143,6 +143,16 @@ namespace SGL {
 
 
     /* ***************************************************************************************** */
+    auto ShaderGLSL::setInt(
+        const std::string& uniformName,
+        const std::int32_t& value
+    ) noexcept -> void {
+        GLuint location = glGetUniformLocation(m_ProgramID, uniformName.c_str());
+        glUniform1i(location, static_cast<GLint>(value));
+    }
+
+
+    /* ***************************************************************************************** */
     auto ShaderGLSL::setVector4(
         const std::string& uniformName,
         const glm::vec4& value

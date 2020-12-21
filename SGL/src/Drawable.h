@@ -11,28 +11,29 @@
 
 namespace SGL {
 
-    /**
-     * 
-     */
+    /// <summary>
+    /// Drawing methods. 
+    /// </summary>
     enum class DrawMethod : GLenum {
         Static = GL_STATIC_DRAW,
         Dynamic = GL_DYNAMIC_DRAW
     };
 
 
-    /**
-     * 
-     */
+    /// <summary>
+    /// Drawing modes.
+    /// </summary>
     enum class DrawMode : GLenum {
         Points = GL_POINTS,
         Lines = GL_LINES,
         Triangles = GL_TRIANGLES
     };
 
-    /**
-     * The first parameter in the array specifies which vertex attribute in configures, and the
-     * second parameter specifies its size.
-     */
+
+    /// <summary>
+    /// The first parameter in the array specifies which vertex attribute in configures, and the
+    /// second parameter specifies its size.
+    /// </summary>
     using VertexAttributes = std::vector<std::array<GLuint, 2>>;
 
 
@@ -40,60 +41,128 @@ namespace SGL {
     {
     public:
 
-        /**
-         * Default constructor.
-         */
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
+        /// 
+        /// <returns></returns>
         SGL_API Drawable(
         );
 
 
-        /**
-         * Destructor.
-         */
+        /// <summary>
+        /// Destructor.
+        /// </summary>
+        /// 
+        /// <returns></returns>
         SGL_API ~Drawable(
         ) noexcept;
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// 
+        /// <returns></returns>
         auto SGL_API create(
         ) -> void;
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// 
+        /// <returns></returns>
         auto SGL_API destroy(
         ) noexcept -> void;
 
 
+        /// <summary>
+        /// Set drawing method for this object.
+        /// </summary>
+        /// 
+        /// <param name="drawMethod">
+        /// The drawing method this object will use.
+        /// </param>
+        /// 
+        /// <returns></returns>
         auto SGL_API setDrawMethod(
             const DrawMethod drawMethod
         ) noexcept -> void;
 
 
+        /// <summary>
+        /// Set drawing mode for this object.
+        /// </summary>
+        /// 
+        /// <param name="drawMode">
+        /// The drawing mode this object will use.
+        /// </param>
+        /// 
+        /// <returns></returns>
         auto SGL_API setDrawMode(
             const DrawMode drawMode
         ) noexcept -> void;
 
 
+        /// <summary>
+        /// Set raw data for this object.
+        /// </summary>
+        /// 
+        /// <param name="data">
+        /// The raw data for this object.
+        /// </param>
+        /// 
+        /// <returns></returns>
         auto SGL_API setData(
             const std::vector<float>& data
         ) -> void;
 
 
+        /// <summary>
+        /// Set indices for this object.
+        /// </summary>
+        /// 
+        /// <param name="indices">
+        /// Array of indices this object will use.
+        /// </param>
+        /// 
+        /// <returns></returns>
         auto SGL_API setIndices(
             const std::vector<GLuint>& indices
         ) -> void;
 
 
+        /// <summary>
+        /// Set vertex attribute data for this object. 
+        /// </summary>
+        /// 
+        /// <param name="vertexAttributes">
+        /// Array of vertex attributes this object will use.
+        /// </param>
+        /// 
+        /// <returns></returns>
         auto SGL_API setVertexAttributes(
             const VertexAttributes& vertexAttributes
         ) -> void;
 
 
-        /**
-         * Configure this object. Every drawable object has to be configured before it can be used.
-         */
+        /// <summary>
+        /// Configure this object. Every drawable object has to be configured before it can be 
+        /// used. Note that before configurating the object, it needs to have its data, indices 
+        /// and vertex attributes set.
+        /// </summary>
+        /// 
+        /// <returns></returns>
         auto SGL_API configure(
         ) -> void;
 
 
+        /// <summary>
+        /// Draw this object in renderer.
+        /// </summary>
+        /// 
+        /// <returns></returns>
         auto SGL_API draw(
         ) const -> void;
 

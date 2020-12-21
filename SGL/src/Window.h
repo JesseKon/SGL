@@ -76,22 +76,26 @@ namespace SGL {
         ) noexcept -> void;
 
 
-        /**
-         * Get pointer to the renderer of this window. Use it to gain access to the renderer's 
-         * methods.
-         * 
-         * @return Pointer to the renderer of this window.
-         */
+        /// <summary>
+        /// Get pointer to the renderer of this window. Use it to gain access to the renderer's
+        /// methods.
+        /// </summary>
+        /// 
+        /// <returns>
+        /// Pointer to the renderer of this window.
+        /// </returns>
         SGL_API auto getRenderer(
         ) const noexcept -> Renderer*;
 
 
-        /**
-         * Get pointer to the input handler of this window. Use it to gain access to the input 
-         * handler's methods.
-         * 
-         * @return Pointer to the input handler of this window.
-         */
+        /// <summary>
+        /// Get pointer to the input handler of this window. Use it to gain access to the input 
+        /// handler's methods.
+        /// </summary>
+        /// 
+        /// <returns>
+        /// Pointer to the input handler of this window.
+        /// </returns>
         SGL_API auto getInput(
         ) const noexcept -> Input*;
 

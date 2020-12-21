@@ -20,50 +20,87 @@ namespace SGL {
     {
     public:
 
-        /**
-         * 
-         */
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
+        /// 
+        /// <returns></returns>
         SGL_API ShaderGLSL(
         ) noexcept;
 
 
-        /**
-         * 
-         */
+        /// <summary>
+        /// Create a new shader from given shader code files.
+        /// </summary>
+        /// 
+        /// <param name="vertexShaderFile">
+        /// The file that contains the vertex shader code.
+        /// </param>
+        /// 
+        /// <param name="fragmentShaderFile">
+        /// The file that contains the fragment shader code.
+        /// </param>
+        /// 
+        /// <returns></returns>
         SGL_API ShaderGLSL(
             const std::string& vertexShaderFile,
             const std::string& fragmentShaderFile
         );
 
 
-        /**
-         * 
-         */
+        /// <summary>
+        /// Destructor.
+        /// </summary>
+        /// 
+        /// <returns></returns>
         SGL_API ~ShaderGLSL(
         ) noexcept;
 
 
-        /**
-         * 
-         */
+        /// <summary>
+        /// Create a new shader from given shader code files.
+        /// </summary>
+        /// 
+        /// <param name="vertexShaderFile">
+        /// The file that contains the vertex shader code.
+        /// </param>
+        /// 
+        /// <param name="fragmentShaderFile">
+        /// The file that contains the fragment shader code.
+        /// </param>
+        /// 
+        /// <returns></returns>
         auto SGL_API create(
             const std::string& vertexShaderFile,
             const std::string& fragmentShaderFile
         ) -> void;
 
 
-        /**
-         * 
-         */
+        /// <summary>
+        /// Destroy this shader.
+        /// </summary>
+        /// 
+        /// <returns></returns>
         auto SGL_API destroy(
         ) noexcept -> void;
 
 
+        /// <summary>
+        /// Set this shader active for the following draw commands.
+        /// </summary>
+        /// 
+        /// <returns></returns>
+        auto SGL_API use(
+        ) const noexcept -> void;
+
+
         /**
          * 
          */
-        auto SGL_API use(
-        ) const noexcept -> void;
+        auto SGL_API setInt(
+            const std::string& uniformName,
+            const std::int32_t& value
+        ) noexcept -> void;
 
 
         /**

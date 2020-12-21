@@ -8,18 +8,37 @@
 
 namespace SGL {
 
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    // Constructors and destructor
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+
+    /* ***************************************************************************************** */
     Texture::Texture(
     ) noexcept {
+        m_Width = m_Height = m_Channels = 0;
+        m_TextureID = NULL;
 
+        stbi_set_flip_vertically_on_load(true);
     }
 
 
+    /* ***************************************************************************************** */
     Texture::~Texture(
     ) noexcept {
+        m_Width = m_Height = m_Channels = 0;
 
+        if (m_TextureID) {
+            glDeleteTextures(1, &m_TextureID);
+            m_TextureID = NULL;
+        }
     }
 
 
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    // Public methods
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+
+    /* ***************************************************************************************** */
     auto Texture::load(
         const std::string& filename
     ) -> void {
@@ -29,7 +48,7 @@ namespace SGL {
         unsigned char* data = stbi_load(filename.c_str(), &m_Width, &m_Height, &m_Channels, NULL);
         if (!data) {
             std::stringstream ss;
-            ss << ">>> Error > Texture::load() > Could not load file \'." << filename << "\'.\n";
+            ss << ">>> Error > Texture::load() > Could not load file \'" << filename << "\'.\n";
             throw std::runtime_error(ss.str());
         }
 
@@ -40,8 +59,11 @@ namespace SGL {
     }
 
 
+    /* ***************************************************************************************** */
     auto Texture::use(
+        const GLuint textureUnit
     ) const noexcept -> void {
+        glActiveTexture(GL_TEXTURE0 + textureUnit);
         glBindTexture(GL_TEXTURE_2D, m_TextureID);
     }
 

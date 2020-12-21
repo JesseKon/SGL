@@ -39,7 +39,7 @@ namespace SGL {
         m_DrawMethod = DrawMethod::Static;
         m_DrawMode = DrawMode::Points;
 
-        m_VertexAttributes = { {} };
+        m_VertexAttributes = { };
         m_Stride = 0;
     }
 
@@ -55,7 +55,7 @@ namespace SGL {
         if (m_ElementBuffer) glDeleteBuffers(1, &m_ElementBuffer);
         m_VertexArray = m_VertexBuffer = m_ElementBuffer = NULL;
 
-        m_VertexAttributes = { {} };
+        m_VertexAttributes = { };
         m_Stride = 0;
     }
 
@@ -108,6 +108,10 @@ namespace SGL {
     /* ***************************************************************************************** */
     auto Drawable::configure(
     ) -> void {
+        assert(!m_Data.empty() && "m_Data is not set.");
+        assert(!m_Indices.empty() && "m_Indices are not set.");
+        assert(!m_VertexAttributes.empty() && "m_VertexAttributes are not set.");
+
         glBindVertexArray(m_VertexArray);
         glBindBuffer(GL_ARRAY_BUFFER, m_VertexBuffer);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ElementBuffer);
