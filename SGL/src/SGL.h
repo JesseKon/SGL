@@ -13,6 +13,7 @@
 #include "RendererOGL3.h"
 #include "Window.h"
 #include "ShaderGLSL.h"
+#include "Texture.h"
 #include "Drawable.h"
 #include "Input.h"
 

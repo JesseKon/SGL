@@ -8,18 +8,29 @@
 
 namespace SGL {
 
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    // Constructors and destructor
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+
+    /* ***************************************************************************************** */
     Transform::Transform(
     ) noexcept {
         m_Matrix4 = glm::mat4(1.0f);
     }
 
 
+    /* ***************************************************************************************** */
     Transform::~Transform(
     ) noexcept {
         m_Matrix4 = glm::mat4(1.0f);
     }
 
 
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    // Public methods
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+
+    /* ***************************************************************************************** */
     auto Transform::createOrthoProjection(
         const Vector2<std::uint32_t>& viewPort,
         const float nearClipPlane,
@@ -33,6 +44,7 @@ namespace SGL {
     }
 
 
+    /* ***************************************************************************************** */
     auto Transform::createPerspectiveProjection(
         const Vector2<std::uint32_t>& viewPort,
         const float fieldOfView,
@@ -47,6 +59,7 @@ namespace SGL {
     }
 
 
+    /* ***************************************************************************************** */
     auto Transform::translate(
         const Vector3<float>& newPosition
     ) noexcept -> void {
@@ -54,6 +67,7 @@ namespace SGL {
     }
 
 
+    /* ***************************************************************************************** */
     auto Transform::rotate(
         const Vector3<float>& newRotation
     ) noexcept -> void {
@@ -63,6 +77,7 @@ namespace SGL {
     }
 
 
+    /* ***************************************************************************************** */
     auto Transform::scale(
         const Vector3<float>& newScale
     ) noexcept -> void {
@@ -70,6 +85,7 @@ namespace SGL {
     }
 
 
+    /* ***************************************************************************************** */
     auto Transform::toMatrix4(
     ) const noexcept -> glm::mat4 {
         return m_Matrix4;

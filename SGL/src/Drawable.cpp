@@ -129,11 +129,6 @@ namespace SGL {
     /* ***************************************************************************************** */
     auto Drawable::draw(
     ) const -> void {
-        //glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
-        //glEnableVertexAttribArray(0);
-
-        //glDrawArrays(static_cast<GLenum>(m_DrawMode), 0, 3);
-
         glBindVertexArray(m_VertexArray);
         glDrawElements(static_cast<GLenum>(m_DrawMode), m_Indices.size(), GL_UNSIGNED_INT, 0);
     }

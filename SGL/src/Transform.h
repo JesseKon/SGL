@@ -58,21 +58,33 @@ namespace SGL {
         ) -> void;
 
 
+        /**
+         * 
+         */
         auto SGL_API translate(
             const Vector3<float>& newPosition
         ) noexcept -> void;
 
 
+        /**
+         * 
+         */
         auto SGL_API rotate(
             const Vector3<float>& newRotation
         ) noexcept -> void;
 
 
+        /**
+         * 
+         */
         auto SGL_API scale(
             const Vector3<float>& newScale
         ) noexcept -> void;
 
 
+        /**
+         * 
+         */
         auto SGL_API toMatrix4(
         ) const noexcept -> glm::mat4;
 

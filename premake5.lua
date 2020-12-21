@@ -44,6 +44,8 @@ project "SGL"
         "SGL/src/Shader/**.h",
         "SGL/src/Shader/**.cpp",
         "dependencies/glad/src/**.c",
+        "dependencies/stb_image/*.h",
+        "dependencies/stb_image/**.cpp",
     }
 
     ----------------
@@ -79,6 +81,7 @@ project "SGL"
             "dependencies/windows/glfw-3.3.2.bin.WIN32/include",
             "dependencies/glad/include",
             "dependencies/glm",
+            "dependencies/stb_image",
         }
 
         libdirs {
@@ -91,6 +94,7 @@ project "SGL"
             "dependencies/windows/glfw-3.3.2.bin.WIN64/include",
             "dependencies/glad/include",
             "dependencies/glm",
+            "dependencies/stb_image",
         }
 
         libdirs {
@@ -115,7 +119,7 @@ project "TestProject"
     includedirs {
         "SGL/src",
         "SGL/src/Renderer/",
-        "SGL/src/Shader/"
+        "SGL/src/Shader/",
     }
 
     links {
@@ -137,6 +141,7 @@ project "TestProject"
             "dependencies/windows/glfw-3.3.2.bin.WIN32/include",
             "dependencies/glad/include",
             "dependencies/glm",
+            "dependencies/stb_image",
         }
 
     ----------------
@@ -145,4 +150,5 @@ project "TestProject"
             "dependencies/windows/glfw-3.3.2.bin.WIN64/include",
             "dependencies/glad/include",
             "dependencies/glm",
+            "dependencies/stb_image",
         }
