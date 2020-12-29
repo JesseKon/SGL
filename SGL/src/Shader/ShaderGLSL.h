@@ -9,6 +9,7 @@
 
 #include "SGLCore.h"
 #include "Matrix4.h"
+#include "TextureUnit.h"
 
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
@@ -95,27 +96,48 @@ namespace SGL {
         ) const noexcept -> void;
 
 
-        /**
-         * 
-         */
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="uniformName"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        auto SGL_API setTextureUnit(
+            const std::string& textureName,
+            const TextureUnit::type textureUnit
+        ) noexcept -> void;
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="uniformName"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
         auto SGL_API setInt(
             const std::string& uniformName,
             const std::int32_t& value
         ) noexcept -> void;
 
 
-        /**
-         * 
-         */
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="uniformName"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
         auto SGL_API setVector4(
             const std::string& uniformName,
             const glm::vec4& value
         ) noexcept -> void;
 
 
-        /**
-         *
-         */
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="uniformName"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
         auto SGL_API setMatrix4(
             const std::string& uniformName,
             const glm::mat4& value

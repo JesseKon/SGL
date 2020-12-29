@@ -98,4 +98,11 @@ namespace SGL {
         m_TextureUnit = textureUnit;
     }
 
+
+    /* ***************************************************************************************** */
+    auto Texture::getTextureUnit(
+    ) const noexcept -> TextureUnit::type {
+        return m_TextureUnit;
+    }
+
 }

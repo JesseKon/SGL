@@ -105,6 +105,14 @@ namespace SGL {
         ) noexcept -> void;
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        auto SGL_API getTextureUnit(
+        ) const noexcept -> TextureUnit::type;
+
+
     private:
         std::int32_t m_Width;
         std::int32_t m_Height;

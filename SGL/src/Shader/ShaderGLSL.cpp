@@ -143,6 +143,15 @@ namespace SGL {
 
 
     /* ***************************************************************************************** */
+    auto ShaderGLSL::setTextureUnit(
+        const std::string& textureName,
+        const TextureUnit::type textureUnit
+    ) noexcept -> void {
+        setInt(textureName, static_cast<std::int32_t>(textureUnit - TextureUnit::Texture0));
+    }
+
+
+    /* ***************************************************************************************** */
     auto ShaderGLSL::setInt(
         const std::string& uniformName,
         const std::int32_t& value

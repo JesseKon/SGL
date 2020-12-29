@@ -12,12 +12,17 @@ auto main(int argc, char** argv) -> int try {
 
     SGL::ShaderGLSL shader("../assets/shaders/ColoredShader.vert", "../assets/shaders/ColoredShader.frag");
     SGL::Texture texture0, texture1;
+    
     texture0.load("../assets/textures/test256x256_0.png");
     texture0.setTextureUnit(SGL::TextureUnit::Texture0);
+    shader.setTextureUnit("uTexture0", texture0.getTextureUnit());
+
     texture1.load("../assets/textures/test256x256_1.png");
     texture1.setTextureUnit(SGL::TextureUnit::Texture1);
+    shader.setTextureUnit("uTexture1", texture1.getTextureUnit());
 
     SGL::Drawable triangle;
+
     triangle.setData({
         //  vertex              tex coords
             0.5f,  0.5f, 0.0f,  1.0f, 1.0f,   // top right
@@ -37,15 +42,10 @@ auto main(int argc, char** argv) -> int try {
     triangle.setDrawMode(SGL::DrawMode::Triangles);
     triangle.configure();
 
-    shader.setVector4("uFragColor", SGL::COLOR::Navy.toVec4());
-
     SGL::Matrix4 transform, camera;
     transform.translate({ 200.0f, 200.0f, 0.0f });
     transform.scale({ 300, 300, 1.0f });
     camera.createOrthoProjection({ 640, 480 }, -0.1f, 100.0f);
-
-    shader.setInt("uTexture0", 0);
-    shader.setInt("uTexture1", 1);
 
     while (window.getRenderer()->running()) {
         window.getRenderer()->beginRendering(SGL::COLOR::Yellow);
