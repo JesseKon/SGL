@@ -13,7 +13,9 @@ auto main(int argc, char** argv) -> int try {
     SGL::ShaderGLSL shader("../assets/shaders/ColoredShader.vert", "../assets/shaders/ColoredShader.frag");
     SGL::Texture texture0, texture1;
     texture0.load("../assets/textures/test256x256_0.png");
+    texture0.setTextureUnit(SGL::TextureUnit::Texture0);
     texture1.load("../assets/textures/test256x256_1.png");
+    texture1.setTextureUnit(SGL::TextureUnit::Texture1);
 
     SGL::Drawable triangle;
     triangle.setData({
@@ -35,9 +37,9 @@ auto main(int argc, char** argv) -> int try {
     triangle.setDrawMode(SGL::DrawMode::Triangles);
     triangle.configure();
 
-    shader.setVector4("uFragColor", SGL::COLOR::Navy.toVector4());
+    shader.setVector4("uFragColor", SGL::COLOR::Navy.toVec4());
 
-    SGL::Transform transform, camera;
+    SGL::Matrix4 transform, camera;
     transform.translate({ 200.0f, 200.0f, 0.0f });
     transform.scale({ 300, 300, 1.0f });
     camera.createOrthoProjection({ 640, 480 }, -0.1f, 100.0f);
@@ -50,11 +52,11 @@ auto main(int argc, char** argv) -> int try {
 
         transform.rotate({ 0.0f, 0.0f, 0.5f });
         
-        shader.setMatrix4("uTransform", camera.toMatrix4() * transform.toMatrix4());
+        shader.setMatrix4("uTransform", (camera * transform).toMat4());
 
         shader.use();
-        texture0.use(0);
-        texture1.use(1);
+        texture0.use();
+        texture1.use();
         triangle.draw();
 
         window.getRenderer()->endRendering();

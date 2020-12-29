@@ -4,7 +4,7 @@
  *
  */
 
-#include "Transform.h"
+#include "Matrix4.h"
 
 namespace SGL {
 
@@ -13,14 +13,14 @@ namespace SGL {
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
     /* ***************************************************************************************** */
-    Transform::Transform(
+    Matrix4::Matrix4(
     ) noexcept {
         m_Matrix4 = glm::mat4(1.0f);
     }
 
 
     /* ***************************************************************************************** */
-    Transform::~Transform(
+    Matrix4::~Matrix4(
     ) noexcept {
         m_Matrix4 = glm::mat4(1.0f);
     }
@@ -31,7 +31,7 @@ namespace SGL {
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
     /* ***************************************************************************************** */
-    auto Transform::createOrthoProjection(
+    auto Matrix4::createOrthoProjection(
         const Vector2<std::uint32_t>& viewPort,
         const float nearClipPlane,
         const float farClipPlane
@@ -45,7 +45,7 @@ namespace SGL {
 
 
     /* ***************************************************************************************** */
-    auto Transform::createPerspectiveProjection(
+    auto Matrix4::createPerspectiveProjection(
         const Vector2<std::uint32_t>& viewPort,
         const float fieldOfView,
         const float nearClipPlane,
@@ -60,7 +60,7 @@ namespace SGL {
 
 
     /* ***************************************************************************************** */
-    auto Transform::translate(
+    auto Matrix4::translate(
         const Vector3<float>& newPosition
     ) noexcept -> void {
         m_Matrix4 = glm::translate(m_Matrix4, glm::vec3(newPosition.x, newPosition.y, newPosition.z));
@@ -68,7 +68,7 @@ namespace SGL {
 
 
     /* ***************************************************************************************** */
-    auto Transform::rotate(
+    auto Matrix4::rotate(
         const Vector3<float>& newRotation
     ) noexcept -> void {
         m_Matrix4 = glm::rotate(m_Matrix4, glm::radians(newRotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
@@ -78,7 +78,7 @@ namespace SGL {
 
 
     /* ***************************************************************************************** */
-    auto Transform::scale(
+    auto Matrix4::scale(
         const Vector3<float>& newScale
     ) noexcept -> void {
         m_Matrix4 = glm::scale(m_Matrix4, glm::vec3(newScale.x, newScale.y, newScale.z));
@@ -86,7 +86,7 @@ namespace SGL {
 
 
     /* ***************************************************************************************** */
-    auto Transform::toMatrix4(
+    auto Matrix4::toMat4(
     ) const noexcept -> glm::mat4 {
         return m_Matrix4;
     }

@@ -18,6 +18,7 @@
 #include <array>
 #include <vector>
 #include <algorithm>
+#include <type_traits>
 // Precompiled header stuff
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

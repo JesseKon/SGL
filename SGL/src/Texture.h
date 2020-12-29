@@ -10,13 +10,18 @@
 #include "SGLCore.h"
 
 #include "stb_image.h"
+#include "TextureUnit.h"
 
 
 namespace SGL {
 
+
     class Texture
     {
     public:
+
+
+
 
         /// <summary>
         /// Default constructor.
@@ -25,6 +30,16 @@ namespace SGL {
         /// <returns></returns>
         SGL_API Texture(
         ) noexcept;
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <returns></returns>
+        SGL_API Texture(
+            const std::string& filename
+        );
 
 
         /// <summary>
@@ -48,11 +63,19 @@ namespace SGL {
         /// Throws if filename couldn't be opened.
         /// </exception>
         /// 
-        /// 
         /// <returns></returns>
         auto SGL_API load(
             const std::string& filename
         ) -> void;
+
+
+        /// <summary>
+        /// Destroy this texture and free its data from memory.
+        /// </summary>
+        /// 
+        /// <returns></returns>
+        auto SGL_API destroy(
+        ) noexcept -> void;
 
 
         /// <summary>
@@ -65,8 +88,21 @@ namespace SGL {
         /// 
         /// <returns></returns>
         auto SGL_API use(
-            const GLuint textureUnit = 0
         ) const noexcept -> void;
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// 
+        /// <param name="textureUnit">
+        /// 
+        /// </param>
+        /// 
+        /// <returns></returns>
+        auto SGL_API setTextureUnit(
+            const TextureUnit::type textureUnit
+        ) noexcept -> void;
 
 
     private:
@@ -75,6 +111,7 @@ namespace SGL {
         std::int32_t m_Channels;
 
         GLuint m_TextureID;
+        TextureUnit::type m_TextureUnit;
     };
 
 }

@@ -8,6 +8,7 @@
 #define _SGL_SHADERGLSL_H_
 
 #include "SGLCore.h"
+#include "Matrix4.h"
 
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"

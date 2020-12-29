@@ -8,6 +8,7 @@
 
 namespace SGL {
 
+
     ///////////////////////////////////////////////////////////////////////////////////////////////
     // Constructors and destructor
     ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -17,20 +18,29 @@ namespace SGL {
     ) noexcept {
         m_Width = m_Height = m_Channels = 0;
         m_TextureID = NULL;
+        m_TextureUnit = TextureUnit::Texture0;
 
         stbi_set_flip_vertically_on_load(true);
+    }
+
+
+    Texture::Texture(
+        const std::string& filename
+    ) {
+        m_Width = m_Height = m_Channels = 0;
+        m_TextureID = NULL;
+        m_TextureUnit = TextureUnit::Texture0;
+
+        stbi_set_flip_vertically_on_load(true);
+
+        load(filename);
     }
 
 
     /* ***************************************************************************************** */
     Texture::~Texture(
     ) noexcept {
-        m_Width = m_Height = m_Channels = 0;
-
-        if (m_TextureID) {
-            glDeleteTextures(1, &m_TextureID);
-            m_TextureID = NULL;
-        }
+        destroy();
     }
 
 
@@ -60,13 +70,32 @@ namespace SGL {
 
 
     /* ***************************************************************************************** */
+    auto Texture::destroy(
+    ) noexcept -> void {
+        m_Width = m_Height = m_Channels = 0;
+
+        if (m_TextureID) {
+            glDeleteTextures(1, &m_TextureID);
+            m_TextureID = NULL;
+        }
+
+        m_TextureUnit = TextureUnit::Texture0;
+    }
+
+
+    /* ***************************************************************************************** */
     auto Texture::use(
-        const GLuint textureUnit
     ) const noexcept -> void {
-        glActiveTexture(GL_TEXTURE0 + textureUnit);
+        glActiveTexture(m_TextureUnit);
         glBindTexture(GL_TEXTURE_2D, m_TextureID);
     }
 
 
+    /* ***************************************************************************************** */
+    auto Texture::setTextureUnit(
+        const TextureUnit::type textureUnit
+    ) noexcept -> void {
+        m_TextureUnit = textureUnit;
+    }
 
 }
