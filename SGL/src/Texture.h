@@ -8,6 +8,7 @@
 #define _SGL_TEXTURE_H_
 
 #include "SGLCore.h"
+#include "Vector2.h"
 
 #include "stb_image.h"
 #include "TextureUnit.h"
@@ -21,8 +22,6 @@ namespace SGL {
     public:
 
 
-
-
         /// <summary>
         /// Default constructor.
         /// </summary>
@@ -30,6 +29,16 @@ namespace SGL {
         /// <returns></returns>
         SGL_API Texture(
         ) noexcept;
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="size"></param>
+        /// <returns></returns>
+        SGL_API Texture(
+            const Vector2<std::uint32_t>& size
+        );
 
 
         /// <summary>
@@ -49,6 +58,17 @@ namespace SGL {
         /// <returns></returns>
         SGL_API ~Texture(
         ) noexcept;
+
+
+        /// <summary>
+        /// Create an empty texture.
+        /// </summary>
+        /// 
+        /// <param name="size"></param>
+        /// <returns></returns>
+        auto SGL_API create(
+            const Vector2<std::uint32_t>& size
+        ) -> void;
 
 
         /// <summary>
@@ -118,7 +138,9 @@ namespace SGL {
         std::int32_t m_Height;
         std::int32_t m_Channels;
 
-        GLuint m_TextureID;
+        GLuint m_Texture;
+        GLuint m_Framebuffer;
+        GLuint m_Renderbuffer;
         TextureUnit::type m_TextureUnit;
     };
 

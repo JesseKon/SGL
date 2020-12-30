@@ -8,7 +8,7 @@
 
 auto main(int argc, char** argv) -> int try {
 
-    SGL::Window window(SGL::RendererType::OpenGL3, { 640, 480 }, "Otsikko!");
+    SGL::Window window(SGL::RendererType::OpenGL3, { 640, 480 }, u8"Otsikkö!");
 
     SGL::ShaderGLSL shader("../assets/shaders/ColoredShader.vert", "../assets/shaders/ColoredShader.frag");
     SGL::Texture texture0, texture1;
@@ -20,6 +20,8 @@ auto main(int argc, char** argv) -> int try {
     texture1.load("../assets/textures/test256x256_1.png");
     texture1.setTextureUnit(SGL::TextureUnit::Texture1);
     shader.setTextureUnit("uTexture1", texture1.getTextureUnit());
+
+    SGL::Texture tex3(SGL::Vector2<std::uint32_t>(400, 300));
 
     SGL::Drawable triangle;
 
