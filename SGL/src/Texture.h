@@ -9,6 +9,7 @@
 
 #include "SGLCore.h"
 #include "Vector2.h"
+#include "Color.h"
 
 #include "stb_image.h"
 #include "TextureUnit.h"
@@ -109,6 +110,15 @@ namespace SGL {
         /// <returns></returns>
         auto SGL_API use(
         ) const noexcept -> void;
+
+
+        auto SGL_API beginDrawing(
+            const Color& color = SGL::COLOR::Black
+        ) noexcept -> void;
+
+
+        auto SGL_API endDrawing(
+        ) noexcept -> void;
 
 
         /// <summary>

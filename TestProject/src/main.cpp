@@ -10,22 +10,30 @@ auto main(int argc, char** argv) -> int try {
 
     SGL::Window window(SGL::RendererType::OpenGL3, { 640, 480 }, u8"Otsikkö!");
 
-    SGL::ShaderGLSL shader("../assets/shaders/ColoredShader.vert", "../assets/shaders/ColoredShader.frag");
+    SGL::ShaderGLSL shaderSingleTexture("../assets/shaders/SingleTexture.vert", "../assets/shaders/SingleTexture.frag");
+    SGL::ShaderGLSL shaderMultiTexture("../assets/shaders/MultiTexture.vert", "../assets/shaders/MultiTexture.frag");
+    
     SGL::Texture texture0, texture1;
     
+    // Textures loaded from disk
     texture0.load("../assets/textures/test256x256_0.png");
     texture0.setTextureUnit(SGL::TextureUnit::Texture0);
-    shader.setTextureUnit("uTexture0", texture0.getTextureUnit());
+    shaderMultiTexture.setTextureUnit("uTexture0", texture0.getTextureUnit());
 
     texture1.load("../assets/textures/test256x256_1.png");
     texture1.setTextureUnit(SGL::TextureUnit::Texture1);
-    shader.setTextureUnit("uTexture1", texture1.getTextureUnit());
+    shaderMultiTexture.setTextureUnit("uTexture1", texture1.getTextureUnit());
 
-    SGL::Texture tex3(SGL::Vector2<std::uint32_t>(400, 300));
+    // Drawable texture
+    SGL::Texture texture3;
+    texture3.create(SGL::Vector2<std::uint32_t>(400, 300));
+    texture3.setTextureUnit(SGL::TextureUnit::Texture0);
+    shaderSingleTexture.setTextureUnit("uTexture", texture3.getTextureUnit());
 
-    SGL::Drawable triangle;
+    SGL::Drawable quad1, quad2;
 
-    triangle.setData({
+    // Quad1
+    quad1.setData({
         //  vertex              tex coords
             0.5f,  0.5f, 0.0f,  1.0f, 1.0f,   // top right
             0.5f, -0.5f, 0.0f,  1.0f, 0.0f,   // bottom right
@@ -33,35 +41,72 @@ auto main(int argc, char** argv) -> int try {
            -0.5f,  0.5f, 0.0f,  0.0f, 1.0f    // top left 
     });
 
-    triangle.setVertexAttributes({
+    quad1.setVertexAttributes({
         //  vertex      tex coords
             {0, 3},     { 1, 2 } 
     });
 
-    triangle.setIndices({ 0, 1, 3, 1, 2, 3 });
+    quad1.setIndices({ 0, 1, 3, 1, 2, 3 });
+    quad1.setDrawMethod(SGL::DrawMethod::Static);
+    quad1.setDrawMode(SGL::DrawMode::Triangles);
+    quad1.configure();
 
-    triangle.setDrawMethod(SGL::DrawMethod::Static);
-    triangle.setDrawMode(SGL::DrawMode::Triangles);
-    triangle.configure();
+    // Quad2
+    quad2.setData({
+        //  vertex              tex coords
+            0.5f,  0.5f, 0.0f,  1.0f, 1.0f,   // top right
+            0.5f, -0.5f, 0.0f,  1.0f, 0.0f,   // bottom right
+           -0.5f, -0.5f, 0.0f,  0.0f, 0.0f,   // bottom left
+           -0.5f,  0.5f, 0.0f,  0.0f, 1.0f    // top left 
+        });
 
-    SGL::Matrix4 transform, camera;
-    transform.translate({ 200.0f, 200.0f, 0.0f });
-    transform.scale({ 300, 300, 1.0f });
-    camera.createOrthoProjection({ 640, 480 }, -0.1f, 100.0f);
+    quad2.setVertexAttributes({
+        //  vertex      tex coords
+            {0, 3},     { 1, 2 }
+        });
+
+    quad2.setIndices({ 0, 1, 3, 1, 2, 3 });
+    quad2.setDrawMethod(SGL::DrawMethod::Static);
+    quad2.setDrawMode(SGL::DrawMode::Triangles);
+    quad2.configure();
+
+    // Create matrices
+    SGL::Matrix4 transform1, transform2, camera;
+    transform1.translate({ 200.0f, 200.0f, 0.0f });
+    transform2.translate({ 400.0f, 300.0f, 0.0f });
+    transform1.scale({ 300.0f, 300.0f, 1.0f });
+    transform2.scale({ 200.0f, 200.0f, 1.0f });
+    camera.createOrthoProjection({ 640u, 480u }, -0.1f, 100.0f);
 
     while (window.getRenderer()->running()) {
-        window.getRenderer()->beginRendering(SGL::COLOR::Yellow);
 
-        transform.rotate({ 0.0f, 0.0f, 0.5f });
-        
-        shader.setMatrix4("uTransform", (camera * transform).toMat4());
+        // Draw to texture
+        texture3.beginDrawing(SGL::COLOR::Lime);
 
-        shader.use();
+        // TODO: do some drawing
+
+        texture3.endDrawing();
+
+
+        // Draw to screen
+        window.getRenderer()->beginDrawing(SGL::COLOR::Yellow);
+
+        // First quad
+        transform1.rotate({ 0.0f, 0.0f,  0.5f });
+        shaderMultiTexture.setActive();
+        shaderMultiTexture.setMatrix4("uTransform", (camera * transform1).toMat4());
         texture0.use();
         texture1.use();
-        triangle.draw();
+        quad1.draw();
 
-        window.getRenderer()->endRendering();
+        // Second quad
+        transform2.rotate({ 0.0f, 0.0f, -0.5f });
+        shaderSingleTexture.setActive();
+        shaderSingleTexture.setMatrix4("uTransform", (camera * transform2).toMat4());
+        texture3.use();
+        quad2.draw();
+
+        window.getRenderer()->endDrawing();
     }
 
     return EXIT_SUCCESS;

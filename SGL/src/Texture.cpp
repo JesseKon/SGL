@@ -158,6 +158,26 @@ namespace SGL {
 
 
     /* ***************************************************************************************** */
+    auto Texture::beginDrawing(
+        const Color& color
+    ) noexcept -> void {
+        glBindFramebuffer(GL_FRAMEBUFFER, m_Framebuffer);
+        glClearColor(
+            color.getRedf<float>(), color.getGreenf<float>(),
+            color.getBluef<float>(), color.getAlphaf<float>()
+        );
+        glClear(GL_COLOR_BUFFER_BIT);
+    }
+
+
+    /* ***************************************************************************************** */
+    auto Texture::endDrawing(
+    ) noexcept -> void {
+        glBindFramebuffer(GL_FRAMEBUFFER, NULL);
+    }
+
+
+    /* ***************************************************************************************** */
     auto Texture::setTextureUnit(
         const TextureUnit::type textureUnit
     ) noexcept -> void {

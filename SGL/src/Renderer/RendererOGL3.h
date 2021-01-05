@@ -74,18 +74,12 @@ namespace SGL {
         ) const noexcept -> bool override;
 
 
-        SGL_API auto beginRendering(
+        SGL_API auto beginDrawing(
             const Color& color
         ) const noexcept -> void override;
 
 
-        virtual auto draw(
-            const Drawable& drawable,
-            const ShaderGLSL& shader
-        ) const noexcept -> void override;
-
-
-        SGL_API auto endRendering(
+        SGL_API auto endDrawing(
         ) const noexcept -> void override;
 
 

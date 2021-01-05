@@ -74,24 +74,15 @@ namespace SGL {
         /**
          * 
          */
-        virtual auto beginRendering(
+        virtual auto beginDrawing(
             const Color& color
-        ) const noexcept -> void = 0;
-
-
-        /**
-         * Draw content.
-         */
-        virtual auto draw(
-            const Drawable& drawable,
-            const ShaderGLSL& shader
         ) const noexcept -> void = 0;
 
 
         /**
          * 
          */
-        virtual auto endRendering(
+        virtual auto endDrawing(
         ) const noexcept -> void = 0;
 
 

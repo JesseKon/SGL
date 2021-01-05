@@ -109,7 +109,7 @@ namespace SGL {
 
 
     /* ***************************************************************************************** */
-    auto RendererOGL3::beginRendering(
+    auto RendererOGL3::beginDrawing(
         const Color& color
     ) const noexcept -> void {
         glClearColor(
@@ -121,18 +121,7 @@ namespace SGL {
 
 
     /* ***************************************************************************************** */
-    auto RendererOGL3::draw(
-        const Drawable& drawable,
-        const ShaderGLSL& shader
-    ) const noexcept -> void {
-        shader.use();
-        drawable.draw();
-    }
-
-
-
-    /* ***************************************************************************************** */
-    auto RendererOGL3::endRendering(
+    auto RendererOGL3::endDrawing(
     ) const noexcept -> void {
         glfwSwapBuffers(m_pGLFWwindow);
     };

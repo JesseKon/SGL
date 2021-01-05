@@ -121,7 +121,7 @@ namespace SGL {
         glDeleteShader(fragmentShader);
 
         // Shader has to be used at least once before its uniforms can be accessed
-        use();
+        setActive();
     };
 
 
@@ -136,13 +136,6 @@ namespace SGL {
 
 
     /* ***************************************************************************************** */
-    auto ShaderGLSL::use(
-    ) const noexcept -> void {
-        glUseProgram(m_ProgramID);
-    }
-
-
-    /* ***************************************************************************************** */
     auto ShaderGLSL::setTextureUnit(
         const std::string& textureName,
         const TextureUnit::type textureUnit
@@ -152,12 +145,29 @@ namespace SGL {
 
 
     /* ***************************************************************************************** */
+    auto ShaderGLSL::setActive(
+    ) const noexcept -> void {
+        glUseProgram(m_ProgramID);
+    }
+
+
+    /* ***************************************************************************************** */
     auto ShaderGLSL::setInt(
         const std::string& uniformName,
-        const std::int32_t& value
+        const std::int32_t value
     ) noexcept -> void {
         GLuint location = glGetUniformLocation(m_ProgramID, uniformName.c_str());
         glUniform1i(location, static_cast<GLint>(value));
+    }
+
+
+    /* ***************************************************************************************** */
+    auto ShaderGLSL::setFloat(
+        const std::string& uniformName,
+        const float value
+    ) noexcept -> void {
+        GLuint location = glGetUniformLocation(m_ProgramID, uniformName.c_str());
+        glUniform1i(location, value);
     }
 
 

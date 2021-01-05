@@ -88,43 +88,67 @@ namespace SGL {
 
 
         /// <summary>
-        /// Set this shader active for the following draw commands.
+        /// Set texture unit for the corresponding sampler2D uniform.
+        /// </summary>
+        /// 
+        /// <param name="uniformName"></param>
+        /// <param name="value"></param>
+        /// 
+        /// <returns></returns>
+        auto SGL_API setTextureUnit(
+            const std::string& uniformName,
+            const TextureUnit::type textureUnit
+        ) noexcept -> void;
+
+
+        /// <summary>
+        /// Set this shader active for subsequent commands. Note that shader has to be set active
+        /// before its uniforms can be changed.
         /// </summary>
         /// 
         /// <returns></returns>
-        auto SGL_API use(
+        auto SGL_API setActive(
         ) const noexcept -> void;
 
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="uniformName"></param>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        auto SGL_API setTextureUnit(
-            const std::string& textureName,
-            const TextureUnit::type textureUnit
-        ) noexcept -> void;
-
-
-        /// <summary>
         /// 
-        /// </summary>
         /// <param name="uniformName"></param>
+        /// 
         /// <param name="value"></param>
+        /// 
         /// <returns></returns>
         auto SGL_API setInt(
             const std::string& uniformName,
-            const std::int32_t& value
+            const std::int32_t value
         ) noexcept -> void;
 
 
         /// <summary>
         /// 
         /// </summary>
+        /// 
         /// <param name="uniformName"></param>
+        /// 
         /// <param name="value"></param>
+        /// 
+        /// <returns></returns>
+        auto SGL_API setFloat(
+            const std::string& uniformName,
+            const float value
+        ) noexcept -> void;
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// 
+        /// <param name="uniformName"></param>
+        /// 
+        /// <param name="value"></param>
+        /// 
         /// <returns></returns>
         auto SGL_API setVector4(
             const std::string& uniformName,
@@ -135,8 +159,11 @@ namespace SGL {
         /// <summary>
         /// 
         /// </summary>
+        /// 
         /// <param name="uniformName"></param>
+        /// 
         /// <param name="value"></param>
+        /// 
         /// <returns></returns>
         auto SGL_API setMatrix4(
             const std::string& uniformName,
