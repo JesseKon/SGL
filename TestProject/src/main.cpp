@@ -26,7 +26,7 @@ auto main(int argc, char** argv) -> int try {
 
     // Drawable texture
     SGL::Texture texture3;
-    texture3.create(SGL::Vector2<std::uint32_t>(400, 300));
+    texture3.create(SGL::Vector2<std::uint32_t>(640, 480));
     texture3.setTextureUnit(SGL::TextureUnit::Texture0);
     shaderSingleTexture.setTextureUnit("uTexture", texture3.getTextureUnit());
 
@@ -72,24 +72,18 @@ auto main(int argc, char** argv) -> int try {
 
     // Create matrices
     SGL::Matrix4 transform1, transform2, camera;
-    transform1.translate({ 200.0f, 200.0f, 0.0f });
-    transform2.translate({ 400.0f, 300.0f, 0.0f });
-    transform1.scale({ 300.0f, 300.0f, 1.0f });
-    transform2.scale({ 200.0f, 200.0f, 1.0f });
+    transform1.translate({ 640.0f / 2.0f, 480.0f / 2.0f, -2.0f });
+    transform1.scale({ 256.0f, 256.0f, 1.0f });
+
+    transform2.translate({ 640.0f / 2.0f, 480.0f / 2.0f, -1.0f });
+    transform2.scale({ 640.0f * 0.9f, 480.0f * 0.9f, 1.0f });
+
     camera.createOrthoProjection({ 640u, 480u }, -0.1f, 100.0f);
 
     while (window.getRenderer()->running()) {
 
         // Draw to texture
         texture3.beginDrawing(SGL::COLOR::Lime);
-
-        // TODO: do some drawing
-
-        texture3.endDrawing();
-
-
-        // Draw to screen
-        window.getRenderer()->beginDrawing(SGL::COLOR::Yellow);
 
         // First quad
         transform1.rotate({ 0.0f, 0.0f,  0.5f });
@@ -99,8 +93,13 @@ auto main(int argc, char** argv) -> int try {
         texture1.use();
         quad1.draw();
 
-        // Second quad
-        transform2.rotate({ 0.0f, 0.0f, -0.5f });
+        texture3.endDrawing();
+
+
+        // Draw to screen
+        window.getRenderer()->beginDrawing(SGL::COLOR::Yellow);
+
+        // Second quad whose texture contains the first quad
         shaderSingleTexture.setActive();
         shaderSingleTexture.setMatrix4("uTransform", (camera * transform2).toMat4());
         texture3.use();

@@ -86,6 +86,7 @@ namespace SGL {
         }
 
         glViewport(0, 0, static_cast<int>(m_WindowSize.x), static_cast<int>(m_WindowSize.y));
+        glEnable(GL_DEPTH_TEST);
     }
 
 
@@ -112,11 +113,12 @@ namespace SGL {
     auto RendererOGL3::beginDrawing(
         const Color& color
     ) const noexcept -> void {
+        //glViewport(0, 0, m_WindowSize.x, m_WindowSize.y);
         glClearColor(
             color.getRedf<float>(), color.getGreenf<float>(),
             color.getBluef<float>(), color.getAlphaf<float>()
         );
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
 
 

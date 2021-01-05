@@ -149,8 +149,8 @@ namespace SGL {
 
         /// <summary>
         /// Configure this object. Every drawable object has to be configured before it can be 
-        /// used. Note that before configurating the object, it needs to have its data, indices 
-        /// and vertex attributes set.
+        /// used. Note that before the object can be configured, it needs to have its data, 
+        /// indices and vertex attributes set.
         /// </summary>
         /// 
         /// <returns></returns>

@@ -122,11 +122,28 @@ namespace SGL {
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_Indices.size() * sizeof(decltype(m_Indices.data())),
             m_Indices.data(), static_cast<GLenum>(m_DrawMethod));
 
+        std::size_t offset = 0;
         for (std::size_t i = 0; i < m_VertexAttributes.size(); ++i) {
-            glVertexAttribPointer(m_VertexAttributes.at(i).at(0), m_VertexAttributes.at(i).at(1),
-                GL_FLOAT, GL_FALSE, m_Stride * sizeof(float), nullptr);
+            glVertexAttribPointer(
+                m_VertexAttributes.at(i).at(0),
+                m_VertexAttributes.at(i).at(1),
+                GL_FLOAT,
+                GL_FALSE,
+                m_Stride * sizeof(decltype(m_Data.data())),
+                (void*)(offset * sizeof(decltype(m_Data.data())))
+            );
+
             glEnableVertexAttribArray(m_VertexAttributes.at(i).at(0));
+            offset += m_VertexAttributes.at(i).at(1);
         }
+
+        //// Position
+        //glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+        //glEnableVertexAttribArray(0);
+
+        //// Texture coord
+        //glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+        //glEnableVertexAttribArray(1);
     }
 
 

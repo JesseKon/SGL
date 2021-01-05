@@ -161,12 +161,13 @@ namespace SGL {
     auto Texture::beginDrawing(
         const Color& color
     ) noexcept -> void {
+        //glViewport(0, 0, 640, 480);
         glBindFramebuffer(GL_FRAMEBUFFER, m_Framebuffer);
         glClearColor(
             color.getRedf<float>(), color.getGreenf<float>(),
             color.getBluef<float>(), color.getAlphaf<float>()
         );
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
 
 
