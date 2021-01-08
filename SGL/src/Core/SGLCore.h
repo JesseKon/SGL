@@ -40,4 +40,9 @@
 
 #endif
 
+namespace SGL {
+    using runtimeError = std::runtime_error;
+}
+
+
 #endif  /* _SGL_CORE_H_ */

@@ -4,7 +4,6 @@
  *
  */
 
-#include "sglpch.h"
 #include "ShaderGLSL.h"
 
 namespace SGL {

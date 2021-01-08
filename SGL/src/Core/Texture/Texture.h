@@ -13,6 +13,7 @@
 
 #include "stb_image.h"
 #include "TextureUnit.h"
+#include "TextureFilter.h"
 
 
 namespace SGL {
@@ -38,7 +39,8 @@ namespace SGL {
         /// <param name="size"></param>
         /// <returns></returns>
         SGL_API Texture(
-            const Vector2<std::uint32_t>& size
+            const Vector2<std::uint32_t>& size,
+            const TextureFilter textureFilter = TextureFilter::Nearest
         );
 
 
@@ -48,7 +50,8 @@ namespace SGL {
         /// <param name="filename"></param>
         /// <returns></returns>
         SGL_API Texture(
-            const std::string& filename
+            const std::string& filename,
+            const TextureFilter textureFilter = TextureFilter::Nearest
         );
 
 
@@ -68,7 +71,8 @@ namespace SGL {
         /// <param name="size"></param>
         /// <returns></returns>
         auto SGL_API create(
-            const Vector2<std::uint32_t>& size
+            const Vector2<std::uint32_t>& size,
+            const TextureFilter textureFilter = TextureFilter::Nearest
         ) -> void;
 
 
@@ -86,7 +90,8 @@ namespace SGL {
         /// 
         /// <returns></returns>
         auto SGL_API load(
-            const std::string& filename
+            const std::string& filename,
+            const TextureFilter textureFilter = TextureFilter::Nearest
         ) -> void;
 
 
@@ -112,11 +117,36 @@ namespace SGL {
         ) const noexcept -> void;
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// 
+        /// <param name="textureFilter"></param>
+        /// 
+        /// <returns></returns>
+        auto SGL_API setFilter(
+            const TextureFilter textureFilter
+        ) noexcept -> void;
+
+
+        /// <summary>
+        /// Begin drawing to this texture.
+        /// </summary>
+        /// 
+        /// <param name="color"></param>
+        /// 
+        /// <returns></returns>
         auto SGL_API beginDrawing(
             const Color& color = SGL::COLOR::Black
         ) noexcept -> void;
 
 
+        /// <summary>
+        /// Finish drawing to this texture. Subsequent drawing commands are directed to main
+        /// renderer.
+        /// </summary>
+        /// 
+        /// <returns></returns>
         auto SGL_API endDrawing(
         ) noexcept -> void;
 

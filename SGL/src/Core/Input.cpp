@@ -4,7 +4,6 @@
 * 
 */
 
-#include "sglpch.h"
 #include "Input.h"
 
 namespace SGL {
@@ -58,7 +57,7 @@ namespace SGL {
         if (!window) {
             std::stringstream ss;
             ss << ">>> Error > Input::create() > window was nullptr.\n";
-            throw std::runtime_error(ss.str());
+            throw runtimeError(ss.str());
         }
 
         m_pGLFWwindow = const_cast<GLFWwindow*>(window);

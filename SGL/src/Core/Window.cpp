@@ -4,7 +4,6 @@
  *
  */
 
-#include "sglpch.h"
 #include "Window.h"
 
 namespace SGL {
@@ -56,7 +55,7 @@ namespace SGL {
         else {
             std::stringstream ss;
             ss << ">>> Error > Window::create() > No renderer type selected.\n";
-            throw std::runtime_error(ss.str());
+            throw runtimeError(ss.str());
         }
 
         m_pInput = new Input(m_pRenderer->getGLFWwindow());

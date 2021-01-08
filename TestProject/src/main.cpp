@@ -82,6 +82,17 @@ auto main(int argc, char** argv) -> int try {
 
     while (window.getRenderer()->running()) {
 
+        if (window.getInput()->getKeyPressed(SGL::KEYCODE::KEY_A)) {
+            texture0.setFilter(SGL::TextureFilter::Linear);
+            texture1.setFilter(SGL::TextureFilter::Linear);
+        }
+
+        if (window.getInput()->getKeyPressed(SGL::KEYCODE::KEY_S)) {
+            texture0.setFilter(SGL::TextureFilter::Nearest);
+            texture1.setFilter(SGL::TextureFilter::Nearest);
+        }
+
+
         // Draw to texture
         texture3.beginDrawing(SGL::COLOR::Lime);
 
@@ -97,7 +108,7 @@ auto main(int argc, char** argv) -> int try {
 
 
         // Draw to screen
-        window.getRenderer()->beginDrawing(SGL::COLOR::Yellow);
+        window.getRenderer()->beginDrawing(true, true, true, SGL::COLOR::Blue);
 
         // Second quad whose texture contains the first quad
         shaderSingleTexture.setActive();
@@ -111,7 +122,7 @@ auto main(int argc, char** argv) -> int try {
     return EXIT_SUCCESS;
 }
 
-catch (const std::runtime_error& e) {
+catch (const SGL::runtimeError& e) {
     std::cerr << e.what();
     return EXIT_FAILURE;
 }

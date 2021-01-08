@@ -7,6 +7,9 @@
 
 namespace SGL {
 
+    /// <summary>
+    /// 
+    /// </summary>
     struct TextureUnit {
         SGL_API static const decltype(GL_TEXTURE0) Texture0;
         SGL_API static const decltype(GL_TEXTURE1) Texture1;
@@ -25,6 +28,9 @@ namespace SGL {
         SGL_API static const decltype(GL_TEXTURE14) Texture14;
         SGL_API static const decltype(GL_TEXTURE15) Texture15;
 
+        /// <summary>
+        /// 
+        /// </summary>
         using type = decltype(GL_TEXTURE0);
     };
 

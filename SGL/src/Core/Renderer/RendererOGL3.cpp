@@ -4,7 +4,6 @@
 *
 */
 
-#include "sglpch.h"
 #include "RendererOGL3.h"
 
 namespace SGL {
@@ -56,7 +55,7 @@ namespace SGL {
         if (!glfwInit()) {
             std::stringstream ss;
             ss << ">>> Error > RendererOGL3::RendererOGL3() > Could not init GLFW.\n";
-            throw std::runtime_error(ss.str());
+            throw runtimeError(ss.str());
         }
 
         // OpenGL 3.3 Core
@@ -73,7 +72,7 @@ namespace SGL {
             ss << ">>> Error > RendererOGL3::RendererOGL3() > Could not create window ";
             ss << "[width=" << std::to_string(m_WindowSize.x) << " height=" << std::to_string(m_WindowSize.y);
             ss << " title=\"" << m_WindowTitle << "\"].\n";
-            throw std::runtime_error(ss.str());
+            throw runtimeError(ss.str());
         }
 
         glfwMakeContextCurrent(m_pGLFWwindow);
@@ -82,11 +81,14 @@ namespace SGL {
         if (!gladLoadGLLoader((GLADloadproc)(glfwGetProcAddress))) {
             std::stringstream ss;
             ss << ">>> Error > RendererOGL3::RendererOGL3() > Could not init GLAD.";
-            throw std::runtime_error(ss.str());
+            throw runtimeError(ss.str());
         }
 
         glViewport(0, 0, static_cast<int>(m_WindowSize.x), static_cast<int>(m_WindowSize.y));
         glEnable(GL_DEPTH_TEST);
+        glEnable(GL_STENCIL_TEST);
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     }
 
 
@@ -111,9 +113,11 @@ namespace SGL {
 
     /* ***************************************************************************************** */
     auto RendererOGL3::beginDrawing(
+        const bool clearColorBuffer,
+        const bool clearDepthBuffer,
+        const bool clearStencilBuffer,
         const Color& color
     ) const noexcept -> void {
-        //glViewport(0, 0, m_WindowSize.x, m_WindowSize.y);
         glClearColor(
             color.getRedf<float>(), color.getGreenf<float>(),
             color.getBluef<float>(), color.getAlphaf<float>()

@@ -11,7 +11,6 @@
 #include "Renderer.h"
 
 
-
 namespace SGL {
 
     using SGLKey = std::int32_t;
@@ -29,79 +28,113 @@ namespace SGL {
         ) noexcept -> void;
 
 
-        /**
-         * Default constructor. 
-         * 
-         * Note: this doesn't actually initialize input handler. Call create() to do so.
-         */
+        /// <summary>
+        /// Default constructor. This does not initialize input handler, call create() to do so.
+        /// </summary>
+        /// 
+        /// <returns></returns>
         SGL_API Input(
         ) noexcept;
 
 
-        /**
-         * Initialize and bind input handler to the desired window. 
-         * 
-         * @param window The desired window.
-         * @exception Throws std::runtime_error if window was nullptr.
-         */
+        /// <summary>
+        /// Initialize and bind input handler to the desired window. 
+        /// </summary>
+        /// 
+        /// <param name="window">
+        /// The desired window.
+        /// </param>
+        /// 
+        /// <exception cref="SGL::runtime_error">
+        /// Throws if window was nullptr.
+        /// </exception>
+        /// 
+        /// <returns></returns>
         SGL_API Input(
             const GLFWwindow* window
         );
 
 
-        /**
-         * Destructor.
-         */
+        /// <summary>
+        /// Destructor.
+        /// </summary>
+        /// 
+        /// <returns></returns>
         SGL_API ~Input(
         );
 
 
-        /**
-         * Initialize and bind input handler to the desired window. 
-         *
-         * @param window The desired window.
-         * @exception Throws std::runtime_error if window was nullptr.
-         */
+        /// <summary>
+        /// Initialize and bind input handler to the desired window. 
+        /// </summary>
+        /// 
+        /// <param name="window">
+        /// The desired window.
+        /// </param>
+        /// 
+        /// <exception cref="SGL::runtime_error">
+        /// Throws if window was nullptr.
+        /// </exception>
+        /// 
+        /// <returns></returns>
         SGL_API auto create(
             const GLFWwindow* window
         ) -> void;
 
 
-        /**
-         * Nullify this instance. Destructor calls it automatically. 
-         */
+        /// <summary>
+        /// Nullify this instance. Destructor calls it automatically. 
+        /// </summary>
+        /// 
+        /// <returns></returns>
         SGL_API auto destroy(
         ) noexcept -> void;
 
 
-        /**
-         * Check whether the desired keyboard key is currently being pressed down.
-         * 
-         * @param key The desired keyboard key.
-         * @return True if the key is currently being pressed down, false otherwise.
-         */
+        /// <summary>
+        /// Check whether the desired keyboard key is currently being pressed down.
+        /// </summary>
+        /// 
+        /// <param name="key">
+        /// The desired keyboard key.
+        /// </param>
+        /// 
+        /// <returns>
+        /// True if the key is currently being pressed down, false otherwise.
+        /// </returns>
         SGL_API auto getKey(
             const SGLKey key
         ) const noexcept -> bool;
 
 
-        /**
-         * Check whether the desired keyboard key was just pressed down.
-         *
-         * @param key The desired keyboard key.
-         * @return True if the key was just pressed down, false otherwise.
-         */
+
+        /// <summary>
+        /// Check whether the desired keyboard key was just pressed down.
+        /// </summary>
+        /// 
+        /// <param name="key">
+        /// The desired keyboard key.
+        /// </param>
+        /// 
+        /// <returns>
+        /// True if the key was just pressed down, false otherwise.
+        /// </returns>
         SGL_API auto getKeyPressed(
             const SGLKey key
         ) const noexcept -> bool;
 
 
-        /**
-         * Check whether the desired keyboard key was just released.
-         *
-         * @param key The desired keyboard key.
-         * @return True if the key was just released, false otherwise.
-         */
+        /// <summary>
+        /// Check whether the desired keyboard key was just released.
+        /// </summary>
+        /// 
+        /// <param name="key">
+        /// The desired keyboard key.
+        /// </param>
+        /// 
+        /// <returns>
+        /// True if the key was just released, false otherwise.
+        /// </returns>
         SGL_API auto getKeyReleased(
             const SGLKey key
         ) const noexcept -> bool;
@@ -110,11 +143,13 @@ namespace SGL {
     private:
         static constexpr std::size_t NUM_OF_KEYS = 512;
         static std::array<bool, NUM_OF_KEYS> m_KeyStateChanged;
-
         GLFWwindow* m_pGLFWwindow;
     };
 
 
+    /// <summary>
+    /// Key codes.
+    /// </summary>
     namespace KEYCODE {
         extern const SGL_API SGLKey KEY_A;
         extern const SGL_API SGLKey KEY_B;
@@ -146,4 +181,4 @@ namespace SGL {
 
 }  /* namespace SGL */
 
-#endif  /* _SGL_INPUT_H_ */
+#endif  /* _SGL_INPUT_H_ */ 

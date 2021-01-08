@@ -4,7 +4,6 @@
 *
 */
 
-#include "sglpch.h"
 #include "Color.h"
 
 namespace SGL {

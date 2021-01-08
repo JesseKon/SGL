@@ -37,12 +37,18 @@ project "SGL"
     objdir ("bin-int/%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}/SGL")
 
     files {
-		"SGL/src/**.h",
+        "SGL/src/**.h",
         "SGL/src/**.cpp",
-        "SGL/src/Renderer/**.h",
-        "SGL/src/Renderer/**.cpp",
-        "SGL/src/Shader/**.h",
-        "SGL/src/Shader/**.cpp",
+		"SGL/src/Core/**.h",
+        "SGL/src/Core/**.cpp",
+        "SGL/src/Core/Drawable/**.h",
+        "SGL/src/Core/Drawable/**.cpp",
+        "SGL/src/Core/Renderer/**.h",
+        "SGL/src/Core/Renderer/**.cpp",
+        "SGL/src/Core/Shader/**.h",
+        "SGL/src/Core/Shader/**.cpp",
+        "SGL/src/Core/Texture/**.h",
+        "SGL/src/Core/Texture/**.cpp",
         "dependencies/glad/src/**.c",
         "dependencies/stb_image/*.h",
         "dependencies/stb_image/**.cpp",
@@ -55,9 +61,12 @@ project "SGL"
         systemversion "latest"
 
         includedirs {
-            "SGL/src",
-            "SGL/src/Renderer/",
-            "SGL/src/Shader/",
+            "SGL/src/",
+            "SGL/src/Core/",
+            "SGL/src/Core/Drawable/",
+            "SGL/src/Core/Renderer/",
+            "SGL/src/Core/Shader/",
+            "SGL/src/Core/Texture/",
         }
 
         links {
@@ -117,9 +126,12 @@ project "TestProject"
     }
 
     includedirs {
-        "SGL/src",
-        "SGL/src/Renderer/",
-        "SGL/src/Shader/",
+        "SGL/src/",
+        "SGL/src/Core/",
+        "SGL/src/Core/Drawable/",
+        "SGL/src/Core/Renderer/",
+        "SGL/src/Core/Shader/",
+        "SGL/src/Core/Texture/",
     }
 
     links {

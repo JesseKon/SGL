@@ -9,19 +9,24 @@
 
 #include "SGLCore.h"
 
+#include "Drawable.h"
+#include "DrawMethod.h"
+#include "DrawMode.h"
+
 #include "Renderer.h"
 #include "RendererOGL3.h"
-#include "Window.h"
+
 #include "ShaderGLSL.h"
-#include "TextureUnit.h"
+
 #include "Texture.h"
-#include "Drawable.h"
-#include "Input.h"
+#include "TextureFilter.h"
+#include "TextureUnit.h"
 
 #include "Color.h"
+#include "Input.h"
+#include "Matrix4.h"
 #include "Vector2.h"
 #include "Vector3.h"
-#include "Matrix4.h"
-
+#include "Window.h"
 
 #endif  /* _SGL_H_ */

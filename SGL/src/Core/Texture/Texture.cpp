@@ -28,15 +28,17 @@ namespace SGL {
 
     /* ***************************************************************************************** */
     Texture::Texture(
-        const Vector2<std::uint32_t>& size
+        const Vector2<std::uint32_t>& size,
+        const TextureFilter textureFilter
     ) {
-        create(size);
+        create(size, textureFilter);
     }
 
 
     /* ***************************************************************************************** */
     Texture::Texture(
-        const std::string& filename
+        const std::string& filename,
+        const TextureFilter textureFilter
     ) {
         m_Width = m_Height = m_Channels = 0;
         m_Texture = NULL;
@@ -46,7 +48,7 @@ namespace SGL {
 
         stbi_set_flip_vertically_on_load(true);
 
-        load(filename);
+        load(filename, textureFilter);
     }
 
 
@@ -63,7 +65,8 @@ namespace SGL {
 
     /* ***************************************************************************************** */
     auto Texture::create(
-        const Vector2<std::uint32_t>& size
+        const Vector2<std::uint32_t>& size,
+        const TextureFilter textureFilter
     ) -> void {
         destroy();
 
@@ -79,8 +82,8 @@ namespace SGL {
         glBindRenderbuffer(GL_RENDERBUFFER, m_Renderbuffer);
 
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_Width, m_Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, static_cast<GLint>(textureFilter));
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, static_cast<GLint>(textureFilter));
 
         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_Texture, 0);
 
@@ -99,7 +102,8 @@ namespace SGL {
 
     /* ***************************************************************************************** */
     auto Texture::load(
-        const std::string& filename
+        const std::string& filename,
+        const TextureFilter textureFilter
     ) -> void {
         destroy();
 
@@ -114,8 +118,8 @@ namespace SGL {
         }
 
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_Width, m_Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, static_cast<GLint>(textureFilter));
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, static_cast<GLint>(textureFilter));
         glGenerateMipmap(GL_TEXTURE_2D);
 
         stbi_image_free(data);
@@ -154,6 +158,16 @@ namespace SGL {
     ) const noexcept -> void {
         glActiveTexture(m_TextureUnit);
         glBindTexture(GL_TEXTURE_2D, m_Texture);
+    }
+
+
+    /* ***************************************************************************************** */
+    auto Texture::setFilter(
+        const TextureFilter textureFilter
+    ) noexcept -> void {
+        glBindTexture(GL_TEXTURE_2D, m_Texture);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, static_cast<GLint>(textureFilter));
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, static_cast<GLint>(textureFilter));
     }
 
 

@@ -8,26 +8,13 @@
 #define _SGL_DRAWABLE_H_
 
 #include "SGLCore.h"
+#include "DrawMethod.h"
+#include "DrawMode.h"
 
 namespace SGL {
 
-    /// <summary>
-    /// Drawing methods. 
-    /// </summary>
-    enum class DrawMethod : GLenum {
-        Static = GL_STATIC_DRAW,
-        Dynamic = GL_DYNAMIC_DRAW
-    };
 
 
-    /// <summary>
-    /// Drawing modes.
-    /// </summary>
-    enum class DrawMode : GLenum {
-        Points = GL_POINTS,
-        Lines = GL_LINES,
-        Triangles = GL_TRIANGLES
-    };
 
 
     /// <summary>
@@ -37,6 +24,9 @@ namespace SGL {
     using VertexAttributes = std::vector<std::array<GLuint, 2>>;
 
 
+    /// <summary>
+    /// Drawables are objects that renderer can draw.
+    /// </summary>
     class Drawable
     {
     public:

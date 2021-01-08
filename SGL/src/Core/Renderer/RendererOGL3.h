@@ -75,6 +75,9 @@ namespace SGL {
 
 
         SGL_API auto beginDrawing(
+            const bool clearColorBuffer,
+            const bool clearDepthBuffer,
+            const bool clearStencilBuffer,
             const Color& color
         ) const noexcept -> void override;
 
