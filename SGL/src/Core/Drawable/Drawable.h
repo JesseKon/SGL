@@ -38,26 +38,20 @@ namespace SGL {
         /// <summary>
         /// Destructor.
         /// </summary>
-        /// 
-        /// <returns></returns>
         SGL_API ~Drawable(
         ) noexcept;
 
 
         /// <summary>
-        /// 
+        /// Create an empty object.
         /// </summary>
-        /// 
-        /// <returns></returns>
         auto SGL_API create(
         ) -> void;
 
 
         /// <summary>
-        /// 
+        /// Destroy this object and free its resources.
         /// </summary>
-        /// 
-        /// <returns></returns>
         auto SGL_API destroy(
         ) noexcept -> void;
 
@@ -69,8 +63,6 @@ namespace SGL {
         /// <param name="drawMethod">
         /// The drawing method this object will use.
         /// </param>
-        /// 
-        /// <returns></returns>
         auto SGL_API setDrawMethod(
             const DrawMethod drawMethod
         ) noexcept -> void;
@@ -83,8 +75,6 @@ namespace SGL {
         /// <param name="drawMode">
         /// The drawing mode this object will use.
         /// </param>
-        /// 
-        /// <returns></returns>
         auto SGL_API setDrawMode(
             const DrawMode drawMode
         ) noexcept -> void;
@@ -130,10 +120,8 @@ namespace SGL {
 
 
         /// <summary>
-        /// Draw this object in renderer.
+        /// Draw this object in the currently active renderer.
         /// </summary>
-        /// 
-        /// <returns></returns>
         auto SGL_API draw(
         ) const -> void;
 

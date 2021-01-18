@@ -18,6 +18,9 @@
 
 namespace SGL {
 
+    /// <summary>
+    /// Shader class. Use GLSL version 330 core.
+    /// </summary>
     class ShaderGLSL
     {
     public:
@@ -25,8 +28,6 @@ namespace SGL {
         /// <summary>
         /// Default constructor.
         /// </summary>
-        /// 
-        /// <returns></returns>
         SGL_API ShaderGLSL(
         ) noexcept;
 
@@ -42,8 +43,6 @@ namespace SGL {
         /// <param name="fragmentShaderFile">
         /// The file that contains the fragment shader code.
         /// </param>
-        /// 
-        /// <returns></returns>
         SGL_API ShaderGLSL(
             const std::string& vertexShaderFile,
             const std::string& fragmentShaderFile
@@ -91,10 +90,13 @@ namespace SGL {
         /// Set texture unit for the corresponding sampler2D uniform.
         /// </summary>
         /// 
-        /// <param name="uniformName"></param>
-        /// <param name="value"></param>
+        /// <param name="uniformName">
+        /// The sampler2D uniform name.
+        /// </param>
         /// 
-        /// <returns></returns>
+        /// <param name="textureUnit">
+        /// The texture unit to be binded to this sampler2D uniform.
+        /// </param>
         auto SGL_API setTextureUnit(
             const std::string& uniformName,
             const TextureUnit::type textureUnit
@@ -102,24 +104,24 @@ namespace SGL {
 
 
         /// <summary>
-        /// Set this shader active for subsequent commands. Note that shader has to be set active
-        /// before its uniforms can be changed.
+        /// Set this shader active for subsequent commands. Shader has to be set active before
+        /// its uniforms can be altered.
         /// </summary>
-        /// 
-        /// <returns></returns>
         auto SGL_API setActive(
         ) const noexcept -> void;
 
 
         /// <summary>
-        /// 
+        /// Set uniform to given value.
         /// </summary>
         /// 
-        /// <param name="uniformName"></param>
+        /// <param name="uniformName">
+        /// The uniform to be altered.
+        /// </param>
         /// 
-        /// <param name="value"></param>
-        /// 
-        /// <returns></returns>
+        /// <param name="value">
+        /// New value for the uniform.
+        /// </param>
         auto SGL_API setInt(
             const std::string& uniformName,
             const std::int32_t value
@@ -127,14 +129,16 @@ namespace SGL {
 
 
         /// <summary>
-        /// 
+        /// Set uniform to given value.
         /// </summary>
         /// 
-        /// <param name="uniformName"></param>
+        /// <param name="uniformName">
+        /// The uniform to be altered.
+        /// </param>
         /// 
-        /// <param name="value"></param>
-        /// 
-        /// <returns></returns>
+        /// <param name="value">
+        /// New value for the uniform.
+        /// </param>
         auto SGL_API setFloat(
             const std::string& uniformName,
             const float value
@@ -142,14 +146,16 @@ namespace SGL {
 
 
         /// <summary>
-        /// 
+        /// Set uniform to given value.
         /// </summary>
         /// 
-        /// <param name="uniformName"></param>
+        /// <param name="uniformName">
+        /// The uniform to be altered.
+        /// </param>
         /// 
-        /// <param name="value"></param>
-        /// 
-        /// <returns></returns>
+        /// <param name="value">
+        /// New value for the uniform.
+        /// </param>
         auto SGL_API setVector4(
             const std::string& uniformName,
             const glm::vec4& value
@@ -157,14 +163,16 @@ namespace SGL {
 
 
         /// <summary>
-        /// 
+        /// Set uniform to given value.
         /// </summary>
         /// 
-        /// <param name="uniformName"></param>
+        /// <param name="uniformName">
+        /// The uniform to be altered.
+        /// </param>
         /// 
-        /// <param name="value"></param>
-        /// 
-        /// <returns></returns>
+        /// <param name="value">
+        /// New value for the uniform.
+        /// </param>
         auto SGL_API setMatrix4(
             const std::string& uniformName,
             const glm::mat4& value

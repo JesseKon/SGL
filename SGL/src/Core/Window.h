@@ -19,15 +19,16 @@
 
 namespace SGL {
 
+    /// <summary>
+    /// 
+    /// </summary>
     class Window
     {
     public:
 
-        /**
-         * Default constructor. 
-         * 
-         * Note: this doesn't actually create the window. Call create() to do so.
-         */
+        /// <summary>
+        /// Default constructor. This doesn't create a window, use create() to do so.
+        /// </summary>
         SGL_API Window(
         ) noexcept;
 
@@ -40,6 +41,15 @@ namespace SGL {
          * @param windowTitle Title for this window.
          * @exception Throws std::runtime_error if window couldn't be created.
          */
+
+        /// <summary>
+        /// Create a new window. 
+        /// </summary>
+        /// 
+        /// <param name="rendererType"></param>
+        /// <param name="windowSize"></param>
+        /// <param name="windowTitle"></param>
+        /// <returns></returns>
         SGL_API Window(
             const RendererType rendererType,
             const Vector2<std::uint32_t>& windowSize,
@@ -47,9 +57,9 @@ namespace SGL {
         );
 
 
-        /**
-         * Destructor.
-         */
+        /// <summary>
+        /// Destructor.
+        /// </summary>
         SGL_API ~Window(
         ) noexcept;
 
@@ -58,10 +68,26 @@ namespace SGL {
          * Create a new window. 
          *
          * @param rendererType Renderer for this window.
-         * @param windowSize Window size in pixels.
-         * @param windowTitle Title for this window.
+         * @param windowSize 
+         * @param windowTitle 
          * @exception Throws std::runtime_error if window couldn't be created.
          */
+
+        /// <summary>
+        /// Create a new window.
+        /// </summary>
+        /// 
+        /// <param name="rendererType">
+        /// 
+        /// </param>
+        /// 
+        /// <param name="windowSize">
+        /// Window size in pixels.
+        /// </param>
+        /// 
+        /// <param name="windowTitle">
+        /// Title for this window.
+        /// </param>
         SGL_API auto create(
             const RendererType rendererType,
             const Vector2<std::uint32_t>& windowSize,
@@ -69,9 +95,9 @@ namespace SGL {
         ) -> void;
 
 
-        /**
-         * Destroy this window. Destructor calls it automatically. 
-         */
+        /// <summary>
+        /// Destroy this window. Destructor calls it automatically.
+        /// </summary>
         SGL_API auto destroy(
         ) noexcept -> void;
 

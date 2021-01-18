@@ -15,7 +15,7 @@ auto main(int argc, char** argv) -> int try {
     SGL::ShaderGLSL shaderSingleTexture("../assets/shaders/SingleTexture.vert", "../assets/shaders/SingleTexture.frag");
     SGL::ShaderGLSL shaderMultiTexture("../assets/shaders/MultiTexture.vert", "../assets/shaders/MultiTexture.frag");
     
-    // Load a copuple of textures from disk
+    // Load some textures from disk
     SGL::Texture texture0;
     texture0.load("../assets/textures/test256x256_0.png");
     texture0.setTextureUnit(SGL::TextureUnit::Texture0);
@@ -94,6 +94,9 @@ auto main(int argc, char** argv) -> int try {
 
     // Main loop
     while (window.getRenderer()->running()) {
+
+        if (window.getInput()->getKeyPressed(SGL::KEYCODE::KEY_F))
+            break;
 
         if (window.getInput()->getKeyPressed(SGL::KEYCODE::KEY_A)) {
             texture0.setFilter(SGL::TextureFilter::Point);

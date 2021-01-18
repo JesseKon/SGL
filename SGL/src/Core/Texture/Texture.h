@@ -108,12 +108,6 @@ namespace SGL {
         /// <summary>
         /// Set this texture active for the following draw commands.
         /// </summary>
-        /// 
-        /// <param name="textureUnit">
-        /// Specify which texture unit this texture should activate. The default is 0.
-        /// </param>
-        /// 
-        /// <returns></returns>
         auto SGL_API use(
         ) const noexcept -> void;
 
