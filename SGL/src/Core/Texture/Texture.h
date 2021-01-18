@@ -15,10 +15,11 @@
 #include "TextureUnit.h"
 #include "TextureFilter.h"
 
-
 namespace SGL {
 
-
+    /// <summary>
+    /// 
+    /// </summary>
     class Texture
     {
     public:
@@ -40,7 +41,7 @@ namespace SGL {
         /// <returns></returns>
         SGL_API Texture(
             const Vector2<std::uint32_t>& size,
-            const TextureFilter textureFilter = TextureFilter::Nearest
+            const TextureFilter textureFilter = TextureFilter::Point
         );
 
 
@@ -51,7 +52,7 @@ namespace SGL {
         /// <returns></returns>
         SGL_API Texture(
             const std::string& filename,
-            const TextureFilter textureFilter = TextureFilter::Nearest
+            const TextureFilter textureFilter = TextureFilter::Point
         );
 
 
@@ -72,7 +73,7 @@ namespace SGL {
         /// <returns></returns>
         auto SGL_API create(
             const Vector2<std::uint32_t>& size,
-            const TextureFilter textureFilter = TextureFilter::Nearest
+            const TextureFilter textureFilter = TextureFilter::Point
         ) -> void;
 
 
@@ -91,7 +92,7 @@ namespace SGL {
         /// <returns></returns>
         auto SGL_API load(
             const std::string& filename,
-            const TextureFilter textureFilter = TextureFilter::Nearest
+            const TextureFilter textureFilter = TextureFilter::Point
         ) -> void;
 
 

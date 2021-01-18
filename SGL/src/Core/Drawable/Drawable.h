@@ -14,9 +14,6 @@
 namespace SGL {
 
 
-
-
-
     /// <summary>
     /// The first parameter in the array specifies which vertex attribute in configures, and the
     /// second parameter specifies its size.
@@ -25,10 +22,16 @@ namespace SGL {
 
 
     /// <summary>
-    /// Drawables are objects that renderer can draw.
+    /// Base class for creating any drawable object.
     /// </summary>
     class Drawable
     {
+    public:
+
+        using BufferDataType = GLfloat;
+        using IndicesDataType = GLuint;
+
+
     public:
 
         /// <summary>
@@ -96,16 +99,16 @@ namespace SGL {
 
 
         /// <summary>
-        /// Set raw data for this object.
+        /// 
         /// </summary>
-        /// 
-        /// <param name="data">
-        /// The raw data for this object.
-        /// </param>
-        /// 
+        /// <param name="location"></param>
+        /// <param name="size"></param>
+        /// <param name="data"></param>
         /// <returns></returns>
-        auto SGL_API setData(
-            const std::vector<float>& data
+        auto SGL_API setBufferData(
+            const std::int32_t location,
+            const std::int32_t size,
+            const std::vector<BufferDataType>&& data
         ) -> void;
 
 
@@ -119,21 +122,7 @@ namespace SGL {
         /// 
         /// <returns></returns>
         auto SGL_API setIndices(
-            const std::vector<GLuint>& indices
-        ) -> void;
-
-
-        /// <summary>
-        /// Set vertex attribute data for this object. 
-        /// </summary>
-        /// 
-        /// <param name="vertexAttributes">
-        /// Array of vertex attributes this object will use.
-        /// </param>
-        /// 
-        /// <returns></returns>
-        auto SGL_API setVertexAttributes(
-            const VertexAttributes& vertexAttributes
+            const std::vector<IndicesDataType>&& indices
         ) -> void;
 
 
@@ -159,13 +148,20 @@ namespace SGL {
 
     private:
         GLuint m_VertexArray, m_VertexBuffer, m_ElementBuffer;
-        std::vector<float> m_Data;
         std::vector<GLuint> m_Indices;
+
+        struct BufferData {
+            std::int32_t location;
+            std::int32_t size;
+            std::vector<float> data;
+        };
+        std::vector<BufferData> m_BufferData;
 
         DrawMethod m_DrawMethod;
         DrawMode m_DrawMode;
-        VertexAttributes m_VertexAttributes; // layout location and size 
-        GLuint m_Stride;
+
+        static constexpr auto m_BufferDataGLType = GL_FLOAT;
+        static constexpr auto m_IndicesDataGLType = GL_UNSIGNED_INT;
     };
 
 }

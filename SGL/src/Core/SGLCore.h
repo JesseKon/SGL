@@ -17,6 +17,7 @@
 #include <cassert>
 #include <array>
 #include <vector>
+#include <map>
 #include <algorithm>
 #include <type_traits>
 // Precompiled header stuff

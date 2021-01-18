@@ -8,63 +8,75 @@
 
 auto main(int argc, char** argv) -> int try {
 
+    // Create window
     SGL::Window window(SGL::RendererType::OpenGL3, { 640, 480 }, u8"Otsikkö!");
 
+    // Load shaders
     SGL::ShaderGLSL shaderSingleTexture("../assets/shaders/SingleTexture.vert", "../assets/shaders/SingleTexture.frag");
     SGL::ShaderGLSL shaderMultiTexture("../assets/shaders/MultiTexture.vert", "../assets/shaders/MultiTexture.frag");
     
-    SGL::Texture texture0, texture1;
-    
-    // Textures loaded from disk
+    // Load a copuple of textures from disk
+    SGL::Texture texture0;
     texture0.load("../assets/textures/test256x256_0.png");
     texture0.setTextureUnit(SGL::TextureUnit::Texture0);
     shaderMultiTexture.setTextureUnit("uTexture0", texture0.getTextureUnit());
 
+    SGL::Texture texture1;
     texture1.load("../assets/textures/test256x256_1.png");
     texture1.setTextureUnit(SGL::TextureUnit::Texture1);
     shaderMultiTexture.setTextureUnit("uTexture1", texture1.getTextureUnit());
 
-    // Drawable texture
+    // Create a drawable texture
     SGL::Texture texture3;
     texture3.create(SGL::Vector2<std::uint32_t>(640, 480));
     texture3.setTextureUnit(SGL::TextureUnit::Texture0);
     shaderSingleTexture.setTextureUnit("uTexture", texture3.getTextureUnit());
 
-    SGL::Drawable quad1, quad2;
+    // Create drawable quad1
+    SGL::Drawable quad1;
+    {
+        std::vector<float> vertex = {
+             0.5f,  0.5f,  0.0f,
+             0.5f, -0.5f,  0.0f,
+            -0.5f, -0.5f,  0.0f,
+            -0.5f,  0.5f,  0.0f
+        };
 
-    // Quad1
-    quad1.setData({
-        //  vertex              tex coords
-            0.5f,  0.5f, 0.0f,  1.0f, 1.0f,   // top right
-            0.5f, -0.5f, 0.0f,  1.0f, 0.0f,   // bottom right
-           -0.5f, -0.5f, 0.0f,  0.0f, 0.0f,   // bottom left
-           -0.5f,  0.5f, 0.0f,  0.0f, 1.0f    // top left 
-    });
+        std::vector<float> texCoord = {
+            1.0f, 1.0f,
+            1.0f, 0.0f,
+            0.0f, 0.0f,
+            0.0f, 1.0f
+        };
 
-    quad1.setVertexAttributes({
-        //  vertex      tex coords
-            {0, 3},     { 1, 2 } 
-    });
-
+        quad1.setBufferData(0, 3, std::move(vertex));
+        quad1.setBufferData(1, 2, std::move(texCoord));
+    }
     quad1.setIndices({ 0, 1, 3, 1, 2, 3 });
     quad1.setDrawMethod(SGL::DrawMethod::Static);
     quad1.setDrawMode(SGL::DrawMode::Triangles);
     quad1.configure();
 
-    // Quad2
-    quad2.setData({
-        //  vertex              tex coords
-            0.5f,  0.5f, 0.0f,  1.0f, 1.0f,   // top right
-            0.5f, -0.5f, 0.0f,  1.0f, 0.0f,   // bottom right
-           -0.5f, -0.5f, 0.0f,  0.0f, 0.0f,   // bottom left
-           -0.5f,  0.5f, 0.0f,  0.0f, 1.0f    // top left 
-        });
+    // Create drawable quad2
+    SGL::Drawable quad2;
+    {
+        std::vector<float> vertex = {
+             0.5f,  0.5f,  0.0f,
+             0.5f, -0.5f,  0.0f,
+            -0.5f, -0.5f,  0.0f,
+            -0.5f,  0.5f,  0.0f
+        };
 
-    quad2.setVertexAttributes({
-        //  vertex      tex coords
-            {0, 3},     { 1, 2 }
-        });
+        std::vector<float> texCoord = {
+            1.0f, 1.0f,
+            1.0f, 0.0f,
+            0.0f, 0.0f,
+            0.0f, 1.0f
+        };
 
+        quad2.setBufferData(0, 3, std::move(vertex));
+        quad2.setBufferData(1, 2, std::move(texCoord));
+    }
     quad2.setIndices({ 0, 1, 3, 1, 2, 3 });
     quad2.setDrawMethod(SGL::DrawMethod::Static);
     quad2.setDrawMode(SGL::DrawMode::Triangles);
@@ -80,39 +92,38 @@ auto main(int argc, char** argv) -> int try {
 
     camera.createOrthoProjection({ 640u, 480u }, -0.1f, 100.0f);
 
+    // Main loop
     while (window.getRenderer()->running()) {
 
         if (window.getInput()->getKeyPressed(SGL::KEYCODE::KEY_A)) {
-            texture0.setFilter(SGL::TextureFilter::Linear);
-            texture1.setFilter(SGL::TextureFilter::Linear);
+            texture0.setFilter(SGL::TextureFilter::Point);
+            texture1.setFilter(SGL::TextureFilter::Point);
         }
 
         if (window.getInput()->getKeyPressed(SGL::KEYCODE::KEY_S)) {
-            texture0.setFilter(SGL::TextureFilter::Nearest);
-            texture1.setFilter(SGL::TextureFilter::Nearest);
+            texture0.setFilter(SGL::TextureFilter::Bilinear);
+            texture1.setFilter(SGL::TextureFilter::Bilinear);
         }
 
-
-        // Draw to texture
+        // Draw quad1 to texture3
         texture3.beginDrawing(SGL::COLOR::Lime);
 
-        // First quad
         transform1.rotate({ 0.0f, 0.0f,  0.5f });
         shaderMultiTexture.setActive();
         shaderMultiTexture.setMatrix4("uTransform", (camera * transform1).toMat4());
+
         texture0.use();
         texture1.use();
         quad1.draw();
 
         texture3.endDrawing();
 
-
-        // Draw to screen
+        // Set drawing to screen and draw quad2 which texture contains quad1
         window.getRenderer()->beginDrawing(true, true, true, SGL::COLOR::Blue);
 
-        // Second quad whose texture contains the first quad
         shaderSingleTexture.setActive();
         shaderSingleTexture.setMatrix4("uTransform", (camera * transform2).toMat4());
+
         texture3.use();
         quad2.draw();
 
@@ -122,6 +133,7 @@ auto main(int argc, char** argv) -> int try {
     return EXIT_SUCCESS;
 }
 
+// Check for errors
 catch (const SGL::runtimeError& e) {
     std::cerr << e.what();
     return EXIT_FAILURE;

@@ -11,8 +11,20 @@ namespace SGL {
     /// Drawing modes.
     /// </summary>
     enum class DrawMode : GLenum {
+
+        /// <summary>
+        /// 
+        /// </summary>
         Points = GL_POINTS,
+
+        /// <summary>
+        /// 
+        /// </summary>
         Lines = GL_LINES,
+
+        /// <summary>
+        /// 
+        /// </summary>
         Triangles = GL_TRIANGLES
     };
 
