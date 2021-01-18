@@ -35,14 +35,14 @@ auto main(int argc, char** argv) -> int try {
     // Create drawable quad1
     SGL::Drawable quad1;
     {
-        std::vector<float> vertex = {
+        std::vector<SGL::Drawable::BufferDataType> vertex = {
              0.5f,  0.5f,  0.0f,
              0.5f, -0.5f,  0.0f,
             -0.5f, -0.5f,  0.0f,
             -0.5f,  0.5f,  0.0f
         };
 
-        std::vector<float> texCoord = {
+        std::vector<SGL::Drawable::BufferDataType> texCoord = {
             1.0f, 1.0f,
             1.0f, 0.0f,
             0.0f, 0.0f,
@@ -60,14 +60,14 @@ auto main(int argc, char** argv) -> int try {
     // Create drawable quad2
     SGL::Drawable quad2;
     {
-        std::vector<float> vertex = {
+        std::vector<SGL::Drawable::BufferDataType> vertex = {
              0.5f,  0.5f,  0.0f,
              0.5f, -0.5f,  0.0f,
             -0.5f, -0.5f,  0.0f,
             -0.5f,  0.5f,  0.0f
         };
 
-        std::vector<float> texCoord = {
+        std::vector<SGL::Drawable::BufferDataType> texCoord = {
             1.0f, 1.0f,
             1.0f, 0.0f,
             0.0f, 0.0f,

@@ -13,14 +13,6 @@
 
 namespace SGL {
 
-
-    /// <summary>
-    /// The first parameter in the array specifies which vertex attribute in configures, and the
-    /// second parameter specifies its size.
-    /// </summary>
-    using VertexAttributes = std::vector<std::array<GLuint, 2>>;
-
-
     /// <summary>
     /// Base class for creating any drawable object.
     /// </summary>
@@ -148,17 +140,20 @@ namespace SGL {
 
     private:
         GLuint m_VertexArray, m_VertexBuffer, m_ElementBuffer;
-        std::vector<GLuint> m_Indices;
+        std::vector<IndicesDataType> m_Indices;
 
         struct BufferData {
             std::int32_t location;
             std::int32_t size;
-            std::vector<float> data;
+            std::vector<BufferDataType> data;
         };
         std::vector<BufferData> m_BufferData;
 
         DrawMethod m_DrawMethod;
         DrawMode m_DrawMode;
+
+        bool m_BufferDataChanged;   // buffer size or draw method changed
+        bool m_IndicesDataChanged;  // buffer size or draw method changed
 
         static constexpr auto m_BufferDataGLType = GL_FLOAT;
         static constexpr auto m_IndicesDataGLType = GL_UNSIGNED_INT;
