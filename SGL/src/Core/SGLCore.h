@@ -18,6 +18,7 @@
 #include <array>
 #include <vector>
 #include <map>
+#include <cmath>
 #include <algorithm>
 #include <type_traits>
 // Precompiled header stuff
@@ -34,7 +35,7 @@
 #endif
 
 #elif defined SGL_PLATFORM_LINUX
-    #error No Linux support yet!
+    #define SGL_API
 
 #else
     #error Not valid operating system!

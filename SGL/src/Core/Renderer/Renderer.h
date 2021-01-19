@@ -40,7 +40,7 @@ namespace SGL {
          * Destructor.
          */
         virtual ~Renderer(
-        ) = 0 {};
+        );
 
 
         /**

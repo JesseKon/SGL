@@ -8,6 +8,9 @@
 
 namespace SGL {
 
-
+    Renderer::~Renderer()
+    {
+        
+    }
 
 }  /* namespace SGL */
