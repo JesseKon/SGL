@@ -87,27 +87,27 @@ project "SGL"
     ----------------
     filter { "system:windows", "platforms:x86" }
         includedirs {
-            "dependencies/windows/glfw-3.3.2.bin.WIN32/include",
+            "dependencies/glfw/include",
             "dependencies/glad/include",
             "dependencies/glm",
             "dependencies/stb_image",
         }
 
         libdirs {
-            "dependencies/windows/glfw-3.3.2.bin.WIN32/lib-vc2019",
+            "dependencies/glfw/lib-win32",
         }
 
     ----------------
     filter { "system:windows", "platforms:x86_64" }
         includedirs {
-            "dependencies/windows/glfw-3.3.2.bin.WIN64/include",
+            "dependencies/glfw/include",
             "dependencies/glad/include",
             "dependencies/glm",
             "dependencies/stb_image",
         }
 
         libdirs {
-            "dependencies/windows/glfw-3.3.2.bin.WIN64/lib-vc2019",
+            "dependencies/glfw/lib-win64",
         }
         
 
@@ -150,7 +150,7 @@ project "TestProject"
     ----------------
     filter { "system:windows", "platforms:x86" }
         includedirs {
-            "dependencies/windows/glfw-3.3.2.bin.WIN32/include",
+            "dependencies/glfw/include",
             "dependencies/glad/include",
             "dependencies/glm",
             "dependencies/stb_image",
@@ -159,7 +159,7 @@ project "TestProject"
     ----------------
     filter { "system:windows", "platforms:x86_64" }
         includedirs {
-            "dependencies/windows/glfw-3.3.2.bin.WIN64/include",
+            "dependencies/glfw/include",
             "dependencies/glad/include",
             "dependencies/glm",
             "dependencies/stb_image",
