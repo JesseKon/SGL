@@ -11,3 +11,5 @@
 **.vcxproj.filters
 **.vcxproj.user
 
+#makefile
+**/[Mm]akefile
