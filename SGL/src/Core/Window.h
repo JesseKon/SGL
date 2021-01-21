@@ -10,7 +10,6 @@
 #include "SGLCore.h"
 
 #include "Renderer.h"
-#include "RendererOGL3.h"
 #include "Color.h"
 #include "Input.h"
 
@@ -51,9 +50,9 @@ namespace SGL {
         /// <param name="windowTitle"></param>
         /// <returns></returns>
         SGL_API Window(
-            const RendererType rendererType,
             const Vector2<std::uint32_t>& windowSize,
-            const std::string& windowTitle = ""
+            const std::string& windowTitle = "",
+            const RendererType rendererType = RendererType::Windowed
         );
 
 
@@ -77,10 +76,6 @@ namespace SGL {
         /// Create a new window.
         /// </summary>
         /// 
-        /// <param name="rendererType">
-        /// 
-        /// </param>
-        /// 
         /// <param name="windowSize">
         /// Window size in pixels.
         /// </param>
@@ -89,9 +84,9 @@ namespace SGL {
         /// Title for this window.
         /// </param>
         SGL_API auto create(
-            const RendererType rendererType,
             const Vector2<std::uint32_t>& windowSize,
-            const std::string& windowTitle = ""
+            const std::string& windowTitle = "",
+            const RendererType rendererType = RendererType::Windowed
         ) -> void;
 
 

@@ -22,13 +22,13 @@ namespace SGL {
 
     /* ***************************************************************************************** */
     Window::Window(
-        const RendererType rendererType,
         const Vector2<std::uint32_t>& windowSize,
-        const std::string& title
+        const std::string& title,
+        const RendererType rendererType
     ) {
         m_pRenderer = nullptr;
         m_pInput = nullptr;
-        create(rendererType, windowSize, title);
+        create(windowSize, title, rendererType);
     }
 
 
@@ -45,19 +45,11 @@ namespace SGL {
 
     /* ***************************************************************************************** */
     auto Window::create(
-        const RendererType rendererType,
         const Vector2<std::uint32_t>& windowSize,
-        const std::string& title
+        const std::string& title,
+        const RendererType rendererType
     ) -> void {
-        if (rendererType == RendererType::OpenGL3) {
-            m_pRenderer = new RendererOGL3(windowSize, title);
-        }
-        else {
-            std::stringstream ss;
-            ss << ">>> Error > Window::create() > No renderer type selected.\n";
-            throw runtimeError(ss.str());
-        }
-
+        m_pRenderer = new Renderer(windowSize, title, rendererType);
         m_pInput = new Input(m_pRenderer->getGLFWwindow());
     }
 

@@ -1,16 +1,20 @@
-WIP!
+# SGL - Simple Graphics Library
 
-SGL - Simple Graphics Library
-
-SGL is an object-oriented C++17 library for creating graphics on Windows and Linux. It uses GLFW for window and input handling, and OpenGL 3.3 for graphics.
+SGL is an object-oriented C++17 graphics library for Windows and Linux. It uses GLFW for window creation and input handling, and OpenGL 3.3 for graphics. Support for both 32-bit and 64-bit OS.
 
 Libraries and tools used:
-- GLFW
-- GLAD
-- GLM
+- glad
+- glfw
+- glm
+- premake
 - stb_image
 
-Build for vs2019:
+Build for Windows (Visual Studio):
 ```
-dependencies\windows\premake\premake5.exe vs2019
+dependencies\premake\windows\premake5.exe vs2019
+```
+
+Build for Linux (g++ makefile):
+```
+dependencies/premake/linux/premake gmake
 ```

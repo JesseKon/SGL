@@ -14,7 +14,7 @@
 #include "DrawMode.h"
 
 #include "Renderer.h"
-#include "RendererOGL3.h"
+#include "RendererType.h"
 
 #include "ShaderGLSL.h"
 

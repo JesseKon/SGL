@@ -95,11 +95,6 @@ project "SGL"
         links {
             "glfw",
             "GL",
-            "X11",
-            "pthread",
-            "Xrandr",
-            "Xi",
-            "dl",
         }
 
         defines {

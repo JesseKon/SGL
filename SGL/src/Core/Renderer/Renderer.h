@@ -9,156 +9,132 @@
 
 #include "SGLCore.h"
 
-#include "Drawable.h"
-#include "ShaderGLSL.h"
-#include "Color.h"
+#include "RendererType.h"
 #include "Vector2.h"
+#include "Color.h"
 
+#include "glad/glad.h"
+#include "GLFW/glfw3.h"
 
 namespace SGL {
-
-    enum class RendererType {
-        
-        /**
-         * No renderer
-         */
-        None,
-
-        /**
-         * OpenGL 3.3
-         */
-        OpenGL3
-
-    };
-
 
     class Renderer
     {
     public:
 
         /**
-         * Destructor.
+         * Default constructor.
+         * 
+         * Note: this doesn't actually create the renderer. Call create() to do so.
          */
-        virtual ~Renderer(
+        SGL_API Renderer(
+        ) noexcept;
+
+
+        /**
+         * Create a new OpenGL 3.3 renderer.
+         *
+         * @param width Window width for this renderer, in pixels.
+         * @param height Window height for this renderer, in pixels.
+         * @param windowTitle Window title for this renderer.
+         * @exception Throws std::runtime_error if window couldn't be created.
+         */
+        SGL_API Renderer(
+            const Vector2<std::uint32_t>& windowSize,
+            const std::string& windowTitle,
+            const RendererType rendererType = RendererType::Windowed
         );
 
 
         /**
-         * Create a new renderer.
+         * Destructor.
+         */
+        SGL_API ~Renderer(
+        ) noexcept;
+
+
+        /**
+         * Create a new OpenGL 3.3 renderer.
          *
          * @param width Window width for this renderer, in pixels.
          * @param height Window height for this renderer, in pixels.
          * @param windowTitle Window title for this renderer.
          * @exception Throws std::runtime_error if renderer couldn't be created.
          */
-        virtual auto create(
+        SGL_API auto create(
             const Vector2<std::uint32_t>& windowSize,
-            const std::string& windowTitle
-        ) -> void = 0;
+            const std::string& windowTitle,
+            const RendererType rendererType = RendererType::Windowed
+        ) -> void;
 
 
         /**
          * Destroy this renderer. Destructor calls it automatically.
          */
-        virtual auto destroy(
-        ) noexcept -> void = 0;
+        SGL_API auto destroy(
+        ) noexcept -> void;
 
 
-        /**
-         * 
-         */
-        virtual auto running(
-        ) const noexcept -> bool = 0;
+        SGL_API auto running(
+        ) const noexcept -> bool;
 
 
-        /**
-         * 
-         */
-        virtual auto beginDrawing(
+        SGL_API auto beginDrawing(
             const bool clearColorBuffer,
             const bool clearDepthBuffer,
             const bool clearStencilBuffer,
             const Color& color
-        ) const noexcept -> void = 0;
+        ) const noexcept -> void;
 
 
-        /**
-         * 
-         */
-        virtual auto endDrawing(
-        ) const noexcept -> void = 0;
+        SGL_API auto endDrawing(
+        ) const noexcept -> void;
 
 
-        /**
-         * Close this renderer.
-         */
-        virtual auto close(
-        ) const noexcept -> void = 0;
+        SGL_API auto close(
+        ) const noexcept -> void;
 
 
-        /**
-         *
-         */
-        virtual auto resizeWindow(
+        SGL_API auto resizeWindow(
             const Vector2<std::uint32_t>& newSize
-        ) noexcept -> void = 0;
+        ) noexcept -> void;
 
 
-        /**
-         *
-         */
-        virtual auto getWindowSize(
-        ) const noexcept -> Vector2<std::uint32_t> = 0;
+        SGL_API auto getWindowSize(
+        ) const noexcept -> Vector2<std::uint32_t>;
 
 
-        /**
-         * 
-         */
-        virtual auto setWindowPosition(
+        SGL_API auto setWindowPosition(
             const Vector2<std::int32_t>& newPosition
-        ) noexcept -> void = 0;
+        ) noexcept -> void;
 
 
-        /**
-         * 
-         */
-        virtual auto getWindowPosition(
-        ) const noexcept -> Vector2<std::int32_t> = 0;
+        SGL_API auto getWindowPosition(
+        ) const noexcept -> Vector2<std::int32_t>;
 
 
-        /**
-         * Change the title of this renderer's window.
-         *
-         * @param newTitle New title for this renderer's window.
-         */
-        virtual auto setTitle(
+        SGL_API auto setTitle(
             const std::string& newTitle
-        ) noexcept -> void = 0;
+        ) noexcept -> void;
 
 
-        /**
-         * Get the title of this renderer's window.
-         *
-         * @return Title of this renderer's window.
-         */
-        virtual auto getTitle(
-        ) const noexcept -> const char* = 0;
+        SGL_API auto getTitle(
+        ) const noexcept -> const char*;
 
 
-        /**
-         * Get pointer to the GLFW window handle.
-         *
-         * @return Pointer to the GLFW window handle.
-         */
-        virtual auto getGLFWwindow(
-        ) const noexcept -> const GLFWwindow* = 0;
+        SGL_API auto getGLFWwindow(
+        ) const noexcept -> GLFWwindow*;
 
 
-    protected:
+    private:
+        Vector2<std::uint32_t> m_WindowSize;
+        std::string m_WindowTitle;
+        mutable bool m_QuitRequested;
+
         GLFWwindow* m_pGLFWwindow;
-
+        
     };
 
 }  /* namespace SGL */
 
-#endif /* _SGL_RENDERER_H_ */
+#endif  /* _SGL_RENDERER_H_ */

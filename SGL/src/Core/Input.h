@@ -9,11 +9,10 @@
 
 #include "SGLCore.h"
 #include "Renderer.h"
+#include "Keycode.h"
 
 
 namespace SGL {
-
-    using SGLKey = std::int32_t;
 
     class Input
     {
@@ -145,39 +144,6 @@ namespace SGL {
         static std::array<bool, NUM_OF_KEYS> m_KeyStateChanged;
         GLFWwindow* m_pGLFWwindow;
     };
-
-
-    /// <summary>
-    /// Key codes.
-    /// </summary>
-    namespace KEYCODE {
-        extern const SGL_API SGLKey KEY_A;
-        extern const SGL_API SGLKey KEY_B;
-        extern const SGL_API SGLKey KEY_C;
-        extern const SGL_API SGLKey KEY_D;
-        extern const SGL_API SGLKey KEY_E;
-        extern const SGL_API SGLKey KEY_F;
-        extern const SGL_API SGLKey KEY_G;
-        extern const SGL_API SGLKey KEY_H;
-        extern const SGL_API SGLKey KEY_I;
-        extern const SGL_API SGLKey KEY_J;
-        extern const SGL_API SGLKey KEY_K;
-        extern const SGL_API SGLKey KEY_L;
-        extern const SGL_API SGLKey KEY_M;
-        extern const SGL_API SGLKey KEY_N;
-        extern const SGL_API SGLKey KEY_O;
-        extern const SGL_API SGLKey KEY_P;
-        extern const SGL_API SGLKey KEY_Q;
-        extern const SGL_API SGLKey KEY_R;
-        extern const SGL_API SGLKey KEY_S;
-        extern const SGL_API SGLKey KEY_T;
-        extern const SGL_API SGLKey KEY_U;
-        extern const SGL_API SGLKey KEY_V;
-        extern const SGL_API SGLKey KEY_W;
-        extern const SGL_API SGLKey KEY_X;
-        extern const SGL_API SGLKey KEY_Y;
-        extern const SGL_API SGLKey KEY_Z;
-    }
 
 }  /* namespace SGL */
 

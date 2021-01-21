@@ -9,7 +9,7 @@
 auto main(int argc, char** argv) -> int try {
 
     // Create window
-    SGL::Window window(SGL::RendererType::OpenGL3, { 640, 480 }, u8"Otsikkö!");
+    SGL::Window window({ 640, 480 }, u8"Otsikkö!");
 
     // Load shaders
     SGL::ShaderGLSL shaderSingleTexture("../assets/shaders/SingleTexture.vert", "../assets/shaders/SingleTexture.frag");
@@ -95,15 +95,15 @@ auto main(int argc, char** argv) -> int try {
     // Main loop
     while (window.getRenderer()->running()) {
 
-        if (window.getInput()->getKeyPressed(SGL::KEYCODE::KEY_F))
+        if (window.getInput()->getKeyPressed(SGL::Keycode::Key_Escape))
             break;
 
-        if (window.getInput()->getKeyPressed(SGL::KEYCODE::KEY_A)) {
+        if (window.getInput()->getKeyPressed(SGL::Keycode::Key_1)) {
             texture0.setFilter(SGL::TextureFilter::Point);
             texture1.setFilter(SGL::TextureFilter::Point);
         }
 
-        if (window.getInput()->getKeyPressed(SGL::KEYCODE::KEY_S)) {
+        if (window.getInput()->getKeyPressed(SGL::Keycode::Key_2)) {
             texture0.setFilter(SGL::TextureFilter::Bilinear);
             texture1.setFilter(SGL::TextureFilter::Bilinear);
         }
