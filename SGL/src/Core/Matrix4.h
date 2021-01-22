@@ -4,8 +4,8 @@
  * 
  */
 
-#ifndef _SGL_TRANSFORM_H_
-#define _SGL_TRANSFORM_H_
+#ifndef _SGL_MATRIX4_H_
+#define _SGL_MATRIX4_H_
 
 #include "SGLCore.h"
 
@@ -46,12 +46,29 @@ namespace SGL {
         /// <returns></returns>
         auto SGL_API operator* (
             const Matrix4& param
-        ) noexcept -> Matrix4 {
+        ) const noexcept -> Matrix4 {
             glm::mat4 temp = m_Matrix4 * param.toMat4();
             Matrix4 newMatrix4;
             newMatrix4.m_Matrix4 = temp;
             return newMatrix4;
         }
+
+
+        static auto SGL_API inverse(
+            const Matrix4& param
+        ) noexcept -> Matrix4 {
+            Matrix4 matrix4;
+            matrix4.m_Matrix4 = glm::inverse(param.toMat4());
+            return matrix4;
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        auto SGL_API identity(
+        ) noexcept -> void;
 
 
         /// <summary>
@@ -87,10 +104,10 @@ namespace SGL {
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="newPosition"></param>
+        /// <param name="newTranslation"></param>
         /// <returns></returns>
         auto SGL_API translate(
-            const Vector3<float>& newPosition
+            const Vector3<float>& newTranslation
         ) noexcept -> void;
 
 
@@ -129,4 +146,4 @@ namespace SGL {
 
 }  /* namespace SGL */
 
-#endif  /* _SGL_TRANSFORM_H_ */
+#endif  /* _SGL_MATRIX4_H_ */

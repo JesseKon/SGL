@@ -31,6 +31,13 @@ namespace SGL {
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
     /* ***************************************************************************************** */
+    auto Matrix4::identity(
+    ) noexcept -> void {
+        m_Matrix4 = glm::mat4(1.0f);
+    }
+
+
+    /* ***************************************************************************************** */
     auto Matrix4::createOrthoProjection(
         const Vector2<std::uint32_t>& viewPort,
         const float nearClipPlane,
@@ -61,9 +68,9 @@ namespace SGL {
 
     /* ***************************************************************************************** */
     auto Matrix4::translate(
-        const Vector3<float>& newPosition
+        const Vector3<float>& newTranslation
     ) noexcept -> void {
-        m_Matrix4 = glm::translate(m_Matrix4, glm::vec3(newPosition.x, newPosition.y, newPosition.z));
+        m_Matrix4 = glm::translate(m_Matrix4, glm::vec3(newTranslation.x, newTranslation.y, newTranslation.z));
     }
 
 

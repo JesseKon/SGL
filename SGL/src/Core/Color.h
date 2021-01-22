@@ -190,7 +190,7 @@ namespace SGL {
 
 
         SGL_API inline auto toVec4(
-        ) noexcept -> glm::vec4 {
+        ) const noexcept -> glm::vec4 {
             glm::vec4 vector = { getRedf<float>(), getGreenf<float>(), getBluef<float>(), getAlphaf<float>() };
             return vector;
         };

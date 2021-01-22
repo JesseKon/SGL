@@ -125,7 +125,7 @@ namespace SGL {
         auto SGL_API setInt(
             const std::string& uniformName,
             const std::int32_t value
-        ) noexcept -> void;
+        ) const noexcept -> void;
 
 
         /// <summary>
@@ -142,7 +142,7 @@ namespace SGL {
         auto SGL_API setFloat(
             const std::string& uniformName,
             const float value
-        ) noexcept -> void;
+        ) const noexcept -> void;
 
 
         /// <summary>
@@ -159,7 +159,7 @@ namespace SGL {
         auto SGL_API setVector4(
             const std::string& uniformName,
             const glm::vec4& value
-        ) noexcept -> void;
+        ) const noexcept -> void;
 
 
         /// <summary>
@@ -175,8 +175,8 @@ namespace SGL {
         /// </param>
         auto SGL_API setMatrix4(
             const std::string& uniformName,
-            const glm::mat4& value
-        ) noexcept -> void;
+            const Matrix4& value
+        ) const noexcept -> void;
 
 
     private:

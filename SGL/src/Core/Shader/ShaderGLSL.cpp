@@ -154,7 +154,7 @@ namespace SGL {
     auto ShaderGLSL::setInt(
         const std::string& uniformName,
         const std::int32_t value
-    ) noexcept -> void {
+    ) const noexcept -> void {
         GLuint location = glGetUniformLocation(m_ProgramID, uniformName.c_str());
         glUniform1i(location, static_cast<GLint>(value));
     }
@@ -164,7 +164,7 @@ namespace SGL {
     auto ShaderGLSL::setFloat(
         const std::string& uniformName,
         const float value
-    ) noexcept -> void {
+    ) const noexcept -> void {
         GLuint location = glGetUniformLocation(m_ProgramID, uniformName.c_str());
         glUniform1i(location, value);
     }
@@ -174,7 +174,7 @@ namespace SGL {
     auto ShaderGLSL::setVector4(
         const std::string& uniformName,
         const glm::vec4& value
-    ) noexcept -> void {
+    ) const noexcept -> void {
         GLuint location = glGetUniformLocation(m_ProgramID, uniformName.c_str());
         glUniform4fv(location, 1, glm::value_ptr(value));
     }
@@ -183,10 +183,10 @@ namespace SGL {
     /* ***************************************************************************************** */
     auto ShaderGLSL::setMatrix4(
         const std::string& uniformName,
-        const glm::mat4& value
-    ) noexcept -> void {
+        const Matrix4& value
+    ) const noexcept -> void {
         GLuint location = glGetUniformLocation(m_ProgramID, uniformName.c_str());
-        glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(value));
+        glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(value.toMat4()));
     }
 
 }

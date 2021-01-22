@@ -29,4 +29,8 @@
 #include "Vector3.h"
 #include "Window.h"
 
+#include "Camera.h"
+#include "Line.h"
+#include "Triangle.h"
+
 #endif  /* _SGL_H_ */
