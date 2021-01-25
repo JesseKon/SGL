@@ -172,6 +172,13 @@ namespace SGL {
 
 
     /* ***************************************************************************************** */
+    auto Texture::getSize(
+    ) const noexcept -> Vector2<std::int32_t> {
+        return { m_Width, m_Height };
+    }
+
+
+    /* ***************************************************************************************** */
     auto Texture::beginDrawing(
         const Color& color
     ) noexcept -> void {

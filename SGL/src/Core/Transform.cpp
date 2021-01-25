@@ -72,7 +72,6 @@ namespace SGL {
         m_WorldMatrix4.rotate(rotation);
         m_WorldMatrix4.translate(Vector3<float>::zero() - point);
         m_Rotation += rotation;
-        std::cout << m_Rotation.toString() << std::endl;
     }
 
 

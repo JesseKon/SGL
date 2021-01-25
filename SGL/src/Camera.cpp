@@ -15,6 +15,8 @@ namespace SGL {
         const CameraType cameraType
     ) {
 
+        // TODO: nearclip and farclip
+
         switch (cameraType) {
         case CameraType::Orthographic:
             m_ViewMatrix4.createOrthoProjection(

@@ -87,9 +87,10 @@ namespace SGL {
         Vector3<float> m_Position;
         Vector3<float> m_Rotation;
         Vector3<float> m_Scale;
+        Vector3<float> m_Pivot; // TODO: pivot point
 
     };
 
-}
+}  /* namespace SGL */
 
-#endif
+#endif  /* _SGL_TRANSFORM_H_ */

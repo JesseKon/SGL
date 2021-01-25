@@ -1,7 +1,7 @@
 
 
-#ifndef _SGL_TRIANGLE_H_
-#define _SGL_TRIANGLE_H_
+#ifndef _SGL_QUAD_H_
+#define _SGL_QUAD_H_
 
 #include "SGLCore.h"
 
@@ -14,29 +14,31 @@
 
 namespace SGL {
 
-    class Triangle
+    class Quad
     {
     public:
 
-        SGL_API Triangle(
+        SGL_API Quad(
             const Camera& camera,
             const ShaderGLSL& shader,
             const Vector3<float>& p1,
             const Vector3<float>& p2,
             const Vector3<float>& p3,
+            const Vector3<float>& p4,
             const Color& color,
             const bool setStatic = false
         );
 
 
-        SGL_API ~Triangle(
+        SGL_API ~Quad(
         ) noexcept;
 
 
         auto SGL_API setPoints(
             const Vector3<float>& p1,
             const Vector3<float>& p2,
-            const Vector3<float>& p3
+            const Vector3<float>& p3,
+            const Vector3<float>& p4
         ) -> void;
 
 

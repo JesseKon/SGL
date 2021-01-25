@@ -124,6 +124,10 @@ namespace SGL {
         ) noexcept -> void;
 
 
+        auto SGL_API getSize(
+        ) const noexcept -> Vector2<std::int32_t>;
+
+
         /// <summary>
         /// Begin drawing to this texture.
         /// </summary>

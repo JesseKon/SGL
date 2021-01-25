@@ -32,5 +32,7 @@
 #include "Camera.h"
 #include "Line.h"
 #include "Triangle.h"
+#include "Quad.h"
+#include "Sprite.h"
 
 #endif  /* _SGL_H_ */
