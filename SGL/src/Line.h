@@ -8,6 +8,7 @@
 #include "Camera.h"
 #include "Drawable.h"
 #include "ShaderGLSL.h"
+#include "ShaderUniformManager.h"
 #include "Color.h"
 #include "Vector3.h"
 #include "Transform.h"
@@ -66,13 +67,19 @@ namespace SGL {
         ) -> void;
 
 
+        auto SGL_API getShaderUniformManager(
+        ) const noexcept -> ShaderUniformManager*;
+
+
         auto SGL_API draw(
         ) const noexcept -> void;
+
 
 
     private:
         const Camera* m_pCamera;
         const ShaderGLSL* m_pShaderGLSL;
+        ShaderUniformManager* m_pShaderUniformManager;
         Drawable m_Drawable;
         Color m_Color;
         bool m_IsStatic;

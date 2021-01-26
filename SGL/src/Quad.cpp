@@ -68,6 +68,13 @@ namespace SGL {
 
 
     /* ***************************************************************************************** */
+    auto Quad::getShaderUniformManager(
+    ) const noexcept -> ShaderUniformManager* {
+        return m_pShaderUniformManager;
+    }
+
+
+    /* ***************************************************************************************** */
     auto Quad::draw(
     ) const noexcept -> void {
         m_pShaderGLSL->setActive();

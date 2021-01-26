@@ -64,6 +64,13 @@ namespace SGL {
 
 
     /* ***************************************************************************************** */
+    auto Triangle::getShaderUniformManager(
+    ) const noexcept -> ShaderUniformManager* {
+        return m_pShaderUniformManager;
+    }
+
+
+    /* ***************************************************************************************** */
     auto Triangle::draw(
     ) const noexcept -> void {
         m_pShaderGLSL->setActive();

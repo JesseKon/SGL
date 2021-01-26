@@ -18,6 +18,7 @@
 #include <array>
 #include <vector>
 #include <map>
+#include <variant>
 #include <cmath>
 #include <algorithm>
 #include <type_traits>

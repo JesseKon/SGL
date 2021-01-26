@@ -17,6 +17,7 @@
 #include "RendererType.h"
 
 #include "ShaderGLSL.h"
+#include "ShaderUniformManager.h"
 
 #include "Texture.h"
 #include "TextureFilter.h"
@@ -34,5 +35,6 @@
 #include "Triangle.h"
 #include "Quad.h"
 #include "Sprite.h"
+#include "Cube.h"
 
 #endif  /* _SGL_H_ */

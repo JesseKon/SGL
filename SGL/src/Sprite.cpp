@@ -46,6 +46,13 @@ namespace SGL {
     }
 
 
+    /* ***************************************************************************************** */
+    auto Sprite::getShaderUniformManager(
+    ) const noexcept -> ShaderUniformManager* {
+        return m_pShaderUniformManager;
+    }
+
+
     auto Sprite::draw(
     ) const noexcept -> void {
         m_pShaderGLSL->setActive();

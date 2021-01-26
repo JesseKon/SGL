@@ -10,7 +10,8 @@ auto main(int argc, char** argv) -> int try {
 
     // Create window and camera
     SGL::Window window({ 640u, 480u }, u8"Otsikko", SGL::RendererType::Windowed);
-    SGL::Camera camera(window, SGL::CameraType::Orthographic);
+    SGL::Camera camera(window, SGL::CameraType::Perspective);
+    camera.setPosition(SGL::Vector3<float>::forward() * 3.0f);
 
     // Load primitive shader
     SGL::ShaderGLSL primitiveShader(
@@ -24,34 +25,20 @@ auto main(int argc, char** argv) -> int try {
         "../assets/shaders/default/TextureShader.frag"
     );
 
-    // Load texture and create a sprite
-    SGL::Texture tex1("../assets/textures/test256x256_0.png");
-    SGL::Sprite sprite(camera, textureShader, tex1);
-    sprite.setPosition({ 130.0f, 130.0f, 0.0f });
-
-    // Create another texture and bind texture to it
-    SGL::Texture tex2(SGL::Vector2<std::uint32_t>(300, 300));
-    SGL::Sprite sprite2(camera, textureShader, tex2);
-    sprite2.setPosition({ 400.0f, 300.0f, 0.0f });
-
-    // Draw to tex2
-    tex2.beginDrawing();
-    SGL::Triangle triangle(
-        camera,
-        primitiveShader,
-        { 100.0f, 100.0f, 0.0f },
-        { 300.0f, 100.0f, 0.0f },
-        { 200.0f, 300.0f, 0.0f },
-        SGL::COLOR::Yellow
-    );
-    triangle.draw();
-    tex2.endDrawing();
+    // Create cube and set its color to green
+    SGL::Cube cube(camera, primitiveShader, SGL::Vector3<float>::one());
+    cube.getShaderUniformManager()->setVector4("uColor", SGL::COLOR::Red.toVec4());
 
     // Main loop
     while (window.getRenderer()->running()) {
-        window.getRenderer()->beginDrawing(true, true, true, SGL::COLOR::Blue);
-        sprite.draw();
-        sprite2.draw();
+
+        // Rotate cube
+        cube.rotate(SGL::Vector3<float>::left() * 0.5f);
+        cube.rotate(SGL::Vector3<float>::up() * 0.5f);
+
+        // Draw cube
+        window.getRenderer()->beginDrawing(true, true, true, SGL::COLOR::Black);
+        cube.draw();
         window.getRenderer()->endDrawing();
     }
 

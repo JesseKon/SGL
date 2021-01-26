@@ -60,6 +60,13 @@ namespace SGL {
 
 
     /* ***************************************************************************************** */
+    auto Line::getShaderUniformManager(
+    ) const noexcept -> ShaderUniformManager* {
+        return m_pShaderUniformManager;
+    }
+
+
+    /* ***************************************************************************************** */
     auto Line::draw(
     ) const noexcept -> void {
         m_pShaderGLSL->setActive();
