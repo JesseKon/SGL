@@ -11,6 +11,7 @@ namespace SGL {
     ) {
         m_pCamera = &camera;
         m_pShaderGLSL = &shader;
+        m_pShaderUniformManager = new ShaderUniformManager();
         m_pTexture = &texture;
 
         std::vector<Drawable::BufferDataType> vertex = {
@@ -42,7 +43,10 @@ namespace SGL {
 
     Sprite::~Sprite(
     ) {
-
+        if (m_pShaderUniformManager) {
+            delete m_pShaderUniformManager;
+            m_pShaderUniformManager = nullptr;
+        }
     }
 
 
@@ -57,6 +61,7 @@ namespace SGL {
     ) const noexcept -> void {
         m_pShaderGLSL->setActive();
         m_pShaderGLSL->setMatrix4("uTransform", m_pCamera->getMatrix4() * m_WorldMatrix4);
+        m_pShaderUniformManager->activateAll(m_pShaderGLSL);
         m_pTexture->use();
         m_Drawable.draw();
     }

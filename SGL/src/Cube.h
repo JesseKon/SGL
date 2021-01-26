@@ -35,6 +35,9 @@ namespace SGL {
         ) const noexcept -> ShaderUniformManager*;
 
 
+        /// <summary>
+        /// Draw this object to the currently active renderer.
+        /// </summary>
         auto SGL_API draw(
         ) const noexcept -> void;
 

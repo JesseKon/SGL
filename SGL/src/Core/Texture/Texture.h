@@ -141,8 +141,7 @@ namespace SGL {
 
 
         /// <summary>
-        /// Finish drawing to this texture. Subsequent drawing commands are directed to main
-        /// renderer.
+        /// Finish drawing to this texture. 
         /// </summary>
         /// 
         /// <returns></returns>

@@ -11,12 +11,11 @@ namespace SGL {
         const Vector3<float>& p1,
         const Vector3<float>& p2,
         const Vector3<float>& p3,
-        const Color& color,
         const bool setStatic
     ) {
         m_pCamera = &camera;
         m_pShaderGLSL = &shader;
-        m_Color = color;
+        m_pShaderUniformManager = new ShaderUniformManager();
         m_IsStatic = setStatic;
 
         std::vector<Drawable::BufferDataType> vertex = {
@@ -40,7 +39,10 @@ namespace SGL {
     /* ***************************************************************************************** */
     Triangle::~Triangle(
     ) {
-
+        if (m_pShaderUniformManager) {
+            delete m_pShaderUniformManager;
+            m_pShaderUniformManager = nullptr;
+        }
     }
 
 
@@ -75,7 +77,7 @@ namespace SGL {
     ) const noexcept -> void {
         m_pShaderGLSL->setActive();
         m_pShaderGLSL->setMatrix4("uTransform", m_pCamera->getMatrix4());
-        m_pShaderGLSL->setVector4("uColor", m_Color.toVec4());
+        m_pShaderUniformManager->activateAll(m_pShaderGLSL);
         m_Drawable.draw();
     }
 

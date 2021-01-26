@@ -40,10 +40,6 @@ namespace SGL {
         /// Second point location in pixels.
         /// </param>
         /// 
-        /// <param name="color">
-        /// The desired color in which this object should be drawn.
-        /// </param>
-        /// 
         /// <param name="setStatic">
         /// Set this line as static. Static objects can not be altered after constructed.
         /// </param>
@@ -52,7 +48,6 @@ namespace SGL {
             const ShaderGLSL& shader,
             const Vector3<float>& p1,
             const Vector3<float>& p2,
-            const Color& color,
             const bool setStatic = false
         );
 
@@ -71,6 +66,9 @@ namespace SGL {
         ) const noexcept -> ShaderUniformManager*;
 
 
+        /// <summary>
+        /// Draw this object to the currently active renderer.
+        /// </summary>
         auto SGL_API draw(
         ) const noexcept -> void;
 
@@ -81,7 +79,6 @@ namespace SGL {
         const ShaderGLSL* m_pShaderGLSL;
         ShaderUniformManager* m_pShaderUniformManager;
         Drawable m_Drawable;
-        Color m_Color;
         bool m_IsStatic;
     };
 

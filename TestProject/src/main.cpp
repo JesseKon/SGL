@@ -25,7 +25,7 @@ auto main(int argc, char** argv) -> int try {
         "../assets/shaders/default/TextureShader.frag"
     );
 
-    // Create cube and set its color to green
+    // Create cube and set its color to red
     SGL::Cube cube(camera, primitiveShader, SGL::Vector3<float>::one());
     cube.getShaderUniformManager()->setVector4("uColor", SGL::COLOR::Red.toVec4());
 
@@ -37,7 +37,7 @@ auto main(int argc, char** argv) -> int try {
         cube.rotate(SGL::Vector3<float>::up() * 0.5f);
 
         // Draw cube
-        window.getRenderer()->beginDrawing(true, true, true, SGL::COLOR::Black);
+        window.getRenderer()->beginDrawing(true, false, false, SGL::COLOR::Black);
         cube.draw();
         window.getRenderer()->endDrawing();
     }

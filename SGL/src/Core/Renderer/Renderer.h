@@ -79,6 +79,14 @@ namespace SGL {
         ) const noexcept -> bool;
 
 
+        /// <summary>
+        /// Begin drawing to the renderer.
+        /// </summary>
+        /// <param name="clearColorBuffer"></param>
+        /// <param name="clearDepthBuffer"></param>
+        /// <param name="clearStencilBuffer"></param>
+        /// <param name="color"></param>
+        /// <returns></returns>
         SGL_API auto beginDrawing(
             const bool clearColorBuffer,
             const bool clearDepthBuffer,
@@ -87,10 +95,17 @@ namespace SGL {
         ) const noexcept -> void;
 
 
+        /// <summary>
+        /// Finish drawing to the renderer.
+        /// </summary>
         SGL_API auto endDrawing(
         ) const noexcept -> void;
 
 
+        /// <summary>
+        /// Close the renderer and window.
+        /// </summary>
+        /// <returns></returns>
         SGL_API auto close(
         ) const noexcept -> void;
 
