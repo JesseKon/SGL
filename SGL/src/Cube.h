@@ -9,6 +9,7 @@
 #include "Drawable.h"
 #include "ShaderGLSL.h"
 #include "ShaderUniformManager.h"
+#include "Texture.h"
 #include "Color.h"
 #include "Vector3.h"
 #include "Transform.h"
@@ -23,6 +24,7 @@ namespace SGL {
             const Camera& camera,
             const ShaderGLSL& shader,
             const Vector3<float>& size,
+            const Texture* texture = nullptr,
             const bool setStatic = false
         );
 
@@ -47,6 +49,7 @@ namespace SGL {
         const ShaderGLSL* m_pShaderGLSL;
         ShaderUniformManager* m_pShaderUniformManager;
         Drawable m_Drawable;
+        const Texture* m_pTexture;
         bool m_IsStatic;
     };
 }

@@ -134,4 +134,11 @@ namespace SGL {
         return m_Scale;
     }
 
+
+    /* ***************************************************************************************** */
+    auto Transform::getWorldMatrix(
+    ) const noexcept -> Matrix4 {
+        return m_WorldMatrix4;
+    }
+
 }

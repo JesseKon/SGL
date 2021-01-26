@@ -7,21 +7,23 @@ namespace SGL {
     Sprite::Sprite(
         const Camera& camera,
         const ShaderGLSL& shader,
-        const Texture& texture
+        const Texture* texture
     ) {
         m_pCamera = &camera;
         m_pShaderGLSL = &shader;
         m_pShaderUniformManager = new ShaderUniformManager();
-        m_pTexture = &texture;
+        m_pTexture = texture;
 
         std::vector<Drawable::BufferDataType> vertex = {
-            static_cast<float>( texture.getSize().x) / 2.0f, static_cast<float>( texture.getSize().y) / 2, 0.0f,
-            static_cast<float>( texture.getSize().x) / 2.0f, static_cast<float>(-texture.getSize().y) / 2, 0.0f,
-            static_cast<float>(-texture.getSize().x) / 2.0f, static_cast<float>(-texture.getSize().y) / 2, 0.0f,
-            static_cast<float>(-texture.getSize().x) / 2.0f, static_cast<float>( texture.getSize().y) / 2, 0.0f,
+            static_cast<float>( texture->getSize().x) / 2.0f, static_cast<float>( texture->getSize().y) / 2, 0.0f,
+            static_cast<float>( texture->getSize().x) / 2.0f, static_cast<float>(-texture->getSize().y) / 2, 0.0f,
+            static_cast<float>(-texture->getSize().x) / 2.0f, static_cast<float>(-texture->getSize().y) / 2, 0.0f,
+            static_cast<float>(-texture->getSize().x) / 2.0f, static_cast<float>( texture->getSize().y) / 2, 0.0f,
         };
 
-        std::vector<Drawable::BufferDataType> uvcoords = {
+        // TODO: normals etc...
+
+        std::vector<Drawable::BufferDataType> texCoords = {
             1.0f, 1.0f,
             1.0f, 0.0f,
             0.0f, 0.0f,
@@ -33,7 +35,7 @@ namespace SGL {
         };
 
         m_Drawable.setBufferData(0, 3, std::move(vertex));
-        m_Drawable.setBufferData(1, 2, std::move(uvcoords));
+        m_Drawable.setBufferData(1, 2, std::move(texCoords));
         m_Drawable.setIndices(std::move(indices));
         m_Drawable.setDrawMethod(DrawMethod::Static);
         m_Drawable.setDrawMode(DrawMode::Triangles);

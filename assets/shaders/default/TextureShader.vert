@@ -4,9 +4,11 @@ layout (location = 1) in vec2 iTexCoord;
 
 out vec2 vTexCoord;
 
-uniform mat4 uTransform;
+uniform mat4 uTransformMatrix;
+uniform mat4 uWorldMatrix;
+uniform mat4 uInversedWorldMatrix;
 
 void main() {
-    gl_Position = uTransform * vec4(iPos, 1.0);
+    gl_Position = uTransformMatrix * vec4(iPos, 1.0);
     vTexCoord = iTexCoord;
 }

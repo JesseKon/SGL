@@ -77,6 +77,15 @@ namespace SGL {
         ) const noexcept -> Vector3<float>;
 
 
+        /// <summary>
+        /// Get the matrix which represents where the object is in the world space.
+        /// </summary>
+        /// 
+        /// <returns>The world matrix.</returns>
+        auto SGL_API getWorldMatrix(
+        ) const noexcept -> Matrix4;
+
+
     protected:
 
         // World matrix represents where the object is in the world space.

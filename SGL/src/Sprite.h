@@ -22,7 +22,7 @@ namespace SGL {
         SGL_API Sprite(
             const Camera& camera,
             const ShaderGLSL& shader,
-            const Texture& texture
+            const Texture* texture = nullptr
         );
 
 
