@@ -1,5 +1,5 @@
 /* ********************************************************************************************* */
-/* The mandatory part of the file begins here */
+/* The mandatory part of the file begins here. */
 
 #version 330 core
 layout (location = 0) in vec3 iPos;
@@ -14,7 +14,7 @@ uniform mat4 uTransformMatrix;
 uniform mat4 uWorldMatrix;
 uniform mat4 uInversedWorldMatrix;
 
-/* The mandatory part of the file ends here */
+/* The mandatory part of the file ends here. */
 /* ********************************************************************************************* */
 
 

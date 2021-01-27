@@ -9,13 +9,19 @@ namespace SGL {
         const Camera& camera,
         const ShaderGLSL& shader,
         const Vector3<float>& size,
-        const Texture* texture,
+        const Texture* diffuseMap,
+        const Texture* specularMap,
         const bool setStatic
     ) {
         m_pCamera = &camera;
         m_pShaderGLSL = &shader;
         m_pShaderUniformManager = new ShaderUniformManager();
         m_IsStatic = setStatic;
+
+        m_pDiffuseMap = nullptr;
+        m_pSpecularMap = nullptr;
+
+        m_ObjectColor = COLOR::White;
 
         const float halfX = size.x / 2.0f;
         const float halfY = size.y / 2.0f;
@@ -170,19 +176,31 @@ namespace SGL {
         m_Drawable.setDrawMode(DrawMode::Triangles);
         m_Drawable.configure();
 
-        m_pTexture = texture;
-
         // Create placeholder texture if none was provided
-        if (!texture) {
-            std::cout << "eih";
-            m_pTexture = new Texture(Vector2<std::uint32_t>(1, 1), TextureFilter::Point);
-            const_cast<Texture*>(m_pTexture)->beginDrawing(SGL::COLOR::White);
-            const_cast<Texture*>(m_pTexture)->endDrawing();
+        if (!diffuseMap) {
+            m_pDiffuseMap = new Texture(Vector2<std::uint32_t>(1, 1), TextureFilter::Point);
+            const_cast<Texture*>(m_pDiffuseMap)->beginDrawing(SGL::COLOR::White);
+            const_cast<Texture*>(m_pDiffuseMap)->endDrawing();
         }
         else {
-            std::cout << "jooh!";
-            m_pTexture = texture;
+            m_pDiffuseMap = diffuseMap;
         }
+
+        // Placeholder for diffuse map
+        if (!specularMap) {
+            m_pSpecularMap = new Texture(Vector2<std::uint32_t>(1, 1), TextureFilter::Point);
+            const_cast<Texture*>(m_pSpecularMap)->beginDrawing(SGL::COLOR::White);
+            const_cast<Texture*>(m_pSpecularMap)->endDrawing();
+        }
+        else {
+            m_pSpecularMap = specularMap;
+        }
+
+        const_cast<Texture*>(m_pDiffuseMap)->setTextureUnit(TextureUnit::Texture0);
+        m_pShaderGLSL->setTextureUnit("material.diffuse", TextureUnit::Texture0);
+        const_cast<Texture*>(m_pSpecularMap)->setTextureUnit(TextureUnit::Texture1);
+        m_pShaderGLSL->setTextureUnit("material.specular", TextureUnit::Texture1);
+
     }
 
 
@@ -194,11 +212,31 @@ namespace SGL {
             m_pShaderUniformManager = nullptr;
         }
 
-        if (m_pTexture) {
-            delete m_pTexture;
-            m_pTexture = nullptr;
+        if (m_pDiffuseMap) {
+            m_pDiffuseMap = nullptr;  // TODO: potential memory leak
         }
+
+        if (m_pSpecularMap) {
+            m_pDiffuseMap = nullptr;  // TODO: potential memory leak
+        }
+
     }
+
+
+    /* ***************************************************************************************** */
+    auto Cube::setColor(
+        const Color& newColor
+    ) noexcept -> void {
+        m_ObjectColor = newColor;
+    }
+
+
+    /* ***************************************************************************************** */
+    auto Cube::getColor(
+    ) const noexcept -> Color {
+        return m_ObjectColor;
+    }
+
 
 
     /* ***************************************************************************************** */
@@ -212,10 +250,17 @@ namespace SGL {
     auto Cube::draw(
     ) const noexcept -> void {
         m_pShaderGLSL->setActive();
-        m_pTexture->use();
+
         m_pShaderGLSL->setMatrix4("uTransformMatrix", m_pCamera->getMatrix4() * m_WorldMatrix4);
         m_pShaderGLSL->setMatrix4("uWorldMatrix", m_WorldMatrix4);
         m_pShaderGLSL->setMatrix4("uInversedWorldMatrix", Matrix4::inverse(m_WorldMatrix4));
+
+        //m_pShaderGLSL->setVector4("uObjectColor", m_ObjectColor.toVec4());
+        //m_pShaderGLSL->setVector4("uAmbientColor", m_pShaderGLSL->getLightManager()->getAmbientLightColor().toVec4());
+
+        m_pDiffuseMap->use();
+        m_pSpecularMap->use();
+
         m_pShaderUniformManager->activateAll(m_pShaderGLSL);
         m_Drawable.draw();
     }

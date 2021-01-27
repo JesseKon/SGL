@@ -49,6 +49,21 @@ namespace SGL {
 
 
     /* ***************************************************************************************** */
+    auto ShaderUniformManager::setVector3(
+        const std::string& uniformName,
+        const glm::vec3& value
+    ) noexcept -> void {
+        auto it = std::find_if(m_Uniforms.begin(), m_Uniforms.end(),
+            [&](const Uniform& uniform) { return uniform.uniformName == uniformName; });
+
+        if (it != m_Uniforms.end())
+            m_Uniforms.at(std::distance(m_Uniforms.begin(), it)) = { UniformType::Vector3, uniformName, value };
+        else
+            m_Uniforms.push_back({ UniformType::Vector3, uniformName, value });
+    }
+
+
+    /* ***************************************************************************************** */
     auto ShaderUniformManager::setVector4(
         const std::string& uniformName,
         const glm::vec4& value
@@ -85,11 +100,15 @@ namespace SGL {
         for (auto it = m_Uniforms.begin(); it != m_Uniforms.end(); ++it) {
             switch (it->uniformType) {
             case UniformType::Int:
-                shader->setInt(it->uniformName, std::get<0>(it->value));
+                shader->setInt(it->uniformName, std::get<int>(it->value));
                 break;
 
             case UniformType::Float:
                 shader->setFloat(it->uniformName, std::get<float>(it->value));
+                break;
+
+            case UniformType::Vector3:
+                shader->setVector3(it->uniformName, std::get<glm::vec3>(it->value));
                 break;
 
             case UniformType::Vector4:

@@ -16,6 +16,7 @@ namespace SGL {
     ShaderGLSL::ShaderGLSL(
     ) noexcept {
         m_ProgramID = NULL;
+        m_pLightManager = nullptr;
     };
 
 
@@ -121,6 +122,8 @@ namespace SGL {
 
         // Shader has to be used at least once before its uniforms can be accessed
         setActive();
+
+        m_pLightManager = new LightManager();
     };
 
 
@@ -131,6 +134,11 @@ namespace SGL {
             glDeleteProgram(m_ProgramID);
             m_ProgramID = NULL;
         }
+
+        if (m_pLightManager) {
+            delete m_pLightManager;
+            m_pLightManager = nullptr;
+        }
     };
 
 
@@ -138,7 +146,7 @@ namespace SGL {
     auto ShaderGLSL::setTextureUnit(
         const std::string& textureName,
         const TextureUnit::type textureUnit
-    ) noexcept -> void {
+    ) const noexcept -> void {
         setInt(textureName, static_cast<std::int32_t>(textureUnit - TextureUnit::Texture0));
     }
 
@@ -166,7 +174,17 @@ namespace SGL {
         const float value
     ) const noexcept -> void {
         GLuint location = glGetUniformLocation(m_ProgramID, uniformName.c_str());
-        glUniform1i(location, value);
+        glUniform1f(location, value);
+    }
+
+
+    /* ***************************************************************************************** */
+    auto ShaderGLSL::setVector3(
+        const std::string& uniformName,
+        const glm::vec3& value
+    ) const noexcept -> void {
+        GLuint location = glGetUniformLocation(m_ProgramID, uniformName.c_str());
+        glUniform3fv(location, 1, glm::value_ptr(value));
     }
 
 
@@ -187,6 +205,13 @@ namespace SGL {
     ) const noexcept -> void {
         GLuint location = glGetUniformLocation(m_ProgramID, uniformName.c_str());
         glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(value.toMat4()));
+    }
+
+
+    /* ***************************************************************************************** */
+    auto ShaderGLSL::getLightManager(
+    ) const noexcept -> LightManager* {
+        return m_pLightManager;
     }
 
 }

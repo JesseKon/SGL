@@ -33,6 +33,12 @@ namespace SGL {
         ) noexcept -> void;
 
 
+        auto SGL_API setVector3(
+            const std::string& uniformName,
+            const glm::vec3& value
+        ) noexcept -> void;
+
+
         auto SGL_API setVector4(
             const std::string& uniformName,
             const glm::vec4& value
@@ -55,6 +61,7 @@ namespace SGL {
         enum class UniformType {
             Int,
             Float,
+            Vector3,
             Vector4,
             Matrix4
         };
@@ -62,7 +69,7 @@ namespace SGL {
         struct Uniform {
             UniformType uniformType;
             std::string uniformName;
-            std::variant<std::int32_t, float, glm::vec4, Matrix4> value;
+            std::variant<std::int32_t, float, glm::vec3, glm::vec4, Matrix4> value;
         };
         std::vector<Uniform> m_Uniforms;
 

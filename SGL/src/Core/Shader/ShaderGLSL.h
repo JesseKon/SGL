@@ -10,6 +10,7 @@
 #include "SGLCore.h"
 #include "Matrix4.h"
 #include "TextureUnit.h"
+#include "LightManager.h"
 
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
@@ -100,7 +101,7 @@ namespace SGL {
         auto SGL_API setTextureUnit(
             const std::string& uniformName,
             const TextureUnit::type textureUnit
-        ) noexcept -> void;
+        ) const noexcept -> void;
 
 
         /// <summary>
@@ -146,6 +147,18 @@ namespace SGL {
 
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="uniformName"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        auto SGL_API setVector3(
+            const std::string& uniformName,
+            const glm::vec3& value
+        ) const noexcept -> void;
+
+
+        /// <summary>
         /// Set uniform to given value.
         /// </summary>
         /// 
@@ -179,8 +192,13 @@ namespace SGL {
         ) const noexcept -> void;
 
 
+        auto SGL_API getLightManager(
+        ) const noexcept -> LightManager*;
+
+
     private:
         GLuint m_ProgramID;
+        LightManager* m_pLightManager;
 
     };
 

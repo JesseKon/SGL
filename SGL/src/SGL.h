@@ -37,4 +37,7 @@
 #include "Sprite.h"
 #include "Cube.h"
 
+#include "LightManager.h"
+#include "AmbientLight.h"
+
 #endif  /* _SGL_H_ */

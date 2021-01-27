@@ -24,13 +24,23 @@ namespace SGL {
             const Camera& camera,
             const ShaderGLSL& shader,
             const Vector3<float>& size,
-            const Texture* texture = nullptr,
+            const Texture* diffuseMap = nullptr,
+            const Texture* specularMap = nullptr,
             const bool setStatic = false
         );
 
 
         SGL_API ~Cube(
         ) noexcept;
+
+
+        auto SGL_API setColor(
+            const Color& newColor
+        ) noexcept -> void;
+
+
+        auto SGL_API getColor(
+        ) const noexcept -> Color;
 
 
         auto SGL_API getShaderUniformManager(
@@ -49,8 +59,11 @@ namespace SGL {
         const ShaderGLSL* m_pShaderGLSL;
         ShaderUniformManager* m_pShaderUniformManager;
         Drawable m_Drawable;
-        const Texture* m_pTexture;
         bool m_IsStatic;
+        Color m_ObjectColor;
+
+        const Texture* m_pDiffuseMap;
+        const Texture* m_pSpecularMap;
     };
 }
 
