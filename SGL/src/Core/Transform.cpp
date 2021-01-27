@@ -26,11 +26,14 @@ namespace SGL {
     auto Transform::translate(
         const Vector3<float>& translation
     ) noexcept -> void {
-        auto scale = m_Scale;
+        auto oldScale = m_Scale;
+        auto oldRotation = m_Rotation;
         setLocalScale(Vector3<float>::one());
+        setRotation(Vector3<float>::zero());
         m_WorldMatrix4.translate(translation);
         m_Position += translation;
-        setLocalScale(scale);
+        setRotation(oldRotation);
+        setLocalScale(oldScale);
     }
 
 

@@ -11,18 +11,12 @@ auto main(int argc, char** argv) -> int try {
     // Create window and camera
     SGL::Window window({ 640u, 480u }, u8"Otsikko", SGL::RendererType::Windowed);
     SGL::Camera camera(window, SGL::CameraType::Perspective);
-    camera.setPosition(SGL::Vector3<float>::forward() * 3.0f);
-
-    // Load solid color shader (represents light source)
-    SGL::ShaderGLSL solidColorShader(
-        "../assets/shaders/SolidColor.vert",
-        "../assets/shaders/SolidColor.frag"
-    );
+    camera.setPosition(SGL::Vector3<float>::forward() * 10.0f);
 
     // Load lit shader
     SGL::ShaderGLSL litShader(
-        "../assets/shaders/LitShader.vert",
-        "../assets/shaders/LitShader.frag"
+        "../assets/shaders/LitShaderSpotlight.vert",
+        "../assets/shaders/LitShaderSpotlight.frag"
     );
 
     SGL::Texture diffuseMap("../assets/textures/container2.png");
@@ -30,29 +24,34 @@ auto main(int argc, char** argv) -> int try {
 
 
     // Create illuminated cube
-    SGL::Cube illuminatedCube(camera, litShader, SGL::Vector3<float>::one(), &diffuseMap, &specularMap);
+    SGL::Cube illuminatedCube(camera, litShader, SGL::Vector3<float>::one() * 2.0f, &diffuseMap, &specularMap);
     illuminatedCube.setPosition({ 0.0f, 0.0f, 0.0f });
-    illuminatedCube.getShaderUniformManager()->setVector4("uAmbientColor", glm::vec4(0.1f, 0.1f, 0.1f, 0.1f));
+    //illuminatedCube.getShaderUniformManager()->setVector4("uAmbientColor", glm::vec4(0.1f, 0.1f, 0.1f, 0.1f));
+    //illuminatedCube.getShaderUniformManager()->setVector4("uLightColor", glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
     illuminatedCube.getShaderUniformManager()->setVector4("uLightPos", glm::vec4(4.0f, 0.0f, 3.0f, 0.0f));
-    illuminatedCube.getShaderUniformManager()->setVector4("uLightColor", glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
     illuminatedCube.getShaderUniformManager()->setVector4("uViewPos", glm::vec4(0.0f, 0.0f, 3.0f, 0.0f));
 
-    //illuminatedCube.getShaderUniformManager()->setVector3("material.ambient", glm::vec3(1.0f, 0.5f, 0.31f));
-    //illuminatedCube.getShaderUniformManager()->setVector3("material.diffuse", glm::vec3(1.0f, 0.5f, 0.31f));
-    //illuminatedCube.getShaderUniformManager()->setVector3("material.specular", glm::vec3(0.5f, 0.5f, 0.5f));
     illuminatedCube.getShaderUniformManager()->setFloat("material.shininess", 32.0f);
 
-    illuminatedCube.getShaderUniformManager()->setVector3("light.position", glm::vec3(1.f, 0.2f, 4.0f));
+    illuminatedCube.getShaderUniformManager()->setVector3("light.position", glm::vec3(0.0f, 0.0f, 3.0f));
+    illuminatedCube.getShaderUniformManager()->setVector3("light.direction", glm::vec3(0.0f, 0.0f, -1.0f));
+    illuminatedCube.getShaderUniformManager()->setFloat("light.cutOff", glm::cos(glm::radians(12.5f)));
+    illuminatedCube.getShaderUniformManager()->setFloat("light.outerCutOff", glm::cos(glm::radians(17.5f)));
     illuminatedCube.getShaderUniformManager()->setVector3("light.ambient", glm::vec3(0.1f, 0.1f, 0.1f));
     illuminatedCube.getShaderUniformManager()->setVector3("light.diffuse", glm::vec3(0.5f, 0.5f, 0.5f)); // darken diffuse light a bit
     illuminatedCube.getShaderUniformManager()->setVector3("light.specular", glm::vec3(1.0f, 1.0f, 1.0f));
+
+    illuminatedCube.getShaderUniformManager()->setFloat("light.constant", 1.0f);
+    illuminatedCube.getShaderUniformManager()->setFloat("light.linear", 0.09f);
+    illuminatedCube.getShaderUniformManager()->setFloat("light.quadratic", 0.032f);
 
 
     // Main loop
     while (window.getRenderer()->running()) {
 
-        illuminatedCube.rotate(SGL::Vector3<float>::up() * 0.2f);
+        //illuminatedCube.rotate(SGL::Vector3<float>::up() * 0.2f);
         //illuminatedCube.rotate(SGL::Vector3<float>::right() * 0.2f);
+        illuminatedCube.translate(SGL::Vector3<float>::left() * -0.003f);
 
         // Draw to renderer
         window.getRenderer()->beginDrawing(true, true, true, SGL::COLOR::Black);
