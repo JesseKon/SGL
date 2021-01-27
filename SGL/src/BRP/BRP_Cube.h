@@ -1,28 +1,30 @@
 
 
-#ifndef _SGL_CUBE_H_
-#define _SGL_CUBE_H_
+#ifndef _SGL_BRP_CUBE_H_
+#define _SGL_BRP_CUBE_H_
 
 #include "SGLCore.h"
 
-#include "Camera.h"
 #include "Drawable.h"
 #include "ShaderGLSL.h"
-#include "ShaderUniformManager.h"
 #include "Texture.h"
 #include "Color.h"
 #include "Vector3.h"
 #include "Transform.h"
 
+#include "BRP_Camera.h"
+#include "BRP_Shader.h"
+#include "BRP_ShaderUniformManager.h"
+
 namespace SGL {
 
-    class Cube : public Transform
+    class BRP_Cube : public Transform
     {
     public:
 
-        SGL_API Cube(
-            const Camera& camera,
-            const ShaderGLSL& shader,
+        SGL_API BRP_Cube(
+            const BRP_Camera& camera,
+            const BRP_Shader& shader,
             const Vector3<float>& size,
             const Texture* diffuseMap = nullptr,
             const Texture* specularMap = nullptr,
@@ -30,12 +32,12 @@ namespace SGL {
         );
 
 
-        SGL_API ~Cube(
+        SGL_API ~BRP_Cube(
         ) noexcept;
 
 
         auto SGL_API setColor(
-            const Color& newColor
+            const Color& color
         ) noexcept -> void;
 
 
@@ -43,8 +45,17 @@ namespace SGL {
         ) const noexcept -> Color;
 
 
-        auto SGL_API getShaderUniformManager(
-        ) const noexcept -> ShaderUniformManager*;
+        auto SGL_API setShininess(
+            const float shininess
+        ) noexcept -> void;
+
+
+        auto SGL_API getShininess(
+        ) const noexcept -> float;
+
+
+        auto SGL_API getBRP_ShaderUniformManager(
+        ) const noexcept -> BRP_ShaderUniformManager*;
 
 
         /// <summary>
@@ -55,15 +66,17 @@ namespace SGL {
 
 
     private:
-        const Camera* m_pCamera;
-        const ShaderGLSL* m_pShaderGLSL;
-        ShaderUniformManager* m_pShaderUniformManager;
+        const BRP_Camera* m_pBRP_Camera;
+        const BRP_Shader* m_pBRP_Shader;
+        BRP_ShaderUniformManager* m_pBRP_ShaderUniformManager;
         Drawable m_Drawable;
         bool m_IsStatic;
-        Color m_ObjectColor;
 
         const Texture* m_pDiffuseMap;
         const Texture* m_pSpecularMap;
+
+        Color m_ObjectColor;
+        float m_Shininess;
     };
 }
 

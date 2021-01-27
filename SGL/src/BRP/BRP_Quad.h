@@ -1,27 +1,29 @@
 
 
-#ifndef _SGL_QUAD_H_
-#define _SGL_QUAD_H_
+#ifndef _SGL_BRP_QUAD_H_
+#define _SGL_BRP_QUAD_H_
 
 #include "SGLCore.h"
 
-#include "Camera.h"
 #include "Drawable.h"
 #include "ShaderGLSL.h"
-#include "ShaderUniformManager.h"
 #include "Color.h"
 #include "Vector3.h"
 #include "Transform.h"
 
+#include "BRP_Camera.h"
+#include "BRP_Shader.h"
+#include "BRP_ShaderUniformManager.h"
+
 namespace SGL {
 
-    class Quad
+    class BRP_Quad
     {
     public:
 
-        SGL_API Quad(
-            const Camera& camera,
-            const ShaderGLSL& shader,
+        SGL_API BRP_Quad(
+            const BRP_Camera& camera,
+            const BRP_Shader& shader,
             const Vector3<float>& p1,
             const Vector3<float>& p2,
             const Vector3<float>& p3,
@@ -30,7 +32,7 @@ namespace SGL {
         );
 
 
-        SGL_API ~Quad(
+        SGL_API ~BRP_Quad(
         ) noexcept;
 
 
@@ -42,10 +44,6 @@ namespace SGL {
         ) -> void;
 
 
-        auto SGL_API getShaderUniformManager(
-        ) const noexcept -> ShaderUniformManager*;
-
-
         /// <summary>
         /// Draw this object to the currently active renderer.
         /// </summary>
@@ -54,9 +52,9 @@ namespace SGL {
 
 
     private:
-        const Camera* m_pCamera;
-        const ShaderGLSL* m_pShaderGLSL;
-        ShaderUniformManager* m_pShaderUniformManager;
+        const BRP_Camera* m_pCamera;
+        const BRP_Shader* m_pShaderGLSL;
+        BRP_ShaderUniformManager* m_pBRP_ShaderUniformManager;
         Drawable m_Drawable;
         bool m_IsStatic;
     };

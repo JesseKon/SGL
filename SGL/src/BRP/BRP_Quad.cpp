@@ -1,13 +1,13 @@
 
 
-#include "Quad.h"
+#include "BRP_Quad.h"
 
 namespace SGL {
 
     /* ***************************************************************************************** */
-    Quad::Quad(
-        const Camera& camera,
-        const ShaderGLSL& shader,
+    BRP_Quad::BRP_Quad(
+        const BRP_Camera& camera,
+        const BRP_Shader& shader,
         const Vector3<float>& p1,
         const Vector3<float>& p2,
         const Vector3<float>& p3,
@@ -16,7 +16,7 @@ namespace SGL {
     ) {
         m_pCamera = &camera;
         m_pShaderGLSL = &shader;
-        m_pShaderUniformManager = new ShaderUniformManager();
+        m_pBRP_ShaderUniformManager = new BRP_ShaderUniformManager();
         m_IsStatic = setStatic;
 
         std::vector<Drawable::BufferDataType> vertex = {
@@ -39,17 +39,17 @@ namespace SGL {
 
 
     /* ***************************************************************************************** */
-    Quad::~Quad(
+    BRP_Quad::~BRP_Quad(
     ) noexcept {
-        if (m_pShaderUniformManager) {
-            delete m_pShaderUniformManager;
-            m_pShaderUniformManager = nullptr;
+        if (m_pBRP_ShaderUniformManager) {
+            delete m_pBRP_ShaderUniformManager;
+            m_pBRP_ShaderUniformManager = nullptr;
         }
     }
 
 
     /* ***************************************************************************************** */
-    auto Quad::setPoints(
+    auto BRP_Quad::setPoints(
         const Vector3<float>& p1,
         const Vector3<float>& p2,
         const Vector3<float>& p3,
@@ -70,18 +70,11 @@ namespace SGL {
 
 
     /* ***************************************************************************************** */
-    auto Quad::getShaderUniformManager(
-    ) const noexcept -> ShaderUniformManager* {
-        return m_pShaderUniformManager;
-    }
-
-
-    /* ***************************************************************************************** */
-    auto Quad::draw(
+    auto BRP_Quad::draw(
     ) const noexcept -> void {
         m_pShaderGLSL->setActive();
         m_pShaderGLSL->setMatrix4("uTransform", m_pCamera->getMatrix4());
-        m_pShaderUniformManager->activateAll(m_pShaderGLSL);
+        m_pBRP_ShaderUniformManager->activateAll(m_pShaderGLSL);
         m_Drawable.draw();
     }
 

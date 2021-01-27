@@ -1,27 +1,28 @@
 
 
-#include "Cube.h"
+#include "BRP_Cube.h"
 
 namespace SGL {
 
     /* ***************************************************************************************** */
-    Cube::Cube(
-        const Camera& camera,
-        const ShaderGLSL& shader,
+    BRP_Cube::BRP_Cube(
+        const BRP_Camera& camera,
+        const BRP_Shader& shader,
         const Vector3<float>& size,
         const Texture* diffuseMap,
         const Texture* specularMap,
         const bool setStatic
     ) {
-        m_pCamera = &camera;
-        m_pShaderGLSL = &shader;
-        m_pShaderUniformManager = new ShaderUniformManager();
+        m_pBRP_Camera = &camera;
+        m_pBRP_Shader = &shader;
+        m_pBRP_ShaderUniformManager = new BRP_ShaderUniformManager();
         m_IsStatic = setStatic;
 
         m_pDiffuseMap = nullptr;
         m_pSpecularMap = nullptr;
 
         m_ObjectColor = COLOR::White;
+        m_Shininess = 16.0f;
 
         const float halfX = size.x / 2.0f;
         const float halfY = size.y / 2.0f;
@@ -179,7 +180,7 @@ namespace SGL {
         // Create placeholder texture if none was provided
         if (!diffuseMap) {
             m_pDiffuseMap = new Texture(Vector2<std::uint32_t>(1, 1), TextureFilter::Point);
-            const_cast<Texture*>(m_pDiffuseMap)->beginDrawing(SGL::COLOR::White);
+            const_cast<Texture*>(m_pDiffuseMap)->beginDrawing(SGL::Color(255, 255, 255));
             const_cast<Texture*>(m_pDiffuseMap)->endDrawing();
         }
         else {
@@ -189,7 +190,7 @@ namespace SGL {
         // Placeholder for diffuse map
         if (!specularMap) {
             m_pSpecularMap = new Texture(Vector2<std::uint32_t>(1, 1), TextureFilter::Point);
-            const_cast<Texture*>(m_pSpecularMap)->beginDrawing(SGL::COLOR::White);
+            const_cast<Texture*>(m_pSpecularMap)->beginDrawing(SGL::Color(64, 64, 64));
             const_cast<Texture*>(m_pSpecularMap)->endDrawing();
         }
         else {
@@ -197,19 +198,19 @@ namespace SGL {
         }
 
         const_cast<Texture*>(m_pDiffuseMap)->setTextureUnit(TextureUnit::Texture0);
-        m_pShaderGLSL->setTextureUnit("material.diffuse", TextureUnit::Texture0);
+        m_pBRP_Shader->setTextureUnit("material.diffuse", TextureUnit::Texture0);
         const_cast<Texture*>(m_pSpecularMap)->setTextureUnit(TextureUnit::Texture1);
-        m_pShaderGLSL->setTextureUnit("material.specular", TextureUnit::Texture1);
+        m_pBRP_Shader->setTextureUnit("material.specular", TextureUnit::Texture1);
 
     }
 
 
     /* ***************************************************************************************** */
-    Cube::~Cube(
+    BRP_Cube::~BRP_Cube(
     ) noexcept {
-        if (m_pShaderUniformManager) {
-            delete m_pShaderUniformManager;
-            m_pShaderUniformManager = nullptr;
+        if (m_pBRP_ShaderUniformManager) {
+            delete m_pBRP_ShaderUniformManager;
+            m_pBRP_ShaderUniformManager = nullptr;
         }
 
         if (m_pDiffuseMap) {
@@ -224,44 +225,63 @@ namespace SGL {
 
 
     /* ***************************************************************************************** */
-    auto Cube::setColor(
-        const Color& newColor
+    auto BRP_Cube::setColor(
+        const Color& color
     ) noexcept -> void {
-        m_ObjectColor = newColor;
+        m_ObjectColor = color;
     }
 
 
     /* ***************************************************************************************** */
-    auto Cube::getColor(
+    auto BRP_Cube::getColor(
     ) const noexcept -> Color {
         return m_ObjectColor;
     }
 
 
-
     /* ***************************************************************************************** */
-    auto Cube::getShaderUniformManager(
-    ) const noexcept -> ShaderUniformManager* {
-        return m_pShaderUniformManager;
+    auto BRP_Cube::setShininess(
+        const float shininess
+    ) noexcept -> void {
+        m_Shininess = shininess;
     }
 
 
     /* ***************************************************************************************** */
-    auto Cube::draw(
+    auto BRP_Cube::getShininess(
+    ) const noexcept -> float {
+        return m_Shininess;
+    }
+
+
+    /* ***************************************************************************************** */
+    auto BRP_Cube::getBRP_ShaderUniformManager(
+    ) const noexcept -> BRP_ShaderUniformManager* {
+        return m_pBRP_ShaderUniformManager;
+    }
+
+
+    /* ***************************************************************************************** */
+    auto BRP_Cube::draw(
     ) const noexcept -> void {
-        m_pShaderGLSL->setActive();
+        m_pBRP_Shader->setActive();
 
-        m_pShaderGLSL->setMatrix4("uTransformMatrix", m_pCamera->getMatrix4() * m_WorldMatrix4);
-        m_pShaderGLSL->setMatrix4("uWorldMatrix", m_WorldMatrix4);
-        m_pShaderGLSL->setMatrix4("uInversedWorldMatrix", Matrix4::inverse(m_WorldMatrix4));
+        m_pBRP_Shader->setMatrix4("matrix.transform", m_pBRP_Camera->getMatrix4() * m_WorldMatrix4);
+        m_pBRP_Shader->setMatrix4("matrix.world", m_WorldMatrix4);
+        m_pBRP_Shader->setMatrix4("matrix.inversedWorld", Matrix4::inverse(m_WorldMatrix4));
 
-        //m_pShaderGLSL->setVector4("uObjectColor", m_ObjectColor.toVec4());
-        //m_pShaderGLSL->setVector4("uAmbientColor", m_pShaderGLSL->getLightManager()->getAmbientLightColor().toVec4());
+        m_pBRP_Shader->setVector3("material.color", glm::vec3(
+            m_ObjectColor.getRedf<float>(),
+            m_ObjectColor.getGreenf<float>(),
+            m_ObjectColor.getBluef<float>()
+        ));
+
+        m_pBRP_Shader->setFloat("material.shininess", m_Shininess);
 
         m_pDiffuseMap->use();
         m_pSpecularMap->use();
 
-        m_pShaderUniformManager->activateAll(m_pShaderGLSL);
+        m_pBRP_ShaderUniformManager->activateAll(m_pBRP_Shader);
         m_Drawable.draw();
     }
 

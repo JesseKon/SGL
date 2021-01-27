@@ -1,22 +1,23 @@
 
 
-#ifndef _SGL_LINE_H_
-#define _SGL_LINE_H_
+#ifndef _SGL_BRP_LINE_H_
+#define _SGL_BRP_LINE_H_
 
 #include "SGLCore.h"
 
-#include "Camera.h"
 #include "Drawable.h"
 #include "ShaderGLSL.h"
-#include "ShaderUniformManager.h"
 #include "Color.h"
 #include "Vector3.h"
 #include "Transform.h"
 
+#include "BRP_Camera.h"
+#include "BRP_Shader.h"
+#include "BRP_ShaderUniformManager.h"
 
 namespace SGL {
 
-    class Line
+    class BRP_Line
     {
     public:
 
@@ -43,16 +44,16 @@ namespace SGL {
         /// <param name="setStatic">
         /// Set this line as static. Static objects can not be altered after constructed.
         /// </param>
-        SGL_API Line(
-            const Camera& camera,
-            const ShaderGLSL& shader,
+        SGL_API BRP_Line(
+            const BRP_Camera& camera,
+            const BRP_Shader& shader,
             const Vector3<float>& p1,
             const Vector3<float>& p2,
             const bool setStatic = false
         );
 
 
-        SGL_API ~Line(
+        SGL_API ~BRP_Line(
         ) noexcept;
 
 
@@ -60,10 +61,6 @@ namespace SGL {
             const Vector3<float>& p1,
             const Vector3<float>& p2
         ) -> void;
-
-
-        auto SGL_API getShaderUniformManager(
-        ) const noexcept -> ShaderUniformManager*;
 
 
         /// <summary>
@@ -75,9 +72,9 @@ namespace SGL {
 
 
     private:
-        const Camera* m_pCamera;
-        const ShaderGLSL* m_pShaderGLSL;
-        ShaderUniformManager* m_pShaderUniformManager;
+        const BRP_Camera* m_pCamera;
+        const BRP_Shader* m_pShaderGLSL;
+        BRP_ShaderUniformManager* m_pBRP_ShaderUniformManager;
         Drawable m_Drawable;
         bool m_IsStatic;
     };

@@ -10,7 +10,6 @@
 #include "SGLCore.h"
 #include "Matrix4.h"
 #include "TextureUnit.h"
-#include "LightManager.h"
 
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
@@ -55,7 +54,7 @@ namespace SGL {
         /// </summary>
         /// 
         /// <returns></returns>
-        SGL_API ~ShaderGLSL(
+        virtual SGL_API ~ShaderGLSL(
         ) noexcept;
 
 
@@ -191,14 +190,8 @@ namespace SGL {
             const Matrix4& value
         ) const noexcept -> void;
 
-
-        auto SGL_API getLightManager(
-        ) const noexcept -> LightManager*;
-
-
-    private:
+    protected:
         GLuint m_ProgramID;
-        LightManager* m_pLightManager;
 
     };
 

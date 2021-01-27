@@ -1,27 +1,29 @@
 
 
-#ifndef _SGL_TRIANGLE_H_
-#define _SGL_TRIANGLE_H_
+#ifndef _SGL_BRP_TRIANGLE_H_
+#define _SGL_BRP_TRIANGLE_H_
 
 #include "SGLCore.h"
 
-#include "Camera.h"
 #include "Drawable.h"
 #include "ShaderGLSL.h"
-#include "ShaderUniformManager.h"
 #include "Color.h"
 #include "Vector3.h"
 #include "Transform.h"
 
+#include "BRP_Camera.h"
+#include "BRP_Shader.h"
+#include "BRP_ShaderUniformManager.h"
+
 namespace SGL {
 
-    class Triangle
+    class BRP_Triangle
     {
     public:
 
-        SGL_API Triangle(
-            const Camera& camera,
-            const ShaderGLSL& shader,
+        SGL_API BRP_Triangle(
+            const BRP_Camera& camera,
+            const BRP_Shader& shader,
             const Vector3<float>& p1,
             const Vector3<float>& p2,
             const Vector3<float>& p3,
@@ -29,7 +31,7 @@ namespace SGL {
         );
 
 
-        SGL_API ~Triangle(
+        SGL_API ~BRP_Triangle(
         ) noexcept;
 
 
@@ -40,8 +42,8 @@ namespace SGL {
         ) -> void;
 
 
-        auto SGL_API getShaderUniformManager(
-        ) const noexcept -> ShaderUniformManager*;
+        auto SGL_API getBRP_ShaderUniformManager(
+        ) const noexcept -> BRP_ShaderUniformManager*;
 
 
         /// <summary>
@@ -52,9 +54,9 @@ namespace SGL {
 
 
     private:
-        const Camera* m_pCamera;
-        const ShaderGLSL* m_pShaderGLSL;
-        ShaderUniformManager* m_pShaderUniformManager;
+        const BRP_Camera* m_pCamera;
+        const BRP_Shader* m_pShaderGLSL;
+        BRP_ShaderUniformManager* m_pBRP_ShaderUniformManager;
         Drawable m_Drawable;
         bool m_IsStatic;
     };

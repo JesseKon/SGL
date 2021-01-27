@@ -39,6 +39,8 @@ project "SGL"
     files {
         "SGL/src/**.h",
         "SGL/src/**.cpp",
+        "SGL/src/BRP/**.h",
+        "SGL/src/BRP/**.cpp",
 		"SGL/src/Core/**.h",
         "SGL/src/Core/**.cpp",
         "SGL/src/Core/Drawable/**.h",
@@ -56,6 +58,7 @@ project "SGL"
 
     includedirs {
         "SGL/src/",
+        "SGL/src/BRP",
         "SGL/src/Core/",
         "SGL/src/Core/Drawable/",
         "SGL/src/Core/Renderer/",
@@ -141,6 +144,7 @@ project "TestProject"
 
     includedirs {
         "SGL/src/",
+        "SGL/src/BRP/",
         "SGL/src/Core/",
         "SGL/src/Core/Drawable/",
         "SGL/src/Core/Renderer/",

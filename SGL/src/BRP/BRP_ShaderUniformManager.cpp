@@ -1,25 +1,25 @@
 
 
-#include "ShaderUniformManager.h"
+#include "BRP_ShaderUniformManager.h"
 
 namespace SGL {
 
     /* ***************************************************************************************** */
-    ShaderUniformManager::ShaderUniformManager(
+    BRP_ShaderUniformManager::BRP_ShaderUniformManager(
     ) {
 
     }
 
 
     /* ***************************************************************************************** */
-    ShaderUniformManager::~ShaderUniformManager(
+    BRP_ShaderUniformManager::~BRP_ShaderUniformManager(
     ) noexcept {
 
     }
 
 
     /* ***************************************************************************************** */
-    auto ShaderUniformManager::setInt(
+    auto BRP_ShaderUniformManager::setInt(
         const std::string& uniformName,
         const std::int32_t value
     ) noexcept -> void {
@@ -34,7 +34,7 @@ namespace SGL {
 
 
     /* ***************************************************************************************** */
-    auto ShaderUniformManager::setFloat(
+    auto BRP_ShaderUniformManager::setFloat(
         const std::string& uniformName,
         const float value
     ) noexcept -> void {
@@ -49,7 +49,7 @@ namespace SGL {
 
 
     /* ***************************************************************************************** */
-    auto ShaderUniformManager::setVector3(
+    auto BRP_ShaderUniformManager::setVector3(
         const std::string& uniformName,
         const glm::vec3& value
     ) noexcept -> void {
@@ -64,7 +64,7 @@ namespace SGL {
 
 
     /* ***************************************************************************************** */
-    auto ShaderUniformManager::setVector4(
+    auto BRP_ShaderUniformManager::setVector4(
         const std::string& uniformName,
         const glm::vec4& value
     ) noexcept -> void {
@@ -79,7 +79,7 @@ namespace SGL {
 
 
     /* ***************************************************************************************** */
-    auto ShaderUniformManager::setMatrix4(
+    auto BRP_ShaderUniformManager::setMatrix4(
         const std::string& uniformName,
         const Matrix4& value
     ) noexcept -> void {
@@ -94,7 +94,7 @@ namespace SGL {
 
 
     /* ***************************************************************************************** */
-    auto ShaderUniformManager::activateAll(
+    auto BRP_ShaderUniformManager::activateAll(
         const ShaderGLSL* shader
     ) const noexcept -> void {
         for (auto it = m_Uniforms.begin(); it != m_Uniforms.end(); ++it) {

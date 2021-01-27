@@ -1,17 +1,17 @@
 
 
-#include "Sprite.h"
+#include "BRP_Sprite.h"
 
 namespace SGL {
 
-    Sprite::Sprite(
-        const Camera& camera,
-        const ShaderGLSL& shader,
+    BRP_Sprite::BRP_Sprite(
+        const BRP_Camera& camera,
+        const BRP_Shader& shader,
         const Texture* texture
     ) {
         m_pCamera = &camera;
         m_pShaderGLSL = &shader;
-        m_pShaderUniformManager = new ShaderUniformManager();
+        m_pBRP_ShaderUniformManager = new BRP_ShaderUniformManager();
         m_pTexture = texture;
 
         std::vector<Drawable::BufferDataType> vertex = {
@@ -43,27 +43,27 @@ namespace SGL {
     }
 
 
-    Sprite::~Sprite(
+    BRP_Sprite::~BRP_Sprite(
     ) {
-        if (m_pShaderUniformManager) {
-            delete m_pShaderUniformManager;
-            m_pShaderUniformManager = nullptr;
+        if (m_pBRP_ShaderUniformManager) {
+            delete m_pBRP_ShaderUniformManager;
+            m_pBRP_ShaderUniformManager = nullptr;
         }
     }
 
 
     /* ***************************************************************************************** */
-    auto Sprite::getShaderUniformManager(
-    ) const noexcept -> ShaderUniformManager* {
-        return m_pShaderUniformManager;
+    auto BRP_Sprite::getBRP_ShaderUniformManager(
+    ) const noexcept -> BRP_ShaderUniformManager* {
+        return m_pBRP_ShaderUniformManager;
     }
 
 
-    auto Sprite::draw(
+    auto BRP_Sprite::draw(
     ) const noexcept -> void {
         m_pShaderGLSL->setActive();
         m_pShaderGLSL->setMatrix4("uTransform", m_pCamera->getMatrix4() * m_WorldMatrix4);
-        m_pShaderUniformManager->activateAll(m_pShaderGLSL);
+        m_pBRP_ShaderUniformManager->activateAll(m_pShaderGLSL);
         m_pTexture->use();
         m_Drawable.draw();
     }

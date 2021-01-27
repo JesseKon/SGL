@@ -6,40 +6,28 @@ layout (location = 0) in vec3 iPos;
 layout (location = 1) in vec3 iNormal;
 layout (location = 2) in vec2 iTexCoord;
 
-struct Matrix {
-    mat4 transform;
-    mat4 world;
-    mat4 inversedWorld;
-};
-
 out Data {
     vec3 fragPos;
     vec3 normal;
     vec2 texCoord;
 } data;
 
-// out vec3 vFragPos;
-// out vec3 vNormal;
-// out vec2 vTexCoord;
+struct Matrix {
+    mat4 transform;         // full transform matrix
+    mat4 world;             // object's world matrix
+    mat4 inversedWorld;     // object's inversed world matrix 
+};
 
 uniform Matrix matrix;
-
-
-
-// uniform mat4 uTransformMatrix;
-// uniform mat4 uWorldMatrix;
-// uniform mat4 uInversedWorldMatrix;
 
 /* The mandatory part of the file ends here. */
 /* ********************************************************************************************* */
 
 
 void main() {
-    // vFragPos = vec3(uWorldMatrix * vec4(iPos, 1.0));
-    // vNormal = mat3(transpose(uInversedWorldMatrix)) * iNormal;
-    // vTexCoord = iTexCoord;
+    data.fragPos = vec3(matrix.world * vec4(iPos, 1.0));
+    data.normal = mat3(transpose(matrix.inversedWorld)) * iNormal;
+    data.texCoord = iTexCoord;
 
-    vFragPos
-
-    gl_Position = uTransformMatrix * vec4(iPos, 1.0);
+    gl_Position = matrix.transform * vec4(iPos, 1.0);
 }

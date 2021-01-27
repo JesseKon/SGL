@@ -1,7 +1,7 @@
 
 
-#ifndef _SGL_SHADER_UNIFORM_MANAGER_H_
-#define _SGL_SHADER_UNIFORM_MANAGER_H_
+#ifndef _SGL_BRP_SHADER_UNIFORM_MANAGER_H_
+#define _SGL_BRP_SHADER_UNIFORM_MANAGER_H_
 
 #include "SGLCore.h"
 #include "ShaderGLSL.h"
@@ -9,15 +9,15 @@
 
 namespace SGL {
 
-    class ShaderUniformManager
+    class BRP_ShaderUniformManager
     {
     public:
 
-        SGL_API ShaderUniformManager(
+        SGL_API BRP_ShaderUniformManager(
         );
 
 
-        SGL_API ~ShaderUniformManager(
+        SGL_API ~BRP_ShaderUniformManager(
         ) noexcept;
 
 

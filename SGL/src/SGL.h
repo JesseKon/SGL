@@ -7,6 +7,7 @@
 #ifndef _SGL_H_
 #define _SGL_H_
 
+/* Core */
 #include "SGLCore.h"
 
 #include "Drawable.h"
@@ -17,7 +18,6 @@
 #include "RendererType.h"
 
 #include "ShaderGLSL.h"
-#include "ShaderUniformManager.h"
 
 #include "Texture.h"
 #include "TextureFilter.h"
@@ -30,14 +30,14 @@
 #include "Vector3.h"
 #include "Window.h"
 
-#include "Camera.h"
-#include "Line.h"
-#include "Triangle.h"
-#include "Quad.h"
-#include "Sprite.h"
-#include "Cube.h"
-
-#include "LightManager.h"
-#include "AmbientLight.h"
+/* Basic rendering pipeline */
+#include "BRP_Shader.h"
+#include "BRP_ShaderUniformManager.h"
+#include "BRP_Camera.h"
+#include "BRP_Line.h"
+#include "BRP_Triangle.h"
+#include "BRP_Quad.h"
+#include "BRP_Sprite.h"
+#include "BRP_Cube.h"
 
 #endif  /* _SGL_H_ */

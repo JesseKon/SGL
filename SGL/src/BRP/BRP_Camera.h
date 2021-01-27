@@ -1,7 +1,7 @@
 
 
-#ifndef _SGL_CAMERA_H_
-#define _SGL_CAMERA_H_
+#ifndef _SGL_BRP_CAMERA_H_
+#define _SGL_BRP_CAMERA_H_
 
 #include "SGLCore.h"
 #include "Window.h"
@@ -10,27 +10,27 @@
 
 namespace SGL {
 
-    enum class CameraType {
+    enum class BRP_CameraType {
         Orthographic,
         Perspective
     };
 
 
-    class Camera : public Transform
+    class BRP_Camera : public Transform
     {
     public:
 
-        SGL_API Camera(
+        SGL_API BRP_Camera(
         ) noexcept;
 
 
-        SGL_API Camera(
+        SGL_API BRP_Camera(
             const Window& window,
-            const CameraType cameraType
+            const BRP_CameraType cameraType
         );
 
 
-        SGL_API ~Camera(
+        SGL_API ~BRP_Camera(
         ) noexcept;
 
 

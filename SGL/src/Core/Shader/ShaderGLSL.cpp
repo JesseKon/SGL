@@ -16,7 +16,6 @@ namespace SGL {
     ShaderGLSL::ShaderGLSL(
     ) noexcept {
         m_ProgramID = NULL;
-        m_pLightManager = nullptr;
     };
 
 
@@ -122,8 +121,6 @@ namespace SGL {
 
         // Shader has to be used at least once before its uniforms can be accessed
         setActive();
-
-        m_pLightManager = new LightManager();
     };
 
 
@@ -133,11 +130,6 @@ namespace SGL {
         if (m_ProgramID) {
             glDeleteProgram(m_ProgramID);
             m_ProgramID = NULL;
-        }
-
-        if (m_pLightManager) {
-            delete m_pLightManager;
-            m_pLightManager = nullptr;
         }
     };
 
@@ -205,13 +197,6 @@ namespace SGL {
     ) const noexcept -> void {
         GLuint location = glGetUniformLocation(m_ProgramID, uniformName.c_str());
         glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(value.toMat4()));
-    }
-
-
-    /* ***************************************************************************************** */
-    auto ShaderGLSL::getLightManager(
-    ) const noexcept -> LightManager* {
-        return m_pLightManager;
     }
 
 }

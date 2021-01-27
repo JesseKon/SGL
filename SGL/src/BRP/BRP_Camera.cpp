@@ -1,30 +1,30 @@
-#include "Camera.h"
+#include "BRP_Camera.h"
 
 namespace SGL {
 
     /* ***************************************************************************************** */
-    Camera::Camera(
+    BRP_Camera::BRP_Camera(
     ) noexcept {
 
     }
 
 
     /* ***************************************************************************************** */
-    Camera::Camera(
+    BRP_Camera::BRP_Camera(
         const Window& window,
-        const CameraType cameraType
+        const BRP_CameraType cameraType
     ) {
 
         // TODO: nearclip and farclip
 
         switch (cameraType) {
-        case CameraType::Orthographic:
+        case BRP_CameraType::Orthographic:
             m_ViewMatrix4.createOrthoProjection(
                 window.getRenderer()->getWindowSize()
             );
             break;
 
-        case CameraType::Perspective:
+        case BRP_CameraType::Perspective:
             m_ViewMatrix4.createPerspectiveProjection(
                 window.getRenderer()->getWindowSize(),
                 45.0f
@@ -36,14 +36,14 @@ namespace SGL {
 
 
     /* ***************************************************************************************** */
-    Camera::~Camera(
+    BRP_Camera::~BRP_Camera(
     ) noexcept {
 
     }
 
 
     /* ***************************************************************************************** */
-    auto Camera::getMatrix4(
+    auto BRP_Camera::getMatrix4(
     ) const noexcept -> Matrix4 {
         return m_ViewMatrix4 * Matrix4::inverse(m_WorldMatrix4);
     }
