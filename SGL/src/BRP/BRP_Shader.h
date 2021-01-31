@@ -28,9 +28,11 @@ namespace SGL {
         ) noexcept;
 
 
-        auto SGL_API setAmbientLight(
-            const glm::vec3& color,
-            const float strength
+        auto SGL_API setDirectionalLight(
+            const glm::vec3& direction,
+            const glm::vec3& ambient,
+            const glm::vec3& diffuse,
+            const glm::vec3& specular
         ) noexcept -> void;
 
 

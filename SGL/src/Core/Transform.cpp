@@ -41,12 +41,14 @@ namespace SGL {
     auto Transform::setPosition(
         const Vector3<float>& newPosition
     ) noexcept -> void {
-        auto scale = m_Scale;
+        auto oldScale = m_Scale;
+        auto oldRotation = m_Rotation;
         setLocalScale(Vector3<float>::one());
         m_WorldMatrix4.translate(Vector3<float>::zero() - m_Position);
         m_Position = newPosition;
         m_WorldMatrix4.translate(m_Position);
-        setLocalScale(scale);
+        setRotation(oldRotation);
+        setLocalScale(oldScale);
     }
 
 

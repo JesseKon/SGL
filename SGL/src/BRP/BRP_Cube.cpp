@@ -278,6 +278,14 @@ namespace SGL {
 
         m_pBRP_Shader->setFloat("material.shininess", m_Shininess);
 
+        // TODO: not very convenient to update camera viewPos for every drawable and every frame
+        // TODO: what if camera could do it itself?
+        m_pBRP_Shader->setVector3("viewPos", glm::vec3(
+            m_pBRP_Camera->getPosition().x,
+            m_pBRP_Camera->getPosition().y,
+            m_pBRP_Camera->getPosition().z
+        ));
+
         m_pDiffuseMap->use();
         m_pSpecularMap->use();
 

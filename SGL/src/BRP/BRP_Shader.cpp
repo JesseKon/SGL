@@ -27,13 +27,13 @@ namespace SGL {
     }
 
 
-    auto BRP_Shader::setAmbientLight(
-        const glm::vec3& color,
-        const float strength
+    auto BRP_Shader::setDirectionalLight(
+        const glm::vec3& direction,
+        const glm::vec3& ambient,
+        const glm::vec3& diffuse,
+        const glm::vec3& specular
     ) noexcept -> void {
         setActive();
-        setVector3("ambientLight.color", color);
-        setFloat("ambientLight.strength", strength);
     }
 
 }

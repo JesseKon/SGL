@@ -8,6 +8,8 @@
 #include "Matrix4.h"
 #include "Transform.h"
 
+#include "BRP_Shader.h"
+
 namespace SGL {
 
     enum class BRP_CameraType {
@@ -26,6 +28,7 @@ namespace SGL {
 
         SGL_API BRP_Camera(
             const Window& window,
+            const BRP_Shader& shader,
             const BRP_CameraType cameraType
         );
 
@@ -39,6 +42,8 @@ namespace SGL {
 
 
     private:
+        const BRP_Shader* m_pBRP_Shader;
+
         Matrix4 m_ViewMatrix4;
 
     };

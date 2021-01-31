@@ -12,6 +12,7 @@ namespace SGL {
     /* ***************************************************************************************** */
     BRP_Camera::BRP_Camera(
         const Window& window,
+        const BRP_Shader& shader,
         const BRP_CameraType cameraType
     ) {
 
@@ -31,6 +32,8 @@ namespace SGL {
             );
             break;
         }
+
+        m_pBRP_Shader = &shader;
 
     }
 
