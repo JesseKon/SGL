@@ -179,8 +179,8 @@ namespace SGL {
 
         // Create placeholder texture if none was provided
         if (!diffuseMap) {
-            m_pDiffuseMap = new Texture(Vector2<std::uint32_t>(1, 1), TextureFilter::Point);
-            const_cast<Texture*>(m_pDiffuseMap)->beginDrawing(SGL::Color(255, 255, 255));
+            m_pDiffuseMap = new Texture(Vector2<std::uint32_t>(1, 1), TextureType::Color, TextureFilter::Point);
+            const_cast<Texture*>(m_pDiffuseMap)->beginDrawing(true, true, true, SGL::Color(255, 255, 255));
             const_cast<Texture*>(m_pDiffuseMap)->endDrawing();
         }
         else {
@@ -189,14 +189,15 @@ namespace SGL {
 
         // Placeholder for diffuse map
         if (!specularMap) {
-            m_pSpecularMap = new Texture(Vector2<std::uint32_t>(1, 1), TextureFilter::Point);
-            const_cast<Texture*>(m_pSpecularMap)->beginDrawing(SGL::Color(64, 64, 64));
+            m_pSpecularMap = new Texture(Vector2<std::uint32_t>(1, 1), TextureType::Color, TextureFilter::Point);
+            const_cast<Texture*>(m_pSpecularMap)->beginDrawing(true, true, true, SGL::Color(64, 64, 64));
             const_cast<Texture*>(m_pSpecularMap)->endDrawing();
         }
         else {
             m_pSpecularMap = specularMap;
         }
 
+        m_pBRP_Shader->setActive();
         const_cast<Texture*>(m_pDiffuseMap)->setTextureUnit(TextureUnit::Texture0);
         m_pBRP_Shader->setTextureUnit("material.diffuse", TextureUnit::Texture0);
         const_cast<Texture*>(m_pSpecularMap)->setTextureUnit(TextureUnit::Texture1);
@@ -287,7 +288,7 @@ namespace SGL {
         ));
 
         m_pDiffuseMap->use();
-        m_pSpecularMap->use();
+        //m_pSpecularMap->use();
 
         m_pBRP_ShaderUniformManager->activateAll(m_pBRP_Shader);
         m_Drawable.draw();

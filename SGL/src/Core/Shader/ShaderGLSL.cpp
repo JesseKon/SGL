@@ -118,9 +118,6 @@ namespace SGL {
         // Cleanup
         glDeleteShader(vertexShader);
         glDeleteShader(fragmentShader);
-
-        // Shader has to be used at least once before its uniforms can be accessed
-        setActive();
     };
 
 

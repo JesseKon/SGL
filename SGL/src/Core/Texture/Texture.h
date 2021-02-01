@@ -17,6 +17,19 @@
 
 namespace SGL {
 
+    enum class TextureType {
+
+        /// <summary>
+        /// This is the normal texture type.
+        /// </summary>
+        Color,
+
+        /// <summary>
+        /// Depth texture.
+        /// </summary>
+        Depth
+    };
+
     /// <summary>
     /// 
     /// </summary>
@@ -41,6 +54,7 @@ namespace SGL {
         /// <returns></returns>
         SGL_API Texture(
             const Vector2<std::uint32_t>& size,
+            const TextureType textureType = TextureType::Color,
             const TextureFilter textureFilter = TextureFilter::Point
         );
 
@@ -73,6 +87,7 @@ namespace SGL {
         /// <returns></returns>
         auto SGL_API create(
             const Vector2<std::uint32_t>& size,
+            const TextureType textureType = TextureType::Color,
             const TextureFilter textureFilter = TextureFilter::Point
         ) -> void;
 
@@ -136,7 +151,10 @@ namespace SGL {
         /// 
         /// <returns></returns>
         auto SGL_API beginDrawing(
-            const Color& color = SGL::COLOR::Black
+            const bool clearColorBuffer,
+            const bool clearDepthBuffer,
+            const bool clearStencilBuffer,
+            const Color& color = COLOR::Black
         ) noexcept -> void;
 
 

@@ -29,9 +29,10 @@ namespace SGL {
     /* ***************************************************************************************** */
     Texture::Texture(
         const Vector2<std::uint32_t>& size,
+        const TextureType textureType,
         const TextureFilter textureFilter
     ) {
-        create(size, textureFilter);
+        create(size, textureType, textureFilter);
     }
 
 
@@ -66,6 +67,7 @@ namespace SGL {
     /* ***************************************************************************************** */
     auto Texture::create(
         const Vector2<std::uint32_t>& size,
+        const TextureType textureType,
         const TextureFilter textureFilter
     ) -> void {
         destroy();
@@ -74,21 +76,46 @@ namespace SGL {
         m_Height = size.y;
         m_Channels = 4;
 
-        glGenFramebuffers(1, &m_Framebuffer);
-        glBindFramebuffer(GL_FRAMEBUFFER, m_Framebuffer);
-        glGenTextures(1, &m_Texture);
-        glBindTexture(GL_TEXTURE_2D, m_Texture);
-        glGenRenderbuffers(1, &m_Renderbuffer);
-        glBindRenderbuffer(GL_RENDERBUFFER, m_Renderbuffer);
+        // Color texture
+        if (textureType == TextureType::Color) {
+            glGenFramebuffers(1, &m_Framebuffer);
+            glBindFramebuffer(GL_FRAMEBUFFER, m_Framebuffer);
+            glGenTextures(1, &m_Texture);
+            glBindTexture(GL_TEXTURE_2D, m_Texture);
+            glGenRenderbuffers(1, &m_Renderbuffer);
+            glBindRenderbuffer(GL_RENDERBUFFER, m_Renderbuffer);
 
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_Width, m_Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, static_cast<GLint>(textureFilter));
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, static_cast<GLint>(textureFilter));
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_Width, m_Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, static_cast<GLint>(textureFilter));
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, static_cast<GLint>(textureFilter));
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_Texture, 0);
+            glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_Texture, 0);
 
-        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, m_Width, m_Height);
-        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_Renderbuffer);
+            glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, m_Width, m_Height);
+            glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_Renderbuffer);
+        }
+
+        // Depth texture
+        else if (textureType == TextureType::Depth) {
+            glGenFramebuffers(1, &m_Framebuffer);
+            glBindFramebuffer(GL_FRAMEBUFFER, m_Framebuffer);
+            glGenTextures(1, &m_Texture);
+            glBindTexture(GL_TEXTURE_2D, m_Texture);
+
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, m_Width, m_Height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, nullptr);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, static_cast<GLint>(textureFilter));
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, static_cast<GLint>(textureFilter));
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+            glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, m_Texture, 0);
+            glDrawBuffer(GL_NONE);
+            glReadBuffer(GL_NONE);
+        }
+
+
 
         if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
             std::stringstream ss;
@@ -106,6 +133,8 @@ namespace SGL {
         const TextureFilter textureFilter
     ) -> void {
         destroy();
+
+        // TODO: TextureType
 
         glGenTextures(1, &m_Texture);
         glBindTexture(GL_TEXTURE_2D, m_Texture);
@@ -180,15 +209,24 @@ namespace SGL {
 
     /* ***************************************************************************************** */
     auto Texture::beginDrawing(
+        const bool clearColorBuffer,
+        const bool clearDepthBuffer,
+        const bool clearStencilBuffer,
         const Color& color
     ) noexcept -> void {
-        //glViewport(0, 0, 640, 480);
+        glViewport(0, 0, m_Width, m_Height);
         glBindFramebuffer(GL_FRAMEBUFFER, m_Framebuffer);
         glClearColor(
             color.getRedf<float>(), color.getGreenf<float>(),
             color.getBluef<float>(), color.getAlphaf<float>()
         );
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        if (clearColorBuffer)
+            glClear(GL_COLOR_BUFFER_BIT);
+        if (clearDepthBuffer)
+            glClear(GL_DEPTH_BUFFER_BIT);
+        if (clearStencilBuffer)
+            glClear(GL_STENCIL_BUFFER_BIT);
     }
 
 

@@ -100,7 +100,7 @@ namespace SGL {
         for (auto it = m_Uniforms.begin(); it != m_Uniforms.end(); ++it) {
             switch (it->uniformType) {
             case UniformType::Int:
-                shader->setInt(it->uniformName, std::get<int>(it->value));
+                shader->setInt(it->uniformName, std::get<std::int32_t>(it->value));
                 break;
 
             case UniformType::Float:
