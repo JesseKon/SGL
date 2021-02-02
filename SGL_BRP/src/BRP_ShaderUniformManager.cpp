@@ -18,6 +18,14 @@ namespace SGL {
     }
 
 
+    auto BRP_ShaderUniformManager::setTextureUnit(
+        const std::string& textureName,
+        const TextureUnit::type textureUnit
+    ) noexcept -> void {
+
+    }
+
+
     /* ***************************************************************************************** */
     auto BRP_ShaderUniformManager::setInt(
         const std::string& uniformName,

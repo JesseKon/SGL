@@ -21,6 +21,12 @@ namespace SGL {
         ) noexcept;
 
 
+        auto SGL_API setTextureUnit(
+            const std::string& textureName,
+            const TextureUnit::type textureUnit
+        ) noexcept -> void;
+
+
         auto SGL_API setInt(
             const std::string& uniformName,
             const std::int32_t value

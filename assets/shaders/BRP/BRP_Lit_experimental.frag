@@ -12,6 +12,8 @@ in Data {
     vec3 fragPos;
     vec3 normal;
     vec2 texCoord;
+    vec4 fragPosLightSpace; // experimental
+    //int drawDepthMap;
 } data;
 
 struct Material {
@@ -68,41 +70,50 @@ uniform SpotLight spotLight[MAX_SPOT_LIGHTS];
 /* The mandatory part of the file ends here. */
 /* ********************************************************************************************* */
 
+// unit: 2
+uniform sampler2D shadowMap;  // experimental
+
 // function prototypes
 vec3 calculateDirectionalLight(DirectionalLight light, vec3 normal, vec3 viewDir);
 vec3 calculatePointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir);
 vec3 calculateSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir);
 
+float ShadowCalculation(vec4 _fragPosLightSpace) {
+    vec3 projCoords = _fragPosLightSpace.xyz / _fragPosLightSpace.w;
+    projCoords = projCoords * 0.5 + 0.5;
+    float closestDepth = texture(shadowMap, projCoords.xy).r;
+    float currentDepth = projCoords.z;
+    float shadow = currentDepth > closestDepth ? 1.0 : 0.0;
+    return shadow;
+}
+
 
 void main() {
-    vec3 norm = normalize(data.normal);
-    vec3 viewDir = normalize(viewPos - data.fragPos);
-    vec3 result = vec3(0.0);
 
-    for (int i = 0; i < MAX_DIRECTIONAL_LIGHTS; ++i)
-        if (directionalLight[i].active != 0)
-            result += calculateDirectionalLight(directionalLight[i], norm, viewDir);
 
-    for (int i = 0; i < MAX_POINT_LIGHTS; ++i)
-        if (pointLight[i].active != 0)
-            result += calculatePointLight(pointLight[i], norm, data.fragPos, viewDir);
+        vec3 norm = normalize(data.normal);
+        vec3 viewDir = normalize(viewPos - data.fragPos);
+        vec3 result = vec3(0.0);
 
-    for (int i = 0; i < MAX_SPOT_LIGHTS; ++i) 
-        if (spotLight[i].active != 0)
-            result += calculateSpotLight(spotLight[i], norm, data.fragPos, viewDir);
+        for (int i = 0; i < MAX_DIRECTIONAL_LIGHTS; ++i)
+            if (directionalLight[i].active != 0)
+                result += calculateDirectionalLight(directionalLight[i], norm, viewDir);
 
-    // Fog!
-    const float fogMax = 20.0;
-    const float fogMin = 6.0;
-    const vec4 fogColor = vec4(0.8, 0.2, 0.2, 1.0);
-    float d = distance(viewPos, data.fragPos);
-    d = 1 - (fogMax - d) / (fogMax - fogMin);
-    if (distance(viewPos, data.fragPos) >= fogMax) d = 1.0;
-    if (distance(viewPos, data.fragPos) <= fogMin) d = 0.0;
+        for (int i = 0; i < MAX_POINT_LIGHTS; ++i)
+            if (pointLight[i].active != 0)
+                result += calculatePointLight(pointLight[i], norm, data.fragPos, viewDir);
 
-    result *= material.color;
-    //FragColor = vec4(result, 1.0);
-    FragColor = mix(vec4(result, 1.0), fogColor, d);
+        for (int i = 0; i < MAX_SPOT_LIGHTS; ++i) 
+            if (spotLight[i].active != 0)
+                result += calculateSpotLight(spotLight[i], norm, data.fragPos, viewDir);
+
+        // Shadow
+        float shadow = ShadowCalculation(data.fragPosLightSpace);
+
+        //result = (1.0 - shadow) * material.color;
+        FragColor = vec4(result * material.color, 1.0);
+        //FragColor = mix(vec4(result, 1.0), fogColor, d);
+
 }
 
 /* ********* */

@@ -139,7 +139,7 @@ namespace SGL {
         ) const noexcept -> glm::mat4;
 
     
-    private:
+     private:
         glm::mat4 m_Matrix4;
 
     };

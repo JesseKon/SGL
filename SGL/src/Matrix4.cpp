@@ -44,7 +44,7 @@ namespace SGL {
         const float farClipPlane
     ) -> void {
         m_Matrix4 = glm::ortho(
-            static_cast<float>(0), static_cast<float>(viewPort.x), 
+            static_cast<float>(0), static_cast<float>(viewPort.x),
             static_cast<float>(0), static_cast<float>(viewPort.y),
             nearClipPlane, farClipPlane
         );

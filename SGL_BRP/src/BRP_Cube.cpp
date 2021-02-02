@@ -288,9 +288,10 @@ namespace SGL {
         ));
 
         m_pDiffuseMap->use();
-        //m_pSpecularMap->use();
+        m_pSpecularMap->use();
 
         m_pBRP_ShaderUniformManager->activateAll(m_pBRP_Shader);
+
         m_Drawable.draw();
     }
 
